@@ -16,8 +16,21 @@ public class Barriere {
       * @param coordonnee les coordonnées de la barrière sur le plateau (null si non posée)
       */
     public Barriere(String couleur, Coordonnee coordonnee) {
-        this.COULEUR = couleur;
-        this.coordonnee = coordonnee;
+      try {
+        if (couleur == null) {
+          throw new Exception("Barriere constructeur - La couleur de la barrière doit exister.")
+        }
+        else if (coordonnee == null) {
+          throw new Exception("Barriere constructeur - La barrière doit posséder des coordonnées valides.")
+        }
+        else {
+          this.COULEUR = couleur;
+          this.coordonnee = coordonnee;
+        }
+      }
+      catch(Exception e) {
+        System.err.println(e.getMessage());
+      }
     }
 
     /**
@@ -42,6 +55,16 @@ public class Barriere {
       * @param coordonnee les nouvelles coordonnées de la barrière
       */
     public void setCoordonnee(Coordonnee coordonnee) {
-        this.coordonnee = coordonnee;
+      try {
+        if (coordonnee == null) {
+          throw new Exception("Barriere setCoordonnee() - Les coordonnees a changer doivent exister.");
+        }
+        else {
+          this.coordonnee = coordonnee;
+        }
+      }
+      catch(Exception e) {
+        System.err.println();
+      }
     }
 }

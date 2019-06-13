@@ -28,22 +28,22 @@ public abstract class Joueur {
     public Joueur(String nom, int numero, String couleur, ArrayList<Barriere> barrieres, Pion pion, Plateau plateau) {
       try {
         if (nom == null) {
-          throw new Exception("Le joueur doit avoir un nom.");
+          throw new Exception("Joueur constructeur - Le joueur doit avoir un nom.");
         }
         else if ((numero < 0) || (numero > 4)) {
-          throw new Exception("Le numéro d'un joueur est compris entre 0 et 4.");
+          throw new Exception("Joueur constructeur - Le numéro d'un joueur est compris entre 0 et 4.");
         }
         else if (couleur == null) {
-          throw new Exception("Le joueur doit avoir une couleur.");
+          throw new Exception("Joueur constructeur - Le joueur doit avoir une couleur.");
         }
         else if (barrieres == null) {
-          throw new Exception("Le joueur doit posséder une liste de barrières.");
+          throw new Exception("Joueur constructeur - Le joueur doit posséder une liste de barrières.");
         }
         else if (pion == null) {
-          throw new Exception("Le joueur doit posséder un pion qui existe.");
+          throw new Exception("Joueur constructeur - Le joueur doit posséder un pion qui existe.");
         }
         else if (plateau == null) {
-          throw new Exception("Le joueur doit se trouver sur un plateau existant");
+          throw new Exception("Joueur constructeur - Le joueur doit se trouver sur un plateau existant");
         }
         else {
           this.nom = nom;
