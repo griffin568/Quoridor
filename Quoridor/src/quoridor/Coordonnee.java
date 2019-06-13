@@ -25,8 +25,8 @@ public class Coordonnee {
       */
     public Coordonnee(int x1, int y1, int x2, int y2) {
       try {
-        if ((x1 < 0) || (x1 > 9) || (x2 < -1) || (x2 > 9) || (y1 < 0) || (y1 > 9) || (y2 || -1) || (y2 > 9)) {
-          System.err.println("Les coordonées doivent comprises entre 0 (ou -1 s'il s'agit d'un pion) et 9.");
+        if ((x1 < -1) || (x1 > 9) || (x2 < -1) || (x2 > 9) || (y1 < 0) || (y1 > 9) || (y2 || -1) || (y2 > 9)) {
+          throw new Exception("Les coordonées doivent comprises entre 0 (ou -1 s'il s'agit d'un pion) et 9.");
         }
         else {
           this.x1 = x1;
@@ -36,7 +36,7 @@ public class Coordonnee {
         }
       }
       catch(Exception e) {
-        System.out.println(e.getMessage());
+        System.err.println(e.getMessage());
       }
     }
 
@@ -79,11 +79,11 @@ public class Coordonnee {
     public void setX1(int x1) {
       try {
         if ((x1 < 0) && (x1 > 9)) {
-          System.out.println("Les coordonées doivent comprises entre 0 et 9.");
+          throw new Exception("Les coordonées doivent comprises entre 0 et 9.");
         }
       }
       catch(Exception e) {
-        System.out.println(e.getMessage());
+        System.err.println(e.getMessage());
       }
     }
 
@@ -94,11 +94,11 @@ public class Coordonnee {
     public void setX2(int x2) {
       try {
         if ((x2 < -1) && (x2 > 9)) {
-          System.out.println("Les coordonées doivent comprises entre 0 (ou -1 s'il s'agit d'un pion) et 9.");
+          throw new Exception("Les coordonées doivent comprises entre 0 (ou -1 s'il s'agit d'un pion) et 9.");
         }
       }
       catch(Exception e) {
-        System.out.println(e.getMessage());
+        System.err.println(e.getMessage());
       }
     }
 
@@ -109,11 +109,11 @@ public class Coordonnee {
     public void setY1(int y1) {
       try {
         if ((y1 < 0) && (y1 > 9)) {
-          System.out.println("Les coordonées doivent comprises entre 0 et 9.");
+          throw new Exception("Les coordonées doivent comprises entre 0 et 9.");
         }
       }
       catch(Exception e) {
-        System.out.println(e.getMessage());
+        System.err.println(e.getMessage());
       }
     }
 
@@ -124,11 +124,11 @@ public class Coordonnee {
     public void setY2(int y2) {
       try {
         if ((y2 < -1) && (y2 > 9)) {
-          System.out.println("Les coordonées doivent comprises entre 0 (ou -1 s'il s'agit d'un pion) et 9.");
+          throw new Exception("Les coordonées doivent comprises entre 0 (ou -1 s'il s'agit d'un pion) et 9.");
         }
       }
       catch(Exception e) {
-        System.out.println(e.getMessage());
+        System.err.println(e.getMessage());
       }
     }
 }

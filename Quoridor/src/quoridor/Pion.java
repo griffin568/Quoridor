@@ -55,7 +55,12 @@ public class Pion {
       */
     public void setCoordonnee(Coordonnee coordonnees) {
       try {
-        this.coordonnee = coordonnees;
+        if (coordonnees == null) {
+          throw new Exception("Les coordonnees a changer doivent exister.");
+        }
+        else {
+          this.coordonnee = coordonnees;
+        }
       }
       catch (Exception e) {
         System.err.println(e.getMessage());
