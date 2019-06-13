@@ -37,4 +37,13 @@ public class Plateau {
     public int getTaille() {
         return TAILLE;
     }
+
+  /**
+    * Le plateau actuel en ASCII art
+    * @return une String avec ces informations
+    */
+    public String (toString) {
+      String ret = "\n\n\n";
+      String ret = ""
+    }
 }
