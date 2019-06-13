@@ -22,6 +22,21 @@ public class Humain extends Joueur {
       * @param plateau le plateau de jeu
       */
     public Humain(String nom, int numero, String couleur, ArrayList<Barriere> barrieres, Pion pion, Plateau plateau) {
-        super(nom, numero, couleur, barrieres, pion, plateau);
+      try {
+        if (nom == null || couleur == null || barrieres == null || pion == null || plateau == null) {
+          throw new Exception ("Erreur Humain(), parametre null");
+        }
+        else if (numero < 1 || numero > 4) {
+          throw new Exception("Erreur Humain(), parametre null");
+        }
+        else {
+          super(nom, numero, couleur, barrieres, pion, plateau);
+          this.scanner = new Scanner(System.in);
+        }
+      }
+      catch (Exception e) {
+        System.err.println(e.getMessage());
+      }
+
     }
 }
