@@ -1,2 +1,0 @@
-# Quoridor
-A school project 
