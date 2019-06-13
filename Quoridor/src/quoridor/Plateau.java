@@ -15,8 +15,19 @@ public class Plateau {
       * @param taille la taille du plateau (longueur et largeur car le plateau est forcément un carré)
       */
     public Plateau(int taille) {
-        this.TAILLE = taille;
-        this.DAMIER = new int[taille][taille];
+      try {
+        if (taille < 2) {
+          throw new Exception("Erreur Plateau(), taille trop petite");
+        }
+        else {
+          this.TAILLE = taille;
+          this.DAMIER = new int[taille][taille];
+        }
+      }
+      catch (Exception e) {
+        System.err.println(e.getMessage());
+      }
+
     }
 
     /**
