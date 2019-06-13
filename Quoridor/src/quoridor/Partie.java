@@ -1,6 +1,7 @@
 package quoridor;
 
 import java.util.ArrayList;
+import java.io.FileNotFoundException;
 
 /**
   * Cette classe gère les différents aspect de la partie
@@ -19,6 +20,20 @@ public class Partie {
       * @param fileName le nom du fichier de configuration
       */
     public Partie(String fileName) {
+      try {
+        if (fileName == null) {
+          throw new Exception("Partie constructeur - Le nom du fichier doit être valide pour pouvoir être utilisé.")
+        }
+        else {
+
+        }
+      }
+      catch(FileNotFoundException e) {
+        System.err.println("Partie construceur - Fichier non trouvé (" + fileName + ")");
+      }
+      catch(Exception e) {
+        System.err.println(e.getMessage());
+      }
 
     }
 
@@ -50,6 +65,20 @@ public class Partie {
       * @param filename le fichier contenant les données à charger
       */
     public void charger(String filename) {
+      try {
+        if (fileName == null) {
+          throw new Exception("Partie constructeur - Le nom du fichier doit être valide pour pouvoir être utilisé.")
+        }
+        else {
+
+        }
+      }
+      catch(FileNotFoundException e) {
+        System.err.println("Partie construceur - Fichier non trouvé (" + fileName + ")");
+      }
+      catch(Exception e) {
+        System.err.println(e.getMessage());
+      }
 
     }
 
@@ -65,7 +94,20 @@ public class Partie {
       * @param filename le nom du fichier de configuration
       */
     private void configuration(String filename) {
+      try {
+        if (fileName == null) {
+          throw new Exception("Partie constructeur - Le nom du fichier doit être valide pour pouvoir être utilisé.")
+        }
+        else {
 
+        }
+      }
+      catch(FileNotFoundException e) {
+        System.err.println("Partie construceur - Fichier non trouvé (" + fileName + ")");
+      }
+      catch(Exception e) {
+        System.err.println(e.getMessage());
+      }
     }
 
     /**
