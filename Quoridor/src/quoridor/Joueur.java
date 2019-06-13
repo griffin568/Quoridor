@@ -26,12 +26,37 @@ public abstract class Joueur {
       * @param plateau le plateau de jeu
       */
     public Joueur(String nom, int numero, String couleur, ArrayList<Barriere> barrieres, Pion pion, Plateau plateau) {
-        this.nom = nom;
-        this.NUMERO = numero;
-        this.COULEUR = couleur;
-        this.barrieres = barrieres;
-        this.pion = pion;
-        this.plateau = plateau;
+      try {
+        if (nom == null) {
+          throw new Exception("Le joueur doit avoir un nom.");
+        }
+        else if ((numero < 0) || (numero > 4)) {
+          throw new Exception("Le numéro d'un joueur est compris entre 0 et 4.");
+        }
+        else if (couleur == null) {
+          throw new Exception("Le joueur doit avoir une couleur.");
+        }
+        else if (barrieres == null) {
+          throw new Exception("Le joueur doit posséder une liste de barrières.");
+        }
+        else if (pion == null) {
+          throw new Exception("Le joueur doit posséder un pion qui existe.");
+        }
+        else if (plateau == null) {
+          throw new Exception("Le joueur doit se trouver sur un plateau existant");
+        }
+        else {
+          this.nom = nom;
+          this.NUMERO = numero;
+          this.COULEUR = couleur;
+          this.barrieres = barrieres;
+          this.pion = pion;
+          this.plateau = plateau;
+        }
+      }
+      catch(Exception e) {
+        System.err.println(e.getMessage);
+      }
     }
 
     /**
@@ -80,7 +105,7 @@ public abstract class Joueur {
       * @param coordonnee les coordonnées à atteindre
       */
     public void deplacerPion(Coordonnee coordonnee) {
-
+      this.pion.setCoordonnee(coordonnee);
     }
 
     /**
@@ -88,7 +113,10 @@ public abstract class Joueur {
       * @param coordonnee les coordonnées où placer la barrière
       */
     public void placerBarriere(Coordonnee coordonnee) {
-
+      if (!(this.barrieres.isEmpty())) {
+        this.barrieres.get(0).setCoordonnee(coordonnee);
+        this.barrieres.remove(0);
+      }
     }
 
     /**
