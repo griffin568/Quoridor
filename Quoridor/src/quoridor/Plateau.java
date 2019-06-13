@@ -42,8 +42,18 @@ public class Plateau {
     * Le plateau actuel en ASCII art
     * @return une String avec ces informations
     */
-    public String (toString) {
+    public String toString() {
       String ret = "\n\n\n";
-      String ret = ""
+      ret += "\t\t   1    2    3    4    5    6    7    8    9 ";
+      ret += "\t\t                                             ";
+      String[] letters = {"A","B","C","D","E","F","G","H","I"};
+      for (int i = 0 ; i < this.TAILLE ; i++) {
+        for (int j = 0 ; j < this.TAILLE ; j++) {
+          ret += "\t\t   _    _    _    _    _    _    _    _    _";
+          ret += "\t\t"+letters[i]+" | |  | |  | |  | |  | |  | |  | |  | |  | |";
+          ret += "\t\t   -    -    -    -    -    -    -    -    -";
+          ret += "\t\t                                             ";
+        }
+      }
     }
 }
