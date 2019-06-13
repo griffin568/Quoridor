@@ -11,14 +11,26 @@ public class Pion {
     private int[][] deplacementPossibles;
     private Coordonnee coordonnee;
 
+
     /**
       * Créé un nouvel objet Pion
       * @param couleur la couleur du joueur (désigne une forme en mode texte)
       * @param coordonnee les coordonnées de départ du pion
       */
     public Pion(String couleur, Coordonnee coordonnee) {
-        this.COULEUR = couleur;
-        this.coordonnee = coordonnee;
+      try {
+        if (couleur == null || coordonnee == null) {
+          throw new Exception("Erreur Pion(), parametre null");
+        }
+        else {
+          this.COULEUR = couleur;
+          this.coordonnee = coordonnee;
+        }
+      }
+      catch (Exception e) {
+        System.err.println(e.getMessage());
+      }
+
     }
 
     /**
@@ -42,7 +54,12 @@ public class Pion {
       * @param coordonnees les nouvelles coordonnées du pion
       */
     public void setCoordonnee(Coordonnee coordonnees) {
+      try {
         this.coordonnee = coordonnees;
+      }
+      catch (Exception e) {
+        System.err.println(e.getMessage());
+      }
     }
 
     /**
