@@ -8,8 +8,8 @@ import java.util.ArrayList;
   */
 public class Plateau {
 
-    private final int TAILLE;
-    private final int[][] DAMIER;
+    private int TAILLE;
+    private int[][] DAMIER;
 
     /**
       * Créé un nouvel objet Plateau
@@ -55,6 +55,7 @@ public class Plateau {
 
         }
       }
+      return ret;
     }
 
   /**
@@ -69,7 +70,4 @@ public class Plateau {
       return Acase;
     }
 
-    public static void main(String[] args) {
-      System.out.println(drawCase());
-    }
 }

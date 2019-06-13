@@ -7,7 +7,7 @@ package quoridor;
   */
 public class Pion {
 
-    private final String COULEUR;
+    private String COULEUR;
     private int[][] deplacementPossibles;
     private Coordonnee coordonnee;
 

@@ -9,7 +9,7 @@ import java.util.ArrayList;
   */
 public class IA extends Joueur {
 
-    private final Difficulte DIFFICULTE;
+    private Difficulte DIFFICULTE;
     private int[][] plusCourtChemin;
 
     /**

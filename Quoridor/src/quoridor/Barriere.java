@@ -7,7 +7,7 @@ package quoridor;
   */
 public class Barriere {
 
-    private final String COULEUR;
+    private String COULEUR;
     private Coordonnee coordonnee;
 
     /**
@@ -18,7 +18,6 @@ public class Barriere {
     public Barriere(String couleur, Coordonnee coordonnee) {
       try {
         if (couleur == null) {
-          this.COULEUR = "#ff0000";
           throw new Exception("Barriere constructeur - La couleur de la barrière doit exister.");
         }
         else if (coordonnee == null) {

@@ -95,7 +95,7 @@ public class Partie {
       */
     private void configuration(String filename) {
       try {
-        if (fileName == null) {
+        if (filename == null) {
           throw new Exception("Partie constructeur - Le nom du fichier doit être valide pour pouvoir être utilisé.");
         }
         else {
@@ -103,7 +103,7 @@ public class Partie {
         }
       }
       catch(FileNotFoundException e) {
-        System.err.println("Partie construceur - Fichier non trouvé (" + fileName + ")");
+        System.err.println("Partie construceur - Fichier non trouvé (" + filename + ")");
       }
       catch(Exception e) {
         System.err.println(e.getMessage());

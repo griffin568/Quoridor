@@ -10,8 +10,8 @@ import java.util.ArrayList;
 public abstract class Joueur {
 
     protected String nom;
-    protected final int NUMERO;
-    protected final String COULEUR;
+    protected int NUMERO;
+    protected String COULEUR;
     protected ArrayList<Barriere> barrieres;
     protected Pion pion;
     protected Plateau plateau;
