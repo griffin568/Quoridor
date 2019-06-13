@@ -19,20 +19,17 @@ public class IA extends Joueur {
       * @param couleur la couleur du joueur (indique la forme du pion en mode texte)
       * @param barrieres liste contenant les barrières restantes du joueur
       * @param pion le pion utilisé par le joueur
-      * @param plateau le plateau de jeu 
+      * @param plateau le plateau de jeu
       * @param difficulte le niveau de difficulté de cette IA
       */
     public IA(String nom, int numero, String couleur, ArrayList<Barriere> barrieres, Pion pion, Plateau plateau, Difficulte difficulte) {
+      super(nom, numero, couleur, barrieres, pion, plateau);
       try {
-        if (nom == null || couleur == null || barrieres == null || pion == null || plateau == null || difficulte == null) {
+        if (difficulte == null) {
           throw new Exception("Erreur IA(), parametre null");
         }
-        else if (numero < 1 || numero > 4) {
-          throw new Exception("Erreur IA(), numero du joueur invalide");
-        }
         else {
-          super(nom, numero, couleur, barrieres, pion, plateau);
-          this.DIFFICULTE = difficulte;
+            this.DIFFICULTE = difficulte;
         }
       }
       catch (Exception e) {

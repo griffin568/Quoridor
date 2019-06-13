@@ -25,7 +25,7 @@ public class Coordonnee {
       */
     public Coordonnee(int x1, int y1, int x2, int y2) {
       try {
-        if ((x1 < 0) || (x1 > 9) || (x2 < -1) || (x2 > 9) || (y1 < 0) || (y1 > 9) || (y2 || -1) || (y2 > 9)) {
+        if ((x1 < 0) || (x1 > 9) || (x2 < -1) || (x2 > 9) || (y1 < 0) || (y1 > 9) || (y2 < -1) || (y2 > 9)) {
           throw new Exception("Coordonnee constructeur - Les coordonées doivent comprises entre 0 (ou -1 s'il s'agit d'un pion) et 9.");
         }
         else {

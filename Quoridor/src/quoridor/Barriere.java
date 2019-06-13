@@ -18,10 +18,11 @@ public class Barriere {
     public Barriere(String couleur, Coordonnee coordonnee) {
       try {
         if (couleur == null) {
-          throw new Exception("Barriere constructeur - La couleur de la barrière doit exister.")
+          this.COULEUR = "#ff0000";
+          throw new Exception("Barriere constructeur - La couleur de la barrière doit exister.");
         }
         else if (coordonnee == null) {
-          throw new Exception("Barriere constructeur - La barrière doit posséder des coordonnées valides.")
+          throw new Exception("Barriere constructeur - La barrière doit posséder des coordonnées valides.");
         }
         else {
           this.COULEUR = couleur;

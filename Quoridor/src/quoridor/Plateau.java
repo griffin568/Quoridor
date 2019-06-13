@@ -43,7 +43,7 @@ public class Plateau {
     * Le plateau actuel en ASCII art
     * @return une String avec ces informations
     */
-    public String toString(ArrayList<Pion>) {
+    public String toString(ArrayList<Pion> listePion) {
       ArrayList<ArrayList<String>> cases = new ArrayList<ArrayList<String>>();
       String ret = "\n\n\n";
       ret += "\t\t   1    2    3    4    5    6    7    8    9 ";
@@ -63,6 +63,13 @@ public class Plateau {
     * @return une case sous la forme d'une String
     */
     private String drawCase() {
-      
+      String Acase = "   _ \n";
+      Acase += "  | | \n";
+      Acase += "   - \n";
+      return Acase;
+    }
+
+    public static void main(String[] args) {
+      System.out.println(drawCase());
     }
 }

@@ -55,7 +55,7 @@ public abstract class Joueur {
         }
       }
       catch(Exception e) {
-        System.err.println(e.getMessage);
+        System.err.println(e.getMessage());
       }
     }
 

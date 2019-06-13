@@ -22,7 +22,7 @@ public class Partie {
     public Partie(String fileName) {
       try {
         if (fileName == null) {
-          throw new Exception("Partie constructeur - Le nom du fichier doit être valide pour pouvoir être utilisé.")
+          throw new Exception("Partie constructeur - Le nom du fichier doit être valide pour pouvoir être utilisé.");
         }
         else {
 
@@ -66,15 +66,15 @@ public class Partie {
       */
     public void charger(String filename) {
       try {
-        if (fileName == null) {
-          throw new Exception("Partie constructeur - Le nom du fichier doit être valide pour pouvoir être utilisé.")
+        if (filename == null) {
+          throw new Exception("Partie constructeur - Le nom du fichier doit être valide pour pouvoir être utilisé.");
         }
         else {
 
         }
       }
       catch(FileNotFoundException e) {
-        System.err.println("Partie construceur - Fichier non trouvé (" + fileName + ")");
+        System.err.println("Partie construceur - Fichier non trouvé (" + filename + ")");
       }
       catch(Exception e) {
         System.err.println(e.getMessage());
@@ -96,7 +96,7 @@ public class Partie {
     private void configuration(String filename) {
       try {
         if (fileName == null) {
-          throw new Exception("Partie constructeur - Le nom du fichier doit être valide pour pouvoir être utilisé.")
+          throw new Exception("Partie constructeur - Le nom du fichier doit être valide pour pouvoir être utilisé.");
         }
         else {
 
