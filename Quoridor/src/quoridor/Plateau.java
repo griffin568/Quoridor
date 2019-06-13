@@ -1,4 +1,5 @@
 package quoridor;
+import java.util.ArrayList;
 
 /**
   * Cette classe gère le plateau de jeu
@@ -42,18 +43,26 @@ public class Plateau {
     * Le plateau actuel en ASCII art
     * @return une String avec ces informations
     */
-    public String toString() {
+    public String toString(ArrayList<Pion>) {
+      ArrayList<ArrayList<String>> cases = new ArrayList<ArrayList<String>>();
       String ret = "\n\n\n";
       ret += "\t\t   1    2    3    4    5    6    7    8    9 ";
       ret += "\t\t                                             ";
       String[] letters = {"A","B","C","D","E","F","G","H","I"};
       for (int i = 0 ; i < this.TAILLE ; i++) {
         for (int j = 0 ; j < this.TAILLE ; j++) {
-          ret += "\t\t   _    _    _    _    _    _    _    _    _";
-          ret += "\t\t"+letters[i]+" | |  | |  | |  | |  | |  | |  | |  | |  | |";
-          ret += "\t\t   -    -    -    -    -    -    -    -    -";
-          ret += "\t\t                                             ";
+
+
         }
       }
+    }
+
+  /**
+    * Créé les cases dans pour le plateau en mode texte
+    * @param pion le pion se trouvant dans la case, null s'il n'y en a aucun
+    * @return une case sous la forme d'une String
+    */
+    private String drawCase() {
+      
     }
 }
