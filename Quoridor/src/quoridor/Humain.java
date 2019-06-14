@@ -45,7 +45,7 @@ public class Humain extends Joueur {
             for (int[] deplacement : this.pion.getDeplacementPossibles()) {
               if (deplacement[0] == Integer.parseInt(nPosition.split(" ")[1].split(",")[0].split("(")[1].trim())) {
                 if (deplacement[1] == Array.asList(letters).indexOf(nPosition.split(" ")[1].split(",")[1].split(")")[0].trim())) {
-                  deplacerPion(new Coordonnee(Integer.parseInt(nPosition.split(" ")[1].split(",")[0].split("(")[1].trim()),Array.asList(letters).indexOf(nPosition.split(" ")[1].split(",")[1].split(")")[0].trim()),-1,-1));
+                  deplacerPion(new Coordonnee(Integer.parseInt(nPosition.split(" ")[1].split(",")[0].split("(")[1].trim())*2,Array.asList(letters).indexOf(nPosition.split(" ")[1].split(",")[1].split(")")[0].trim())*2,-1,-1));
                 }
               }
             }
