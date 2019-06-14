@@ -26,4 +26,27 @@ public class Humain extends Joueur {
       this.scanner = new Scanner(System.in);
 
     }
+
+  /**
+    * Permet au joueur de jouer à partir du terminal
+    */
+    public void jeu() {
+      try {
+        int[][] deplacementsPossibles = this.pion.getDeplacementPossibles();
+        String nPosition = this.scanner.nextLine();
+        boolean ok = false;
+        while (!nPosition.trim().equalsIgnoreCase("pass") && !ok) {
+          for (int i = 0 ; i < deplacementsPossibles.length ; i++) {
+            if (deplacementsPossibles[i][0] == Integer.parseInt(nPosition.split(" ")[0].trim()) && deplacementsPossibles[i][1] == Integer.parseInt(nPosition.split(" ")[1].trim())) {
+              ok = true;
+              this.deplacerPion(new Coordonnee(Integer.parseInt(nPosition.split(" ")[0].trim()),Integer.parseInt(nPosition.split(" ")[1].trim()),-1,-1));
+            }
+          }
+        }
+      }
+      catch (NumberFormatException e) {
+        System.err.println("Erreur dans le format des coordonnees, tapez 'help' pour plus d'informations");
+      }
+
+    }
 }

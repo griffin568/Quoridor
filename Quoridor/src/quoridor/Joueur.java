@@ -123,6 +123,6 @@ public abstract class Joueur {
       * Permet au joueur de jouer
       */
     public void jeu() {
-
+      
     }
 }
