@@ -86,7 +86,7 @@ public class Pion {
       int[] deplacement;
       for (int i = -1 ; i <= 1 ; i++) {
         for (int j = -1 ; j <= 1 ; j++) {
-          if (x+i >= 0 && y+j >= 0 /** ajouter les véirifications pour les dépassements de taille*/) {
+          if (x+i >= 0 && y+j >= 0 /* ajouter les véirifications pour les dépassements de taille*/) {
             deplacement = new int[2];
             deplacement[0] = x+i;
             deplacement[1] = y+j;
