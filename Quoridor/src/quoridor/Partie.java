@@ -146,7 +146,7 @@ public class Partie {
     /**
       * Contrôle la position des différents pions sur le plateau
       */
-      boolean controle(Pion pion) {
+      private boolean controle(Pion pion) {
         boolean ret = true;
         if (pion.getCoordonnee().getX1() < 0 || pion.getCoordonnee().getX1() >= this.plateau.getTaille() || pion.getCoordonnee().getY1() < 0 || pion.getCoordonnee().getY1() >= this.plateau.getTaille()) {
           ret = false;
