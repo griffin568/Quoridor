@@ -36,12 +36,18 @@ public class Humain extends Joueur {
         String nPosition = this.scanner.nextLine();
         boolean ok = false;
         while (!nPosition.trim().equalsIgnoreCase("pass") && !ok) {
-          for (int i = 0 ; i < deplacementsPossibles.length ; i++) {
-            if (deplacementsPossibles[i][0] == Integer.parseInt(nPosition.split(" ")[0].trim()) && deplacementsPossibles[i][1] == Integer.parseInt(nPosition.split(" ")[1].trim())) {
-              ok = true;
-              this.deplacerPion(new Coordonnee(Integer.parseInt(nPosition.split(" ")[0].trim()),Integer.parseInt(nPosition.split(" ")[1].trim()),-1,-1));
+          if (nPosition.trim().equalsIgnoreCase("help")) {
+
+          }
+          else {
+            for (int i = 0 ; i < deplacementsPossibles.length ; i++) {
+              if (deplacementsPossibles[i][0] == Integer.parseInt(nPosition.split(" ")[0].trim()) && deplacementsPossibles[i][1] == Integer.parseInt(nPosition.split(" ")[1].trim())) {
+                ok = true;
+                this.deplacerPion(new Coordonnee(Integer.parseInt(nPosition.split(" ")[0].trim()),Integer.parseInt(nPosition.split(" ")[1].trim()),-1,-1));
+              }
             }
           }
+          nPosition = this.scanner.nextLine();
         }
       }
       catch (NumberFormatException e) {
