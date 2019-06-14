@@ -26,7 +26,8 @@ public class Partie {
           throw new Exception("Partie constructeur - Le nom du fichier doit être valide pour pouvoir être utilisé.");
         }
         else {
-
+          barrieres = new ArrayList<Brriere>();
+          initialisation();
         }
       }
       catch(FileNotFoundException e) {
@@ -38,21 +39,6 @@ public class Partie {
 
     }
 
-  /**
-    * Retourne le numéro du tour actuel
-    * @return le numéro du tour
-    */
-  public int getTour() {
-        return tour;
-    }
-
-    /**
-      * Retourne le mode de jeu utilisé
-      * @return le mode de jeu utilisé
-      */
-    public Mode getMode() {
-        return mode;
-    }
 
     /**
       * Sauvegarde la partie
@@ -87,7 +73,7 @@ public class Partie {
       * Initialise les différents éléments constants de la partie
       */
     private void initialisation() {
-
+      ArrayList<String> lignes = RWFile.readFile(config);
     }
 
     /**
@@ -163,4 +149,19 @@ public class Partie {
         return ret;
       }
 
+  /**
+  * Retourne le numéro du tour actuel
+  * @return le numéro du tour
+  */
+  public int getTour() {
+    return tour;
+  }
+
+  /**
+  * Retourne le mode de jeu utilisé
+  * @return le mode de jeu utilisé
+  */
+  public Mode getMode() {
+    return mode;
+  }
 }
