@@ -36,6 +36,7 @@ public class Humain extends Joueur {
         int[][] deplacementsPossibles = this.pion.getDeplacementPossibles();
         String nPosition = this.scanner.nextLine();
         boolean ok = false;
+        String[] letters = {"A","B","C","D","E","F","G","H","I"};
         while (!nPosition.trim().equalsIgnoreCase("pass") && !ok) {
           if (nPosition.trim().equalsIgnoreCase("help")) {
 
@@ -43,8 +44,8 @@ public class Humain extends Joueur {
           else if (nPosition.split(" ")[0].trim().equalsIgnoreCase("move")) {
             for (int[] deplacement : this.pion.getDeplacementPossibles()) {
               if (deplacement[0] == Integer.parseInt(nPosition.split(" ")[1].split(",")[0].split("(")[1].trim())) {
-                if (deplacement[1] == Integer.parseInt(nPosition.split(" ")[1].split(",")[1].split(")")[0].trim())) {
-                  deplacerPion(new Coordonnee(Integer.parseInt(nPosition.split(" ")[1].split(",")[0].split("(")[1].trim()),Integer.parseInt(nPosition.split(" ")[1].split(",")[1].split(")")[0].trim()),-1,-1));
+                if (deplacement[1] == Array.asList(letters).indexOf(nPosition.split(" ")[1].split(",")[1].split(")")[0].trim())) {
+                  deplacerPion(new Coordonnee(Integer.parseInt(nPosition.split(" ")[1].split(",")[0].split("(")[1].trim()),Array.asList(letters).indexOf(nPosition.split(" ")[1].split(",")[1].split(")")[0].trim()),-1,-1));
                 }
               }
             }
