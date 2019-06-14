@@ -105,8 +105,21 @@ public abstract class Joueur {
       * si celles-ci sont atteignables
       * @param coordonnee les coordonnées à atteindre
       */
-    public void deplacerPion(Coordonnee coordonnee) {
-      this.pion.setCoordonnee(coordonnee);
+    public void deplacerPion(Coordonnee coordonnee, boolean[][] damier) {
+      try {
+        if (damier == null || coordonnee == null) {
+          throw new Exception ("Erreur deplacerPion(), parametre null");
+        }
+        else {
+          damier[this.pion.getCoordonnee().getX1()][this.pion.getCoordonnee().getY1()] = true;
+          damier[coordonnee.getX1()][coordonnee.getY1()] = false;
+          this.pion.setCoordonnee(coordonnee);
+        }
+      }
+      catch (Exception e) {
+        System.err.println(e.getMessage());
+      }
+
     }
 
     /**

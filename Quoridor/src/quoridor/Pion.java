@@ -79,7 +79,7 @@ public class Pion {
     /**
       * Identifie les nouveaux déplacements possibles du pion avant ou après un déplacement
       */
-    public void nextCoup(int[][] damier) {
+    public void nextCoup(boolean[][] damier) {
       int x = this.coordonnee.getX1();
       int y = this.coordonnee.getY1();
       ArrayList<int[]> temp = new ArrayList<int[]>();
