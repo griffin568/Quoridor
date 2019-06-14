@@ -93,5 +93,9 @@ public class Plateau {
         }
       }
 
+      public boolean[][] getDamier() {
+        return this.DAMIER;
+      }
+
 
 }
