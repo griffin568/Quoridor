@@ -1,3 +1,4 @@
+package utilities;
 import java.io.FileNotFoundException;
 import java.util.ArayList;
 import quoridor.*;

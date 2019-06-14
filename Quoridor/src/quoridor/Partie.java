@@ -2,6 +2,7 @@ package quoridor;
 
 import java.util.ArrayList;
 import java.io.FileNotFoundException;
+import utilities.*;
 
 /**
   * Cette classe gère les différents aspect de la partie
@@ -26,7 +27,7 @@ public class Partie {
           throw new Exception("Partie constructeur - Le nom du fichier doit être valide pour pouvoir être utilisé.");
         }
         else {
-          barrieres = new ArrayList<Brriere>();
+          barrieres = new ArrayList<Barriere>();
           initialisation();
         }
       }
@@ -73,7 +74,7 @@ public class Partie {
       * Initialise les différents éléments constants de la partie
       */
     private void initialisation() {
-      ArrayList<String> lignes = RWFile.readFile(config);
+      ArrayList<String> lignes = RWFile.readFile("config");
     }
 
     /**
@@ -129,25 +130,39 @@ public class Partie {
         }
       }
 
-    /**
-      * Contrôle la position des différents pions sur le plateau
-      */
-      private boolean controle(Pion pion) {
-        boolean ret = true;
-        if (pion.getCoordonnee().getX1() < 0 || pion.getCoordonnee().getX1() >= this.plateau.getTaille() || pion.getCoordonnee().getY1() < 0 || pion.getCoordonnee().getY1() >= this.plateau.getTaille()) {
-          ret = false;
-        }
-        else {
-          ArrayList<Coordonnee> listC = new ArrayList<Coordonnee>();
-          for (Joueur j : joueur) {
-            listC.add(j.getPion().getCoordonnee());
-          }
-          if (listC.contains(pion.getCoordonnee())) {
+      /**
+        * Contrôle la position des différents pions sur le plateau
+        * @param pion le pion à déplacer
+        * @return true si le déplacement est possible
+        */
+        private boolean controle (Pion pion) {
+          boolean ret = true;
+          if (pion.getCoordonnee().getX1() < 0 || pion.getCoordonnee().getX1() >= this.plateau.getTaille() || pion.getCoordonnee().getY1() < 0 || pion.getCoordonnee().getY1() >= this.plateau.getTaille() || (pion.getCoordonnee().getX1() % 2 != 0) || (pion.getCoordonnee().getY1() % 2 != 0)) {
             ret = false;
           }
+          else {
+            ArrayList<Coordonnee> listC = new ArrayList<Coordonnee>();
+            for (Joueur j : joueur) {
+              listC.add(j.getPion().getCoordonnee());
+            }
+            if (listC.contains(pion.getCoordonnee())) {
+              ret = false;
+            }
+          }
+          return ret;
         }
-        return ret;
-      }
+
+      /**
+        * Contrôle la position des différentes barrières sur le plateau
+        * @param barriere la barrière à poser
+        * @return true si le positionnement est valide
+        */
+        private boolean controle (Barriere barriere) {
+          boolean ret = true;
+          if barriere.getCoordonnee().getX1() < 0 ||barriere.getCoordonnee().getX1() >= this.plateau.getTaille() || barriere.getCoordonnee().getY1() < 0 || barriere.getCoordonnee().getY1() >= this.plateau.getTaille() || (barriere.getCoordonnee().getX1() % 2 != 0) || (barriere.getCoordonnee().getY1() % 2 != 0)) {
+
+          }
+        }
 
   /**
   * Retourne le numéro du tour actuel
