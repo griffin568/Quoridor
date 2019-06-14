@@ -1,4 +1,5 @@
 package quoridor;
+import java.util.ArrayList;
 
 /**
   * Cette classe gère les pions utilisés par les joueurs
@@ -79,6 +80,23 @@ public class Pion {
       * Identifie les nouveaux déplacements possibles du pion avant ou après un déplacement
       */
     public void nextCoup() {
-
+      int x = this.coordonnee.getX1();
+      int y = this.coordonnee.getY1();
+      ArrayList<int[]> temp = new ArrayList<int[]>();
+      int[] deplacement;
+      for (int i = -1 ; i <= 1 ; i++) {
+        for (int j = -1 ; j <= 1 ; j++) {
+          if (x+i >= 0 && y+j >= 0 /** ajouter les véirifications pour les dépassements de taille*/) {
+            deplacement = new int[2];
+            deplacement[0] = x+i;
+            deplacement[1] = y+j;
+            temp.add(deplacement);
+          }
+        }
+      }
+      this.deplacementPossibles = new int[temp.size()][temp.size()];
+      for (int i = 0 ; i < temp.size() ; i++) {
+        this.deplacementPossibles[i] = temp.get(i);
+      }
     }
 }
