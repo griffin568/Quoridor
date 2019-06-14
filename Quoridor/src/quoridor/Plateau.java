@@ -60,7 +60,6 @@ public class Plateau {
 
   /**
     * Créé les cases dans pour le plateau en mode texte
-    * @param pion le pion se trouvant dans la case, null s'il n'y en a aucun
     * @return une case sous la forme d'une String
     */
     private String drawCase() {
