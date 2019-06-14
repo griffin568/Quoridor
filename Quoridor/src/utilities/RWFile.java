@@ -1,6 +1,6 @@
 package utilities;
-import java.io.FileNotFoundException;
-import java.util.ArayList;
+import java.util.ArrayList;
+import java.io.*;
 import quoridor.*;
 
 public class RWFile {
@@ -43,10 +43,10 @@ public class RWFile {
         throw new Exception("RWFile writeFile() - La liste des joueurs doit exister");
       }
       else if (tour < 0) {
-        throw new Exception("RWFile writeFile() - Le numéro d'un tour doit être positif")
+        throw new Exception("RWFile writeFile() - Le numéro d'un tour doit être positif");
       }
       else if (dernierJoueur == null) {
-        throw new Exception("RWFile writeFile() - Le dernier joueur ayant joué doit exister")
+        throw new Exception("RWFile writeFile() - Le dernier joueur ayant joué doit exister");
       }
       else {
         DataOutputStream dataOut = new DataOutputStream(new FileOutputStream ("../data/" + fileName));
@@ -57,21 +57,22 @@ public class RWFile {
             dataOut.writeUTF(" H ; ");
           }
           else {
-            dataOut.writeUTF(" IA " + j.getDifficulte() + " ; ")
+            IA ia = (IA)j;
+            dataOut.writeUTF(" IA " + ia.getDifficulte() + " ; ");
           }
         }
         dataOut.writeUTF("\n");
 
         for (Joueur j : joueurs) {
           Pion p = j.getPion();
-          Coordonnee coord = p.getCoordonnee;
-          dataOut.writeUTF(p.getCouleur + " " + coord.getX1() + " " + coord.getY1() + " ; ");
+          Coordonnee coord = p.getCoordonnee();
+          dataOut.writeUTF(p.getCouleur() + " " + coord.getX1() + " " + coord.getY1() + " ; ");
         }
         dataOut.writeUTF("\n");
 
         for (Joueur j : joueurs) {
-          ArrayList<Barriere> barrieres = j.getBarrieres();
-          dataOut.writeUTF(barrieres.size());
+          ArrayList<Barriere> lesBarrieres = j.getBarrieres();
+          dataOut.writeUTF(String.valueOf(lesBarrieres.size()));
         }
 
         for (Barriere b : barrieres) {
@@ -80,15 +81,15 @@ public class RWFile {
         }
         dataOut.writeUTF("\n");
 
-        dataOut.writeUTF(tour + " ; " + dernierJoueur.getNumero());
+        dataOut.writeUTF(tour + " ; " + String.valueOf(dernierJoueur.getNumero()));
         dataOut.close();
       }
-      catch(FileNotFoundException e) {
-        System.err.println("WriteFile - Fichier non trouvé : " + fileName);
-      }
-      catch (Exception e) {
-        System.err.println(e.getMessage());
-      }
+    }
+    catch(FileNotFoundException e) {
+      System.err.println("WriteFile - Fichier non trouvé : " + fileName);
+    }
+    catch (Exception e) {
+      System.err.println(e.getMessage());
     }
   }
 

@@ -3,7 +3,8 @@
         Projet de fin d'année Quoridor
     </description>
 
-    <property name="src" location="src/quoridor"/>
+    <property name="srcQuori" location="src/quoridor"/>
+    <property name="srcUtil" location="src/utilities"/>
     <property name="build" location="build"/>
     <property name="dist" location="dist"/>
     <property name="doc" location="doc"/>
@@ -16,9 +17,9 @@
         <mkdir dir="${build}"/>
     </target>
 
-    <target name="compile" depends="init"
-            description="compile the source " >
-        <javac srcdir="${src}" destdir="${build}" includeantruntime="false"/>
+    <target name="compile" depends="init" description="compile the source " >
+        <javac srcdir="${srcQuori}" destdir="${build}" includeantruntime="false"/>
+        <javac srcdir="${srcUtil}" destdir="${build}" includeantruntime="false"/>
     </target>
 
     <target name="javadoc" depends="init" description="genere la javadoc">
