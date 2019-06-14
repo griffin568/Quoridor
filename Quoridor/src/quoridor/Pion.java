@@ -79,18 +79,20 @@ public class Pion {
     /**
       * Identifie les nouveaux déplacements possibles du pion avant ou après un déplacement
       */
-    public void nextCoup() {
+    public void nextCoup(int[][] damier) {
       int x = this.coordonnee.getX1();
       int y = this.coordonnee.getY1();
       ArrayList<int[]> temp = new ArrayList<int[]>();
       int[] deplacement;
-      for (int i = -1 ; i <= 1 ; i++) {
-        for (int j = -1 ; j <= 1 ; j++) {
-          if (x+i >= 0 && y+j >= 0 /* ajouter les véirifications pour les dépassements de taille*/) {
-            deplacement = new int[2];
-            deplacement[0] = x+i;
-            deplacement[1] = y+j;
-            temp.add(deplacement);
+      for (int i = -2 ; i <= 2 ; i++) {
+        for (int j = -2 ; j <= 2 ; j++) {
+          if (i % 2 == 0 && j % 2 == 0) {
+            if (damier[x+i][y+j] == true && damier[x+((int)i/2)][y+((int)j/2)] == true) {
+              deplacement = new int[2];
+              deplacement[0] = x+i;
+              deplacement[1] = y+j;
+              temp.add(deplacement);
+            }
           }
         }
       }

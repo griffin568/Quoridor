@@ -130,28 +130,6 @@ public class Partie {
         }
       }
 
-      /**
-        * Contrôle la position des différents pions sur le plateau
-        * @param pion le pion à déplacer
-        * @return true si le déplacement est possible
-        */
-        private boolean controle (Pion pion) {
-          boolean ret = true;
-          if (pion.getCoordonnee().getX1() < 0 || pion.getCoordonnee().getX1() >= this.plateau.getTaille() || pion.getCoordonnee().getY1() < 0 || pion.getCoordonnee().getY1() >= this.plateau.getTaille() || (pion.getCoordonnee().getX1() % 2 != 0) || (pion.getCoordonnee().getY1() % 2 != 0)) {
-            ret = false;
-          }
-          else {
-            ArrayList<Coordonnee> listC = new ArrayList<Coordonnee>();
-            for (Joueur j : this.joueur) {
-              listC.add(j.getPion().getCoordonnee());
-            }
-            if (listC.contains(pion.getCoordonnee())) {
-              ret = false;
-            }
-          }
-          return ret;
-        }
-
 
   /**
   * Retourne le numéro du tour actuel
