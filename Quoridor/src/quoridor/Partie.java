@@ -14,6 +14,7 @@ public class Partie {
     private Mode mode;
     private Plateau plateau;
     private ArrayList<Joueur> joueur;
+    private ArrayList<Barriere> barrieres;
 
     /**
       * Créé un nouvel objet Partie
@@ -123,4 +124,43 @@ public class Partie {
     public void fin() {
 
     }
+
+    /**
+      * Ajoute une barrière à la liste des barrières sur le plateau
+      * @param barriere la barrière à ajouter à la liste
+      */
+      public void addBarriere (Barriere barriere) {
+        try {
+          if (barriere == null) {
+            throw new Exception ("Erreur addBarriere(), parametre null");
+          }
+          else {
+            this.barrieres.add(barriere);
+          }
+        }
+        catch (Exception e) {
+          System.err.println(e.getMessage());
+        }
+      }
+
+    /**
+      * Contrôle la position des différents pions sur le plateau
+      */
+      boolean controle(Pion pion) {
+        boolean ret = true;
+        if (pion.getCoordonnee().getX1() < 0 || pion.getCoordonnee().getX1() >= this.plateau.getTaille() || pion.getCoordonnee().getY1() < 0 || pion.getCoordonnee().getY1() >= this.plateau.getTaille()) {
+          ret = false;
+        }
+        else {
+          ArrayList<Coordonnee> listC = new ArrayList<Coordonnee>();
+          for (Joueur j : joueur) {
+            listC.add(j.getPion().getCoordonnee());
+          }
+          if (listC.contains(pion.getCoordonnee())) {
+            ret = false;
+          }
+        }
+        return ret;
+      }
+
 }
