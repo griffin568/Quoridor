@@ -15,6 +15,7 @@ public abstract class Joueur {
     protected ArrayList<Barriere> barrieres;
     protected Pion pion;
     protected Plateau plateau;
+    protected boolean humain;
 
     /**
       * Créé un nouvel objet Humain
@@ -123,6 +124,14 @@ public abstract class Joueur {
       * Permet au joueur de jouer
       */
     public void jeu() {
-      
+
+    }
+
+    /**
+    * Dit si le joueur est humain
+    * @return vrai si le joueur est Humain, faux sinon
+    */
+    public boolean isHumain() {
+      return this.humain;
     }
 }

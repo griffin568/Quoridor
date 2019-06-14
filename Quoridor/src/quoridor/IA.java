@@ -30,6 +30,7 @@ public class IA extends Joueur {
         }
         else {
             this.DIFFICULTE = difficulte;
+            this.humain = false;
         }
       }
       catch (Exception e) {
@@ -38,21 +39,6 @@ public class IA extends Joueur {
 
     }
 
-    /**
-      * Retourne la difficulté de l'IA
-      * @return la difficulté de l'IA
-      */
-    public Difficulte getDifficulte() {
-        return this.DIFFICULTE;
-    }
-
-    /**
-      * Retourne le plus court chemin en déplacement de pion pour gagner que l'IA a prévu
-      * @return un tableau a deux dimensions contenant le plus court chemin identifié par l'IA
-      */
-    public int[][] getPlusCourtChemin() {
-        return plusCourtChemin;
-    }
 
     /**
       * Modifie le plus court chemin en déplacement de pion que l'IA prévoie
@@ -78,4 +64,20 @@ public class IA extends Joueur {
     public void plannification() {
 
     }
+
+  /**
+  * Retourne la difficulté de l'IA
+  * @return la difficulté de l'IA
+  */
+  public Difficulte getDifficulte() {
+    return this.DIFFICULTE;
+  }
+
+  /**
+  * Retourne le plus court chemin en déplacement de pion pour gagner que l'IA a prévu
+  * @return un tableau a deux dimensions contenant le plus court chemin identifié par l'IA
+  */
+  public int[][] getPlusCourtChemin() {
+    return plusCourtChemin;
+  }
 }
