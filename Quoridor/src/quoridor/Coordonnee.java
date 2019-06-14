@@ -45,7 +45,7 @@ public class Coordonnee {
       * @return la coordonnée X1
       */
     public int getX1() {
-        return x1;
+        return this.x1;
     }
 
     /**
@@ -53,7 +53,7 @@ public class Coordonnee {
       * @return la coordonnée Y1
       */
     public int getY1() {
-        return y1;
+        return this.y1;
     }
 
     /**
@@ -61,7 +61,7 @@ public class Coordonnee {
       * @return la coordonnée X2 ou -1
       */
     public int getX2() {
-        return x2;
+        return this.x2;
     }
 
     /**
@@ -69,7 +69,7 @@ public class Coordonnee {
       * @return la coordonnée Y2 ou -1
       */
     public int getY2() {
-        return y2;
+        return this.y2;
     }
 
     /**

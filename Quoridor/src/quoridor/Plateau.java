@@ -44,29 +44,36 @@ public class Plateau {
     * @return une String avec ces informations
     */
     public String toString(ArrayList<Pion> listePion) {
-      ArrayList<ArrayList<String>> cases = new ArrayList<ArrayList<String>>();
-      String ret = "\n\n\n";
-      ret += "\t\t   1    2    3    4    5    6    7    8    9 ";
-      ret += "\t\t                                             ";
-      String[] letters = {"A","B","C","D","E","F","G","H","I"};
-      for (int i = 0 ; i < this.TAILLE ; i++) {
-        for (int j = 0 ; j < this.TAILLE ; j++) {
-
-
+      String ret = "";
+      try  {
+        ret += "\n\n\n";
+        ret += "\t\t   1    2    3    4    5    6    7    8    9 \n";
+        String[] letters = {"A","B","C","D","E","F","G","H","I"};
+        String icon =  "";
+        for (int i = 0 ; i < this.TAILLE ; i++) {
+          ret += "\n\t\t    _    _    _    _    _    _    _    _    _  \n";
+          ret += "\t\t" + letters[i] + "  ";
+          for (int j = 0 ; j < this.TAILLE ; j++) {
+            for (Pion p : listePion) {
+              if (p.getCoordonnee().getX1() == i && p.getCoordonnee().getY1() == j) {
+                if (p.getCouleur().length() == 1) {
+                  icon = p.getCouleur();
+                }
+              }
+            }
+            ret += "|"+icon+"|  ";
+          }
+          ret += "\n\t\t    -    -    -    -    -    -    -    -    -  \n";
+          icon = "";
         }
       }
-      return ret;
-    }
-
-  /**
-    * Créé les cases dans pour le plateau en mode texte
-    * @return une case sous la forme d'une String
-    */
-    private String drawCase() {
-      String Acase = "   _ \n";
-      Acase += "  | | \n";
-      Acase += "   - \n";
-      return Acase;
+      catch (NullPointerException e) {
+        ret = "";
+        System.err.println("Erreur, liste de pions null");
+      }
+      finally {
+        return ret;
+      }
     }
 
 }
