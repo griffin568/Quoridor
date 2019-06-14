@@ -142,7 +142,7 @@ public class Partie {
           }
           else {
             ArrayList<Coordonnee> listC = new ArrayList<Coordonnee>();
-            for (Joueur j : joueur) {
+            for (Joueur j : this.joueur) {
               listC.add(j.getPion().getCoordonnee());
             }
             if (listC.contains(pion.getCoordonnee())) {
@@ -152,17 +152,6 @@ public class Partie {
           return ret;
         }
 
-      /**
-        * Contrôle la position des différentes barrières sur le plateau
-        * @param barriere la barrière à poser
-        * @return true si le positionnement est valide
-        */
-        private boolean controle (Barriere barriere) {
-          boolean ret = true;
-          if barriere.getCoordonnee().getX1() < 0 ||barriere.getCoordonnee().getX1() >= this.plateau.getTaille() || barriere.getCoordonnee().getY1() < 0 || barriere.getCoordonnee().getY1() >= this.plateau.getTaille() || (barriere.getCoordonnee().getX1() % 2 != 0) || (barriere.getCoordonnee().getY1() % 2 != 0)) {
-
-          }
-        }
 
   /**
   * Retourne le numéro du tour actuel
