@@ -40,15 +40,18 @@ public class Humain extends Joueur {
           if (nPosition.trim().equalsIgnoreCase("help")) {
 
           }
-          else {
-            for (int i = 0 ; i < deplacementsPossibles.length ; i++) {
-              if (deplacementsPossibles[i][0] == Integer.parseInt(nPosition.split(" ")[0].trim()) && deplacementsPossibles[i][1] == Integer.parseInt(nPosition.split(" ")[1].trim())) {
-                ok = true;
-                this.deplacerPion(new Coordonnee(Integer.parseInt(nPosition.split(" ")[0].trim()),Integer.parseInt(nPosition.split(" ")[1].trim()),-1,-1));
+          else if (nPosition.split(" ")[0].trim().equalsIgnoreCase("move")) {
+            for (int[] deplacement : this.pion.getDeplacementPossibles()) {
+              if (deplacement[0] == Integer.parseInt(nPosition.split(" ")[1].split(",")[0].split("(")[1].trim())) {
+                if (deplacement[1] == Integer.parseInt(nPosition.split(" ")[1].split(",")[1].split(")")[0].trim())) {
+                  deplacerPion(new Coordonnee(Integer.parseInt(nPosition.split(" ")[1].split(",")[0].split("(")[1].trim()),Integer.parseInt(nPosition.split(" ")[1].split(",")[1].split(")")[0].trim()),-1,-1));
+                }
               }
             }
           }
-          nPosition = this.scanner.nextLine();
+          else {
+            nPosition = this.scanner.nextLine();
+          }
         }
       }
       catch (NumberFormatException e) {
