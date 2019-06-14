@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class Plateau {
 
     private int TAILLE;
-    private int[][] DAMIER;
+    private boolean[][] DAMIER;
 
     /**
       * Créé un nouvel objet Plateau
@@ -22,7 +22,12 @@ public class Plateau {
         }
         else {
           this.TAILLE = taille;
-          this.DAMIER = new int[taille][taille];
+          this.DAMIER = new boolean[taille][taille];
+          for (int i = 0 ; i < this.TAILLE ; i++) {
+            for (int j = 0 ; j < this.TAILLE ; j++) {
+              this.DAMIER[i][j] = true;
+            }
+          }
         }
       }
       catch (Exception e) {
@@ -41,9 +46,11 @@ public class Plateau {
 
   /**
     * Le plateau actuel en ASCII art
+    * @param listePion la liste des pions à placer sur le terrain
+    * @param listeBarriere la liste des barrières à placer sur le terrain
     * @return une String avec ces informations
     */
-    public String toString(ArrayList<Pion> listePion) {
+    public String toString(ArrayList<Pion> listePion , ArrayList<Barriere> listeBarriere) {
       String ret = "";
       try  {
         ret += "\n\n\n";
@@ -75,5 +82,16 @@ public class Plateau {
         return ret;
       }
     }
+
+    /**
+      * Modifie les différentes cases disponibles pour le déplacement
+      * @param listCases la liste des cases dont la disponibilité doit changer
+      */
+      public void setDisponibilite (ArrayList<int[]> listCases) {
+        for (int[] co : listCases) {
+          this.DAMIER[co[0]][co[1]] = !this.DAMIER[co[0]][co[1]];
+        }
+      }
+
 
 }
