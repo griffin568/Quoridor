@@ -25,8 +25,8 @@ public class Coordonnee {
       */
     public Coordonnee(int x1, int y1, int x2, int y2) {
       try {
-        if ((x1 < 0) || (x1 > 9) || (x2 < -1) || (x2 > 9) || (y1 < 0) || (y1 > 9) || (y2 < -1) || (y2 > 9)) {
-          throw new Exception("Coordonnee constructeur - Les coordonées doivent comprises entre 0 (ou -1 s'il s'agit d'un pion) et 9.");
+        if ((x1 < 0) || (x1 > 17) || (x2 < -1) || (x2 > 17) || (y1 < 0) || (y1 > 17) || (y2 < -1) || (y2 > 17)) {
+          throw new Exception("Coordonnee constructeur - Les coordonées doivent comprises entre 0 (ou -1 s'il s'agit d'un pion) et 17.");
         }
         else {
           this.x1 = x1;
@@ -78,8 +78,8 @@ public class Coordonnee {
       */
     public void setX1(int x1) {
       try {
-        if ((x1 < 0) && (x1 > 9)) {
-          throw new Exception("Coordonnee setX1() - Les coordonées doivent comprises entre 0 et 9.");
+        if ((x1 < 0) && (x1 > 17)) {
+          throw new Exception("Coordonnee setX1() - Les coordonées doivent comprises entre 0 et 17.");
         }
       }
       catch(Exception e) {
@@ -93,8 +93,8 @@ public class Coordonnee {
       */
     public void setX2(int x2) {
       try {
-        if ((x2 < -1) && (x2 > 9)) {
-          throw new Exception("Coordonnee setX2() - Les coordonées doivent comprises entre 0 (ou -1 s'il s'agit d'un pion) et 9.");
+        if ((x2 < -1) && (x2 > 17)) {
+          throw new Exception("Coordonnee setX2() - Les coordonées doivent comprises entre 0 (ou -1 s'il s'agit d'un pion) et 17.");
         }
       }
       catch(Exception e) {
@@ -108,8 +108,8 @@ public class Coordonnee {
       */
     public void setY1(int y1) {
       try {
-        if ((y1 < 0) && (y1 > 9)) {
-          throw new Exception("Coordonnee setY1() - Les coordonées doivent comprises entre 0 et 9.");
+        if ((y1 < 0) && (y1 > 17)) {
+          throw new Exception("Coordonnee setY1() - Les coordonées doivent comprises entre 0 et 17.");
         }
       }
       catch(Exception e) {
@@ -123,8 +123,8 @@ public class Coordonnee {
       */
     public void setY2(int y2) {
       try {
-        if ((y2 < -1) && (y2 > 9)) {
-          throw new Exception("Coordonnee setY2() - Les coordonées doivent comprises entre 0 (ou -1 s'il s'agit d'un pion) et 9.");
+        if ((y2 < -1) && (y2 > 17)) {
+          throw new Exception("Coordonnee setY2() - Les coordonées doivent comprises entre 0 (ou -1 s'il s'agit d'un pion) et 17.");
         }
       }
       catch(Exception e) {
