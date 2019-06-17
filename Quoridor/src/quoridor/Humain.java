@@ -55,11 +55,31 @@ public class Humain extends Joueur {
               if (deplacement[0] == Integer.parseInt(nPosition.split(" ")[1].split(",")[0].split("(")[1].trim())) {
                 if (deplacement[1] == letters.indexOf(nPosition.split(" ")[1].split(",")[1].split(")")[0].trim())) {
                   deplacerPion(new Coordonnee(Integer.parseInt(nPosition.split(" ")[1].split(",")[0].split("(")[1].trim())*2,letters.indexOf(nPosition.split(" ")[1].split(",")[1].split(")")[0].trim())*2,-1,-1),this.plateau.getDamier());
+                  ok = true;
                 }
               }
             }
           }
           else if (nPosition.split(" ")[0].trim().equalsIgnoreCase("wall")) {
+            if (letters.contains(nPosition.split(" ")[1].split(",")[0].split("(")[1].trim())) {
+              int x1 = letters.indexOf(nPosition.split(" ")[2].split(",")[1].split(")")[0].trim());
+              int y1 = Integer.parseInt(nPosition.split(" ")[1].split(",")[0].split("(")[1].trim());
+              int x2 = letters.indexOf(nPosition.split(" ")[2].split(",")[1].split(")")[0].trim());
+              int y2 = Integer.parseInt(nPosition.split(" ")[1].split(",")[0].split("(")[1].trim());
+              if (placerBarriere(new Coordonnee(x1,y1,x2,y2)) != null) {
+                ok = true;
+              }
+
+            }
+            else {
+              int x1 = Integer.parseInt(nPosition.split(" ")[1].split(",")[0].split("(")[1].trim());
+              int y1 = letters.indexOf(nPosition.split(" ")[2].split(",")[1].split(")")[0].trim());
+              int x2 = Integer.parseInt(nPosition.split(" ")[1].split(",")[0].split("(")[1].trim());
+              int y2 = letters.indexOf(nPosition.split(" ")[2].split(",")[1].split(")")[0].trim());
+               if (placerBarriere(new Coordonnee(x1,y1,x2,y2)) != null) {
+                 ok = true;
+               }
+            }
 
           }
           else {
