@@ -7,6 +7,9 @@
 # Log file
 *.log
 
+# PDF file
+*.pdf
+
 # BlueJ files
 *.ctxt
 
