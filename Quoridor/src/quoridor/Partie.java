@@ -72,6 +72,27 @@ public class Partie {
           throw new Exception("Partie constructeur - Le nom du fichier doit être valide pour pouvoir être utilisé.");
         }
         else {
+          ArrayList<String> lignes = RWFile.readFile(filename);
+          String[] lesJoueurs = lignes[0].split(";"); // La liste des joueurs sous forme de String
+          ArrayList<String[]> desJoueurs = new ArrayList<String[]>(); // Liste de toutes les informations de chaque joueur
+          int i = 0;
+
+          for (String j: lesJoueurs) {
+            desJoueurs.add(j.split(" "));
+            i++;
+          }
+
+          if (i == 2) {
+            String[] joueur1 = desJoueurs.get(0);
+            String[] joueur2 = desJoueurs.get(1);
+
+          }
+          else {
+            String[] joueur1 = desJoueurs.get(0);
+            String[] joueur2 = desJoueurs.get(1);
+            String[] joueur3 = desJoueurs.get(2);
+            String[] joueur4 = desJoueurs.get(3);
+          }
 
         }
       }
