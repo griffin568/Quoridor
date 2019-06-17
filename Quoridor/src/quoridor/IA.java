@@ -1,6 +1,7 @@
 package quoridor;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
   * Cette classe gère les joueurs IA
@@ -70,8 +71,23 @@ public class IA extends Joueur {
       */
     public Barriere jeu() {
       Barriere ret = null;
-
-      return ret;
+      try {
+        if (this.DIFFICULTE == Difficulte.FACILE) {
+          int[][] deplacementPossibles = this.pion.getDeplacementPossibles();
+          ArrayList<int[]> d = new ArrayList<int[]>();
+          for (int[] tab : deplacementPossibles) {
+            d.add(tab);
+          }
+          Collections.shuffle(d);
+          deplacerPion(new Coordonnee(d.get(0)[0],d.get(0)[1],-1,-1),this.plateau.getDamier());
+        }
+      }
+      catch (NullPointerException e) {
+        System.err.println(e.getMessage());
+      }
+      finally {
+        return ret;
+      }    
     }
 
   /**

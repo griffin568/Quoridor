@@ -62,7 +62,6 @@ public class Plateau {
     public String toString(ArrayList<Pion> listePion) {
       String ret = "";
       String[] letters = {"A","B","C","D","E","F","G","H","I"};
-      System.out.println(System.getProperty("os.name"));
       if (System.getProperty("os.name").equalsIgnoreCase("linux")) {
         ret += ANSI_CYAN + "\t\t       1   2   3   4   5   6   7   8   9";
         ret += ANSI_CYAN + "\n\t\t   ________________________________________";
@@ -93,7 +92,7 @@ public class Plateau {
               else {
                 for (Pion p : listePion) {
                   if (p.getCoordonnee().getX1() == i && p.getCoordonnee().getY1() == j) {
-                    ret += p.getCouleur();
+                    ret += ANSI_WHITE + p.getCouleur();
                   }
                 }
               }
