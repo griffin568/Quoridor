@@ -47,38 +47,54 @@ public class Plateau {
   /**
     * Le plateau actuel en ASCII art
     * @param listePion la liste des pions à placer sur le terrain
-    * @param listeBarriere la liste des barrières à placer sur le terrain
     * @return une String avec ces informations
     */
-    public String toString(ArrayList<Pion> listePion , ArrayList<Barriere> listeBarriere) {
+    public String toString(ArrayList<Pion> listePion) {
       String ret = "";
       try  {
         ret += "\n\n\n";
-        ret += "\t\t   1    2    3    4    5    6    7    8    9 \n";
+        ret += "\t\t    1    2    3    4    5    6    7    8    9 \n";
         String[] letters = {"A","B","C","D","E","F","G","H","I"};
-        String icon =  "";
+        char icon = 'F';
         for (int i = 0 ; i < this.TAILLE ; i++) {
-          ret += "\n\t\t    _    _    _    _    _    _    _    _    _  \n";
-          ret += "\t\t" + letters[i] + "  ";
-          for (int j = 0 ; j < this.TAILLE ; j++) {
-            if (i % 2 == 0 && j % 2 == 0 && !this.DAMIER[i][j]) {
-              for (Pion p : listePion) {
-                if (p.getCoordonnee().getX1() == i && p.getCoordonnee().getY1() == j) {
-                  if (p.getCouleur().length() == 1) {
-                    icon = p.getCouleur();
+          if (i % 2 == 1) {
+            ret += "\n\t\t";
+            for (int j = 0 ; j < this.TAILLE ; j++) {
+              if (this.DAMIER[i][j]) {
+                ret += "   ";
+              }
+              else {
+                ret += "::";
+              }
+            }
+          }
+          else {
+            ret += "\n\t\t    _    _    _    _    _    _    _    _    _  \n";
+            ret += "\t\t" + letters[(int)(i/2)] + "  ";
+            for (int j = 0 ; j < this.TAILLE ; j++) {
+              if (j % 2 == 0) {
+                if (this.DAMIER[i][j]) {
+                  ret += "| |";
+                }
+                else {
+                  for (Pion p : listePion) {
+                    if (p.getCoordonnee().getX1() == i && p.getCoordonnee().getY1() == j) {
+                      icon = p.getCouleur().charAt(0);
+                    }
                   }
+                  ret += "|"+icon+"|";
                 }
               }
-              ret += "|"+icon+"|";
-            }
-            if (i % 2 == 1 && j % 2 == 1 && !this.DAMIER[i][j]) {
-              ret += ":";
-            }
-            else if (i % 2 == 1 && j % 2 == 1 && this.DAMIER[i][j]) {
-              ret += " ";
+              else {
+                if (this.DAMIER[i][j]) {
+                  ret += "  ";
+                }
+                else {
+                  ret += "::";
+                }
+              }
             }
             ret += "\n\t\t    -    -    -    -    -    -    -    -    -  \n";
-            icon = "";
           }
         }
       }
@@ -107,7 +123,33 @@ public class Plateau {
 
     public static void main(String[] args) {
       Plateau p = new Plateau(18);
-      System.out.println(p.toString(new ArrayList<Pion>(),null));
+      ArrayList<int[]> a = new ArrayList<int[]>();
+      int[] i = new int[2];
+      i[0] = 0;
+      i[1] = 1;
+      a.add(i);
+      int[] j = new int[2];
+      j[0] = 1;
+      j[1] = 1;
+      a.add(j);
+      int[] k = new int[2];
+      k[0] = 2;
+      k[1] = 1;
+      a.add(k);
+      int[] l = new int[2];
+      l[0] = 3;
+      l[1] = 2;
+      a.add(l);
+      int[] m = new int[2];
+      m[0] = 3;
+      m[1] = 3;
+      a.add(m);
+      int[] n = new int[2];
+      n[0] = 3;
+      n[1] = 4;
+      a.add(n);
+      p.setDisponibilite(a);
+      System.out.println(p.toString(new ArrayList<Pion>()));
     }
 
 
