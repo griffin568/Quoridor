@@ -144,7 +144,7 @@ public abstract class Joueur {
     /**
       * Permet au joueur de jouer
       */
-    public abstract void jeu();
+    public abstract Barriere jeu();
 
   /**
     * Dit si le joueur est humain

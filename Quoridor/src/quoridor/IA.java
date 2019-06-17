@@ -68,8 +68,10 @@ public class IA extends Joueur {
     /**
       * Permet à l'IA de jouer
       */
-    public void jeu() {
+    public Barriere jeu() {
+      Barriere ret = null;
 
+      return ret;
     }
 
   /**
