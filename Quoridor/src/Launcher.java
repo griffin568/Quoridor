@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Launcher {
 
     public static void main(String[] args) {
-      Partie test = new Partie(Mode.HH);
+      Partie test = new Partie(Mode.HH, "Texte");
       ArrayList<Pion> lesPions = new ArrayList<Pion>();
       System.out.println(test.getPlateau().toString(lesPions));
     }
