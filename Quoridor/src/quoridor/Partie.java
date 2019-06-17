@@ -105,18 +105,49 @@ public class Partie {
 
       // Créer les joueurs
         if (visuel.equals("Texte")) {
-          if (mode.equals(Mode.HH) || mode.equals(Mode.HI)) {
+          if ((mode.equals(Mode.HH)) || (mode.equals(Mode.HI)) || (mode.equals(Mode.II))) {
             ArrayList<Barriere> BarriereJ1 = new ArrayList<Barriere>();
             ArrayList<Barriere> BarriereJ2 = new ArrayList<Barriere>();
             ArrayList<String> lignes = RWFile.readFile("config2");
             this.plateau = new Plateau(Integer.parseInt(lignes.get(0)));
+            String[] coord1 = lignes.get(1).split(" ");
+            String[] coord2 = lignes.get(2).split(" ");
+
             for (int i = 0; i<= 10; i++) {
               BarriereJ1.add(new Barriere("O", this.plateau));
             }
             for (int i = 0; i <= 10; i++) {
               BarriereJ2.add(new Barriere("W", this.plateau));
             }
+
+            Coordonnee c1 = new Coordonnee(Integer.parseInt(coord1[0]),Integer.parseInt(coord1[1]), -1, -1);
+            Coordonnee c2 = new Coordonnee(Integer.parseInt(coord2[0]),Integer.parseInt(coord1[1]), -1, -1);
+
+            Joueur J1, J2;
+            if (mode.equals(Mode.HH)) {
+              J1 = new Humain("Joueur1",1,"O",BarriereJ1,new Pion("O",c1), this.plateau);
+              J2 = new Humain("Joueur2",1,"W",BarriereJ1,new Pion("W",c1), this.plateau);
+            }
+            else if (mode.equals(Mode.HI)) {
+              J1 = new Humain("Joueur1",1,"O",BarriereJ1,new Pion("O",c1), this.plateau);
+              J2 = new IA("IA1",1,"W",BarriereJ1,new Pion("W",c1), this.plateau,Difficulte.FACILE);
+            }
+            else {
+              J1 = new IA("Joueur1",1,"O",BarriereJ1,new Pion("O",c1), this.plateau,Difficulte.FACILE);
+              J2 = new IA("IA1",1,"W",BarriereJ1,new Pion("W",c1), this.plateau,Difficulte.FACILE);
+            }
+
+            ArrayList<int[]> aChanger = new ArrayList<int[]>();
+            int[] lesCoords1 = {Integer.parseInt(coord1[0]),Integer.parseInt(coord1[1])};
+            int[] lesCoords2 = {Integer.parseInt(coord2[0]),Integer.parseInt(coord1[1])};
+            aChanger.add(lesCoords1);
+            aChanger.add(lesCoords2);
+            this.plateau.setDisponibilite(aChanger);
+
+            this.joueurs.add(J1);
+            this.joueurs.add(J2);
           }
+
           else {
             ArrayList<Barriere> BarriereJ1 = new ArrayList<Barriere>();
             ArrayList<Barriere> BarriereJ2 = new ArrayList<Barriere>();
@@ -124,6 +155,10 @@ public class Partie {
             ArrayList<Barriere> BarriereJ4 = new ArrayList<Barriere>();
             ArrayList<String> lignes = RWFile.readFile("config4");
             this.plateau = new Plateau(Integer.parseInt(lignes.get(0)));
+            String[] coord1 = lignes.get(1).split(" ");
+            String[] coord2 = lignes.get(2).split(" ");
+            String[] coord3 = lignes.get(3).split(" ");
+            String[] coord4 = lignes.get(4).split(" ");
 
             for (int i = 0; i<= 5; i++) {
               BarriereJ1.add(new Barriere("O", this.plateau));
@@ -137,6 +172,22 @@ public class Partie {
             for (int i = 0; i<= 5; i++) {
               BarriereJ4.add(new Barriere("A", this.plateau));
             }
+
+            Coordonnee c1 = new Coordonnee(Integer.parseInt(coord1[0]),Integer.parseInt(coord1[1]), -1, -1);
+            Coordonnee c2 = new Coordonnee(Integer.parseInt(coord2[0]),Integer.parseInt(coord2[1]), -1, -1);
+            Coordonnee c3 = new Coordonnee(Integer.parseInt(coord3[0]),Integer.parseInt(coord3[1]), -1, -1);
+            Coordonnee c4 = new Coordonnee(Integer.parseInt(coord4[0]),Integer.parseInt(coord4[1]), -1, -1);
+
+            Joueur J1 = new Humain("Joueur1",1,"O",BarriereJ1,new Pion("O",c1), this.plateau);
+            Joueur J2 = new Humain("Joueur2",1,"W",BarriereJ1,new Pion("W",c1), this.plateau);
+            Joueur J3 = new Humain("Joueur3",1,"Z",BarriereJ1,new Pion("Z",c1), this.plateau);
+            Joueur J4 = new Humain("Joueur4",1,"A",BarriereJ1,new Pion("A",c1), this.plateau);
+
+            this.joueurs.add(J1);
+            this.joueurs.add(J2);
+            this.joueurs.add(J3);
+            this.joueurs.add(J4);
+
           }
         }
 
