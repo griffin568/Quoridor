@@ -65,6 +65,13 @@ public class IA extends Joueur {
 
     }
 
+    /**
+      * Permet à l'IA de jouer
+      */
+    public void jeu() {
+
+    }
+
   /**
   * Retourne la difficulté de l'IA
   * @return la difficulté de l'IA

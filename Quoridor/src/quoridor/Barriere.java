@@ -57,7 +57,8 @@ public class Barriere {
       * Modifie les coordonnées de la barrière
       * @param coordonnee les nouvelles coordonnées de la barrière
       */
-    public void setCoordonnee(Coordonnee coordonnee) {
+    public Barriere setCoordonnee(Coordonnee coordonnee) {
+      Barriere ret = null;
       try {
         if (coordonnee == null) {
           throw new Exception("Barriere setCoordonnee() - Les coordonnees a changer doivent exister.");
@@ -95,11 +96,15 @@ public class Barriere {
             aChanger.add(tab2);
             aChanger.add(tab3);
             this.plateau.setDisponibilite(aChanger);
+            ret = this;
           }
         }
       }
       catch(Exception e) {
         System.err.println();
+      }
+      finally {
+        return ret;
       }
     }
 }

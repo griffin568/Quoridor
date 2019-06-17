@@ -16,6 +16,7 @@ public abstract class Joueur {
     protected Pion pion;
     protected Plateau plateau;
     protected boolean humain;
+    protected Barriere derniereBarriere;
 
     /**
       * Créé un nouvel objet Humain
@@ -126,25 +127,38 @@ public abstract class Joueur {
       * Place une barrière aux coordonnées sélectionnées s'il en reste une au joueur
       * @param coordonnee les coordonnées où placer la barrière
       */
-    public void placerBarriere(Coordonnee coordonnee) {
+    public Barriere placerBarriere(Coordonnee coordonnee) {
+      Barriere ret = null;
       if (!(this.barrieres.isEmpty())) {
-        this.barrieres.get(0).setCoordonnee(coordonnee);
-        this.barrieres.remove(0);
+        Barriere aPlacer = this.barrieres.get(0).setCoordonnee(coordonnee);
+
+        if (aPlacer != null) {
+          this.barrieres.remove(aPlacer);
+          this.derniereBarriere = aPlacer;
+          ret = aPlacer;
+        }
       }
+      return ret;
     }
 
     /**
       * Permet au joueur de jouer
       */
-    public void jeu() {
+    public abstract void jeu();
 
-    }
-
-    /**
+  /**
     * Dit si le joueur est humain
     * @return vrai si le joueur est Humain, faux sinon
     */
     public boolean isHumain() {
       return this.humain;
+    }
+
+  /**
+    * Retourne la dernière barrière placée par le joueur
+    * @return la dernière barrière
+    */
+    public Barriere getDerniereBarriere() {
+      return this.derniereBarriere;
     }
 }
