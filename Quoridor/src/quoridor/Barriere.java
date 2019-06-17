@@ -74,14 +74,14 @@ public class Barriere {
           if (coordonnee.getX1() < coordonnee.getX2()) {
             x3 = coordonnee.getX2() - 1;
           }
-          else {
+          else if(coordonnee.getX1() > coordonnee.getX2()) {
             x3 = coordonnee.getX2() + 1;
           }
 
           if (coordonnee.getY1() < coordonnee.getY2()) {
             y3 = coordonnee.getY2() - 1;
           }
-          else {
+          else if (coordonnee.getY1() > coordonnee.getY2()) {
             y3 = coordonnee.getY2() + 1;
           }
 
