@@ -36,7 +36,16 @@ public class Humain extends Joueur {
         int[][] deplacementsPossibles = this.pion.getDeplacementPossibles();
         String nPosition = this.scanner.nextLine();
         boolean ok = false;
-        String[] letters = {"A","B","C","D","E","F","G","H","I"};
+        ArrayList<String> letters = new ArrayList<String>();
+        letters.add("A");
+        letters.add("B");
+        letters.add("C");
+        letters.add("D");
+        letters.add("E");
+        letters.add("F");
+        letters.add("G");
+        letters.add("H");
+        letters.add("I");
         while (!nPosition.trim().equalsIgnoreCase("pass") && !ok) {
           if (nPosition.trim().equalsIgnoreCase("help")) {
 
@@ -44,11 +53,14 @@ public class Humain extends Joueur {
           else if (nPosition.split(" ")[0].trim().equalsIgnoreCase("move")) {
             for (int[] deplacement : this.pion.getDeplacementPossibles()) {
               if (deplacement[0] == Integer.parseInt(nPosition.split(" ")[1].split(",")[0].split("(")[1].trim())) {
-                if (deplacement[1] == Array.asList(letters).indexOf(nPosition.split(" ")[1].split(",")[1].split(")")[0].trim())) {
-                  deplacerPion(new Coordonnee(Integer.parseInt(nPosition.split(" ")[1].split(",")[0].split("(")[1].trim())*2,Array.asList(letters).indexOf(nPosition.split(" ")[1].split(",")[1].split(")")[0].trim())*2,-1,-1));
+                if (deplacement[1] == letters.indexOf(nPosition.split(" ")[1].split(",")[1].split(")")[0].trim())) {
+                  deplacerPion(new Coordonnee(Integer.parseInt(nPosition.split(" ")[1].split(",")[0].split("(")[1].trim())*2,letters.indexOf(nPosition.split(" ")[1].split(",")[1].split(")")[0].trim())*2,-1,-1),this.plateau.getDamier());
                 }
               }
             }
+          }
+          else if (nPosition.split(" ")[0].trim().equalsIgnoreCase("wall")) {
+
           }
           else {
             nPosition = this.scanner.nextLine();

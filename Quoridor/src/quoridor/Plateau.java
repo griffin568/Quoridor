@@ -68,7 +68,13 @@ public class Plateau {
                 }
               }
             }
-            ret += "|"+icon+"|  ";
+            ret += "|"+icon+"|";
+            if (i % 2 == 1 && j % 2 == 1 && this.DAMIER[i][j]) {
+              ret += ":";
+            }
+            else if (i % 2 == 1 && j % 2 == 1 && !this.DAMIER[i][j]) {
+              ret += " ";
+            }
           }
           ret += "\n\t\t    -    -    -    -    -    -    -    -    -  \n";
           icon = "";
