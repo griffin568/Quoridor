@@ -8,6 +8,16 @@ import java.util.ArrayList;
   */
 public class Plateau {
 
+  public static final String ANSI_RESET = "\u001B[0m";
+  public static final String ANSI_BLACK = "\u001B[30m";
+  public static final String ANSI_RED = "\u001B[31m";
+  public static final String ANSI_GREEN = "\u001B[32m";
+  public static final String ANSI_YELLOW = "\u001B[33m";
+  public static final String ANSI_BLUE = "\u001B[34m";
+  public static final String ANSI_PURPLE = "\u001B[35m";
+  public static final String ANSI_CYAN = "\u001B[36m";
+  public static final String ANSI_WHITE = "\u001B[37m";
+
     private int TAILLE;
     private boolean[][] DAMIER;
 
@@ -52,30 +62,31 @@ public class Plateau {
     public String toString(ArrayList<Pion> listePion) {
       String ret = "";
       String[] letters = {"A","B","C","D","E","F","G","H","I"};
-      ret += "\t\t       1   2   3   4   5   6   7   8   9\n\t\t   ________________________________________";
+      ret += ANSI_CYAN + "\t\t       1   2   3   4   5   6   7   8   9";
+      ret += ANSI_CYAN + "\n\t\t   ________________________________________";
       for (int i = 0 ; i < this.TAILLE ; i++) {
         if (i > 0) {
-          ret += "|\n\t\t";
+          ret += ANSI_CYAN + "|\n\t\t";
         }
         else {
           ret += "\n\t\t";
         }
 
         if (i % 2 == 0) {
-          ret += letters[(int)(i/2)] + "  |   ";
+          ret += ANSI_CYAN + letters[(int)(i/2)] + "  |   ";
         }
         else {
           if (i == this.TAILLE - 1) {
-            ret  += "   ________________________________________";
+            ret  += ANSI_CYAN +  "   ________________________________________";
           }
           else {
-            ret += "   |   ";
+            ret += ANSI_CYAN +  "   |   ";
           }
         }
         for (int j = 0 ; j < this.TAILLE ; j++) {
           if (i % 2 == 0 && j % 2 == 0) {
             if (this.DAMIER[i][j]) {
-              ret += "X";
+              ret += ANSI_GREEN + "X";
             }
             else {
               for (Pion p : listePion) {
@@ -90,7 +101,7 @@ public class Plateau {
               ret += " ";
             }
             else {
-              ret += "/";
+              ret += ANSI_RED + "/";
             }
 
           }
@@ -99,7 +110,7 @@ public class Plateau {
               ret += "   ";
             }
             else {
-              ret += " / ";
+              ret += ANSI_RED +  " / ";
             }
           }
         }

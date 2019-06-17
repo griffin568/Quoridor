@@ -51,6 +51,9 @@ public class Humain extends Joueur {
           if (nPosition.trim().equalsIgnoreCase("help")) {
 
           }
+          else if (nPosition.trim().equalsIgnoreCase("showme")) {
+            System.out.println(this.pion.getCouleur().charAt(0));
+          }
           else if (nPosition.split(" ")[0].trim().equalsIgnoreCase("move")) {
             for (int[] deplacement : this.pion.getDeplacementPossibles()) {
               if (deplacement[0] == Integer.parseInt(nPosition.split(" ")[1].split(",")[0].split("(")[1].trim())) {
