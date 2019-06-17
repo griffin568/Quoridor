@@ -218,7 +218,15 @@ public class Plateau {
       n[1] = 4;
       a.add(n);
       p.setDisponibilite(a);
-      System.out.println(p.toString(new ArrayList<Pion>()));
+      ArrayList<Pion> t = new ArrayList<Pion>();
+      t.add(new Pion("O",new Coordonnee(2,2,-1,-1)));
+      ArrayList<int[]> b = new ArrayList<int[]>();
+      int[] o = new int[2];
+      o[0] = 2;
+      o[1] = 2;
+      b.add(o);
+      p.setDisponibilite(b);
+      System.out.println(p.toString(t));
     }
 
 
