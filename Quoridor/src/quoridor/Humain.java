@@ -34,7 +34,7 @@ public class Humain extends Joueur {
     public Barriere jeu() {
       Barriere ret = null;
       try {
-        int[][] deplacementsPossibles = this.pion.getDeplacementPossibles();
+        int[][] deplacementsPossibles = this.pion.getDeplacementPossibles(this.plateau.getDamier());
         String nPosition = this.scanner.nextLine();
         boolean ok = false;
         ArrayList<String> letters = new ArrayList<String>();
@@ -55,10 +55,12 @@ public class Humain extends Joueur {
             System.out.println(this.pion.getCouleur().charAt(0));
           }
           else if (nPosition.split(" ")[0].trim().equalsIgnoreCase("move")) {
-            for (int[] deplacement : this.pion.getDeplacementPossibles()) {
-              if (deplacement[0] == Integer.parseInt(nPosition.split(" ")[1].split(",")[0].split("(")[1].trim())) {
-                if (deplacement[1] == letters.indexOf(nPosition.split(" ")[1].split(",")[1].split(")")[0].trim())) {
-                  deplacerPion(new Coordonnee(Integer.parseInt(nPosition.split(" ")[1].split(",")[0].split("(")[1].trim())*2,letters.indexOf(nPosition.split(" ")[1].split(",")[1].split(")")[0].trim())*2,-1,-1),this.plateau.getDamier());
+            for (int[] deplacement : deplacementsPossibles) {
+              int x1 = (letters.indexOf(nPosition.split(" ")[1].split(",")[1].trim().split("")[0])) * 2;
+              int y1 = (Integer.parseInt(nPosition.split(" ")[1].split(",")[0].trim().split("")[1]) - 1) * 2;
+              if (deplacement[0] == x1) {
+                if (deplacement[1] == y1) {
+                  deplacerPion(new Coordonnee(x1,y1,-1,-1),this.plateau.getDamier());
                   ok = true;
                 }
               }
@@ -66,10 +68,10 @@ public class Humain extends Joueur {
           }
           else if (nPosition.split(" ")[0].trim().equalsIgnoreCase("wall")) {
             if (letters.contains(nPosition.split(" ")[1].split(",")[0].split("(")[1].trim())) {
-              int x1 = letters.indexOf(nPosition.split(" ")[2].split(",")[1].split(")")[0].trim());
-              int y1 = Integer.parseInt(nPosition.split(" ")[1].split(",")[0].split("(")[1].trim());
-              int x2 = letters.indexOf(nPosition.split(" ")[2].split(",")[1].split(")")[0].trim());
-              int y2 = Integer.parseInt(nPosition.split(" ")[1].split(",")[0].split("(")[1].trim());
+              int x1 = (letters.indexOf(nPosition.split(" ")[2].split(",")[1].trim().split("")[0])-1)*2;
+              int y1 = (Integer.parseInt(nPosition.split(" ")[1].split(",")[0].trim().split("")[1])-1)*2;
+              int x2 = (letters.indexOf(nPosition.split(" ")[2].split(",")[1].trim().split("")[0])-1)*2;
+              int y2 = (Integer.parseInt(nPosition.split(" ")[1].split(",")[0].trim().split("")[1])-1)*2;
               Barriere tmp = placerBarriere(new Coordonnee(x1,y1,x2,y2));
               if (tmp != null) {
                 ok = true;
@@ -78,10 +80,10 @@ public class Humain extends Joueur {
 
             }
             else {
-              int x1 = Integer.parseInt(nPosition.split(" ")[1].split(",")[0].split("(")[1].trim());
-              int y1 = letters.indexOf(nPosition.split(" ")[2].split(",")[1].split(")")[0].trim());
-              int x2 = Integer.parseInt(nPosition.split(" ")[1].split(",")[0].split("(")[1].trim());
-              int y2 = letters.indexOf(nPosition.split(" ")[2].split(",")[1].split(")")[0].trim());
+              int x1 = (Integer.parseInt(nPosition.split(" ")[1].split(",")[0].trim().split("")[1])-1)*2;
+              int y1 = (letters.indexOf(nPosition.split(" ")[2].split(",")[1].trim().split("")[0])-1)*2;
+              int x2 = (Integer.parseInt(nPosition.split(" ")[1].split(",")[0].trim().split("")[1])-1)*2;
+              int y2 = (letters.indexOf(nPosition.split(" ")[2].split(",")[1].trim().split("")[0])-1)*2;
               Barriere tmp = placerBarriere(new Coordonnee(x1,y1,x2,y2));
                if (tmp != null) {
                  ok = true;
@@ -93,10 +95,16 @@ public class Humain extends Joueur {
           else {
             nPosition = this.scanner.nextLine();
           }
+          if (!ok) {
+            nPosition = this.scanner.nextLine();
+          }
         }
       }
       catch (NumberFormatException e) {
         System.err.println("Erreur dans le format des coordonnees, tapez 'help' pour plus d'informations");
+      }
+      catch (IndexOutOfBoundsException ex) {
+        System.err.println("Erreur, indice en dehors du tableau");
       }
       finally {
         return ret;

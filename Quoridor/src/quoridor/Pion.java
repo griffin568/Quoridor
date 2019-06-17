@@ -72,7 +72,8 @@ public class Pion {
       * Retourne les différents déplacements possibles du pion
       * @return les différents déplacements possibles du pion sous la forme d'un tableau à deux dimensions
       */
-    public int[][] getDeplacementPossibles() {
+    public int[][] getDeplacementPossibles(boolean[][] damier) {
+        nextCoup(damier);
         return this.deplacementPossibles;
     }
 
@@ -87,11 +88,13 @@ public class Pion {
       for (int i = -2 ; i <= 2 ; i++) {
         for (int j = -2 ; j <= 2 ; j++) {
           if (i % 2 == 0 && j % 2 == 0) {
-            if (damier[x+i][y+j] == true && damier[x+((int)i/2)][y+((int)j/2)] == true) {
-              deplacement = new int[2];
-              deplacement[0] = x+i;
-              deplacement[1] = y+j;
-              temp.add(deplacement);
+            if (x+i >= 0 && x+i < damier.length && y+j >= 0 && y+j < damier.length) {
+              if (damier[x+i][y+j] == true && damier[x+((int)i/2)][y+((int)j/2)] == true) {
+                deplacement = new int[2];
+                deplacement[0] = x+i;
+                deplacement[1] = y+j;
+                temp.add(deplacement);
+              }
             }
           }
         }

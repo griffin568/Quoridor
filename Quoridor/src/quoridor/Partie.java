@@ -241,6 +241,7 @@ public class Partie {
         System.out.println(this.plateau.toString(listePion));
         for (Joueur j : this.joueurs) {
           j.jeu();
+          System.out.println(this.plateau.toString(listePion));
           fin();
         }
       }
