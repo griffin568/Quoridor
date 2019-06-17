@@ -127,15 +127,15 @@ public class Partie {
             Joueur J1, J2;
             if (mode.equals(Mode.HH)) {
               J1 = new Humain("Joueur1",1,"O",BarriereJ1,new Pion("O",c1), this.plateau);
-              J2 = new Humain("Joueur2",1,"W",BarriereJ1,new Pion("W",c1), this.plateau);
+              J2 = new Humain("Joueur2",1,"W",BarriereJ1,new Pion("W",c2), this.plateau);
             }
             else if (mode.equals(Mode.HI)) {
               J1 = new Humain("Joueur1",1,"O",BarriereJ1,new Pion("O",c1), this.plateau);
-              J2 = new IA("IA1",1,"W",BarriereJ1,new Pion("W",c1), this.plateau,Difficulte.FACILE);
+              J2 = new IA("IA1",1,"W",BarriereJ1,new Pion("W",c2), this.plateau,Difficulte.FACILE);
             }
             else {
               J1 = new IA("Joueur1",1,"O",BarriereJ1,new Pion("O",c1), this.plateau,Difficulte.FACILE);
-              J2 = new IA("IA1",1,"W",BarriereJ1,new Pion("W",c1), this.plateau,Difficulte.FACILE);
+              J2 = new IA("IA1",1,"W",BarriereJ1,new Pion("W",c2), this.plateau,Difficulte.FACILE);
             }
 
             ArrayList<int[]> aChanger = new ArrayList<int[]>();
