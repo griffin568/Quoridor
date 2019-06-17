@@ -16,7 +16,6 @@ public abstract class Joueur {
     protected Pion pion;
     protected Plateau plateau;
     protected boolean humain;
-    protected Barriere derniereBarriere;
 
     /**
       * Créé un nouvel objet Humain
@@ -134,7 +133,6 @@ public abstract class Joueur {
 
         if (aPlacer != null) {
           this.barrieres.remove(aPlacer);
-          this.derniereBarriere = aPlacer;
           ret = aPlacer;
         }
       }
@@ -152,13 +150,5 @@ public abstract class Joueur {
     */
     public boolean isHumain() {
       return this.humain;
-    }
-
-  /**
-    * Retourne la dernière barrière placée par le joueur
-    * @return la dernière barrière
-    */
-    public Barriere getDerniereBarriere() {
-      return this.derniereBarriere;
     }
 }
