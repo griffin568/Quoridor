@@ -31,7 +31,8 @@ public class Humain extends Joueur {
   /**
     * Permet au joueur de jouer à partir du terminal
     */
-    public void jeu() {
+    public Barriere jeu() {
+      Barriere ret = null;
       try {
         int[][] deplacementsPossibles = this.pion.getDeplacementPossibles();
         String nPosition = this.scanner.nextLine();
@@ -66,8 +67,10 @@ public class Humain extends Joueur {
               int y1 = Integer.parseInt(nPosition.split(" ")[1].split(",")[0].split("(")[1].trim());
               int x2 = letters.indexOf(nPosition.split(" ")[2].split(",")[1].split(")")[0].trim());
               int y2 = Integer.parseInt(nPosition.split(" ")[1].split(",")[0].split("(")[1].trim());
-              if (placerBarriere(new Coordonnee(x1,y1,x2,y2)) != null) {
+              Barriere tmp = placerBarriere(new Coordonnee(x1,y1,x2,y2));
+              if (tmp != null) {
                 ok = true;
+                ret = tmp;
               }
 
             }
@@ -76,8 +79,10 @@ public class Humain extends Joueur {
               int y1 = letters.indexOf(nPosition.split(" ")[2].split(",")[1].split(")")[0].trim());
               int x2 = Integer.parseInt(nPosition.split(" ")[1].split(",")[0].split("(")[1].trim());
               int y2 = letters.indexOf(nPosition.split(" ")[2].split(",")[1].split(")")[0].trim());
-               if (placerBarriere(new Coordonnee(x1,y1,x2,y2)) != null) {
+              Barriere tmp = placerBarriere(new Coordonnee(x1,y1,x2,y2));
+               if (tmp != null) {
                  ok = true;
+                 ret = tmp;
                }
             }
 
@@ -89,6 +94,9 @@ public class Humain extends Joueur {
       }
       catch (NumberFormatException e) {
         System.err.println("Erreur dans le format des coordonnees, tapez 'help' pour plus d'informations");
+      }
+      finally {
+        return ret;
       }
 
     }
