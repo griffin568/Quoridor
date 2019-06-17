@@ -51,60 +51,60 @@ public class Plateau {
     */
     public String toString(ArrayList<Pion> listePion) {
       String ret = "";
-      try  {
-        ret += "\n\n\n";
-        ret += "\t\t    1    2    3    4    5    6    7    8    9 \n";
-        String[] letters = {"A","B","C","D","E","F","G","H","I"};
-        char icon = 'F';
-        for (int i = 0 ; i < this.TAILLE ; i++) {
-          if (i % 2 == 1) {
-            ret += "\n\t\t";
-            for (int j = 0 ; j < this.TAILLE ; j++) {
-              if (this.DAMIER[i][j]) {
-                ret += "   ";
-              }
-              else {
-                ret += "::";
+      String[] letters = {"A","B","C","D","E","F","G","H","I"};
+      ret += "\t\t       1   2   3   4   5   6   7   8   9\n\t\t   ________________________________________";
+      for (int i = 0 ; i < this.TAILLE ; i++) {
+        if (i > 0) {
+          ret += "|\n\t\t";
+        }
+        else {
+          ret += "\n\t\t";
+        }
+
+        if (i % 2 == 0) {
+          ret += letters[(int)(i/2)] + "  |   ";
+        }
+        else {
+          if (i == this.TAILLE - 1) {
+            ret  += "   ________________________________________";
+          }
+          else {
+            ret += "   |   ";
+          }
+        }
+        for (int j = 0 ; j < this.TAILLE ; j++) {
+          if (i % 2 == 0 && j % 2 == 0) {
+            if (this.DAMIER[i][j]) {
+              ret += "X";
+            }
+            else {
+              for (Pion p : listePion) {
+                if (p.getCoordonnee().getX1() == i && p.getCoordonnee().getY1() == j) {
+                  ret += p.getCouleur();
+                }
               }
             }
           }
-          else {
-            ret += "\n\t\t    _    _    _    _    _    _    _    _    _  \n";
-            ret += "\t\t" + letters[(int)(i/2)] + "  ";
-            for (int j = 0 ; j < this.TAILLE ; j++) {
-              if (j % 2 == 0) {
-                if (this.DAMIER[i][j]) {
-                  ret += "| |";
-                }
-                else {
-                  for (Pion p : listePion) {
-                    if (p.getCoordonnee().getX1() == i && p.getCoordonnee().getY1() == j) {
-                      icon = p.getCouleur().charAt(0);
-                    }
-                  }
-                  ret += "|"+icon+"|";
-                }
-              }
-              else {
-                if (this.DAMIER[i][j]) {
-                  ret += "  ";
-                }
-                else {
-                  ret += "::";
-                }
-              }
+          else if (j % 2 == 0) {
+            if (this.DAMIER[i][j]) {
+              ret += " ";
             }
-            ret += "\n\t\t    -    -    -    -    -    -    -    -    -  \n";
+            else {
+              ret += "/";
+            }
+
+          }
+          else {
+            if (this.DAMIER[i][j]) {
+              ret += "   ";
+            }
+            else {
+              ret += " / ";
+            }
           }
         }
       }
-      catch (NullPointerException e) {
-        ret = "";
-        System.err.println("Erreur, liste de pions null");
-      }
-      finally {
-        return ret;
-      }
+      return ret;
     }
 
     /**
