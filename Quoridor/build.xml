@@ -4,7 +4,7 @@
     </description>
 
     <property name="srcQuori" location="src/quoridor"/>
-    <property name="build" location="build"/>
+    <property name="build" location="class"/>
     <property name="dist" location="dist"/>
     <property name="doc" location="doc"/>
     <property name="test.src.dir" value="src/test"/>
