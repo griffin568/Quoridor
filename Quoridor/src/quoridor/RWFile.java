@@ -1,7 +1,6 @@
-package utilities;
+package quoridor;
 import java.util.ArrayList;
 import java.io.*;
-import quoridor.*;
 
 public class RWFile {
 

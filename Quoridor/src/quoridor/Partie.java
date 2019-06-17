@@ -2,7 +2,6 @@ package quoridor;
 
 import java.util.ArrayList;
 import java.io.FileNotFoundException;
-import utilities.*;
 
 /**
   * Cette classe gère les différents aspect de la partie

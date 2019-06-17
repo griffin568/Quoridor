@@ -61,23 +61,25 @@ public class Plateau {
           ret += "\n\t\t    _    _    _    _    _    _    _    _    _  \n";
           ret += "\t\t" + letters[i] + "  ";
           for (int j = 0 ; j < this.TAILLE ; j++) {
-            for (Pion p : listePion) {
-              if (p.getCoordonnee().getX1() == i && p.getCoordonnee().getY1() == j) {
-                if (p.getCouleur().length() == 1) {
-                  icon = p.getCouleur();
+            if (i % 2 == 0 && j % 2 == 0 && !this.DAMIER[i][j]) {
+              for (Pion p : listePion) {
+                if (p.getCoordonnee().getX1() == i && p.getCoordonnee().getY1() == j) {
+                  if (p.getCouleur().length() == 1) {
+                    icon = p.getCouleur();
+                  }
                 }
               }
+              ret += "|"+icon+"|";
             }
-            ret += "|"+icon+"|";
-            if (i % 2 == 1 && j % 2 == 1 && this.DAMIER[i][j]) {
+            if (i % 2 == 1 && j % 2 == 1 && !this.DAMIER[i][j]) {
               ret += ":";
             }
-            else if (i % 2 == 1 && j % 2 == 1 && !this.DAMIER[i][j]) {
+            else if (i % 2 == 1 && j % 2 == 1 && this.DAMIER[i][j]) {
               ret += " ";
             }
+            ret += "\n\t\t    -    -    -    -    -    -    -    -    -  \n";
+            icon = "";
           }
-          ret += "\n\t\t    -    -    -    -    -    -    -    -    -  \n";
-          icon = "";
         }
       }
       catch (NullPointerException e) {
@@ -102,6 +104,11 @@ public class Plateau {
       public boolean[][] getDamier() {
         return this.DAMIER;
       }
+
+    public static void main(String[] args) {
+      Plateau p = new Plateau(18);
+      System.out.println(p.toString(new ArrayList<Pion>(),null));
+    }
 
 
 }

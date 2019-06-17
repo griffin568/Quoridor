@@ -4,7 +4,6 @@
     </description>
 
     <property name="srcQuori" location="src/quoridor"/>
-    <property name="srcUtil" location="src/utilities"/>
     <property name="build" location="build"/>
     <property name="dist" location="dist"/>
     <property name="doc" location="doc"/>
@@ -18,7 +17,6 @@
     </target>
 
     <target name="compile" depends="init" description="compile the source " >
-        <javac srcdir="${srcUtil}" destdir="${build}" includeantruntime="false"/>
         <javac srcdir="${srcQuori}" destdir="${build}" includeantruntime="false"/>
     </target>
 
