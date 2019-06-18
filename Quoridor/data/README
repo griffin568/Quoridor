@@ -1,14 +1,16 @@
-Règles du jeu :
+NB : les couleurs du plateau sous Linux sont plus lisibles en Dark Theme
 
-- Le joueur 1 possède le pion "O"
-- Le joueur 2 possède le pion "W"
-- Le joueur 3 possède le pion ""
-- Le joueur 4 possède le pion ""
+Rï¿½gles du jeu :
+
+- Le joueur 1 possï¿½de le pion "O"
+- Le joueur 2 possï¿½de le pion "W"
+- Le joueur 3 possï¿½de le pion ""
+- Le joueur 4 possï¿½de le pion ""
 
 - La commande 'showme' permet de savoir la couleur du joueur qui est en train de jouer
-- La commande 'move(<Coord1>,<Coord2>)' permet de déplacer son pion aux coordonées souhaitées.
-    - Exemple : move(2,B) permet de déplacer le pion en 2 B
-- La commande 'wall(<Coord1>,<Coord2>)(<Coord3>,<Coord4>)' permet de créer un mur commencant aux coordonées (Coord1,Coord2) et finnisant en (Coord3,Coord4)
-    - Exemple : wall(1,2)(A,B) permet de créer un mur vertical
-                wall(A,B)(1,2) permet de créer un mur horizontal
+- La commande 'move(<Coord1>,<Coord2>)' permet de dï¿½placer son pion aux coordonï¿½es souhaitï¿½es.
+    - Exemple : move(2,B) permet de dï¿½placer le pion en 2 B
+- La commande 'wall(<Coord1>,<Coord2>)(<Coord3>,<Coord4>)' permet de crï¿½er un mur commencant aux coordonï¿½es (Coord1,Coord2) et finnisant en (Coord3,Coord4)
+    - Exemple : wall(1,2)(A,B) permet de crï¿½er un mur vertical
+                wall(A,B)(1,2) permet de crï¿½er un mur horizontal
 - La commande 'nbWalls' permet de savoir le nombre de murs restants du joueur actuel.

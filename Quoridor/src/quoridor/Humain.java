@@ -49,7 +49,10 @@ public class Humain extends Joueur {
         letters.add("I");
         while (!nPosition.trim().equalsIgnoreCase("pass") && !ok) {
           if (nPosition.trim().equalsIgnoreCase("help")) {
-
+            ArrayList<String> help = RWFile.readFile("README");
+            for (String line : help) {
+              System.out.println(line);
+            }
           }
           else if (nPosition.trim().equalsIgnoreCase("showme")) {
             System.out.println(this.pion.getCouleur().charAt(0));
@@ -64,6 +67,9 @@ public class Humain extends Joueur {
                   ok = true;
                 }
               }
+            }
+            if (!ok) {
+              System.out.println("Impossible de déplacer le pion à cet endroit");
             }
           }
           else if (nPosition.split(" ")[0].trim().equalsIgnoreCase("wall")) {

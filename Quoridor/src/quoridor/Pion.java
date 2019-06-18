@@ -89,11 +89,21 @@ public class Pion {
         for (int j = -2 ; j <= 2 ; j++) {
           if (i % 2 == 0 && j % 2 == 0) {
             if (x+i >= 0 && x+i < damier.length && y+j >= 0 && y+j < damier.length) {
-              if (damier[x+i][y+j] == true && damier[x+((int)i/2)][y+((int)j/2)] == true) {
+              if (damier[x+i][y+j] && damier[x+((int)i/2)][y+((int)j/2)]) {
                 deplacement = new int[2];
                 deplacement[0] = x+i;
                 deplacement[1] = y+j;
                 temp.add(deplacement);
+              }
+              else if (!damier[x+i][y+j] && damier[x+((int)i/2)][y+((int)j/2)]) {
+                if (x+2*i >= 0 && x+2*i < damier.length && y+2*j >= 0 && y+2*j < damier.length) {
+                  if (damier[(int)x+3*i/2][(int)y+3*j/2] && damier[x+2*i][y+2*j]) {
+                    deplacement = new int[2];
+                    deplacement[0] = x+2*i;
+                    deplacement[1] = y+2*j;
+                    temp.add(deplacement);
+                  }
+                }
               }
             }
           }

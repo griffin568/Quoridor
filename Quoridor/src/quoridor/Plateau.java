@@ -57,123 +57,140 @@ public class Plateau {
   /**
     * Le plateau actuel en ASCII art
     * @param listePion la liste des pions à placer sur le terrain
+    * @param actif le pion du joueur en train de jouer
     * @return une String avec ces informations
     */
-    public String toString(ArrayList<Pion> listePion) {
+    public String toString(ArrayList<Pion> listePion , Pion actif) {
       String ret = "";
-      String[] letters = {"A","B","C","D","E","F","G","H","I"};
-      if (System.getProperty("os.name").equalsIgnoreCase("linux")) {
-        ret += ANSI_CYAN + "\t\t       1   2   3   4   5   6   7   8   9";
-        ret += ANSI_CYAN + "\n\t\t   ________________________________________";
-        for (int i = 0 ; i < this.TAILLE ; i++) {
-          if (i > 0) {
-            ret += ANSI_CYAN + "|\n\t\t";
-          }
-          else {
-            ret += "\n\t\t";
-          }
-
-          if (i % 2 == 0) {
-            ret += ANSI_CYAN + letters[(int)(i/2)] + "  |   ";
-          }
-          else {
-            if (i == this.TAILLE - 1) {
-              ret  += ANSI_CYAN +  "   ________________________________________";
+      try {
+        boolean yellow = false;
+        String[] letters = {"A","B","C","D","E","F","G","H","I"};
+        int[][] deplacementsPossibles = actif.getDeplacementPossibles(this.DAMIER);
+        if (System.getProperty("os.name").equalsIgnoreCase("linux")) {
+          ret += ANSI_CYAN + "\t\t       1   2   3   4   5   6   7   8   9";
+          ret += ANSI_CYAN + "\n\t\t   ________________________________________";
+          for (int i = 0 ; i < this.TAILLE ; i++) {
+            if (i > 0) {
+              ret += ANSI_CYAN + "|\n\t\t";
             }
             else {
-              ret += ANSI_CYAN +  "   |   ";
+              ret += "\n\t\t";
             }
-          }
-          for (int j = 0 ; j < this.TAILLE ; j++) {
-            if (i % 2 == 0 && j % 2 == 0) {
-              if (this.DAMIER[i][j]) {
-                ret += ANSI_GREEN + "X";
+
+            if (i % 2 == 0) {
+              ret += ANSI_CYAN + letters[(int)(i/2)] + "  |   ";
+            }
+            else {
+              if (i == this.TAILLE - 1) {
+                ret  += ANSI_CYAN +  "   ________________________________________";
               }
               else {
-                for (Pion p : listePion) {
-                  if (p.getCoordonnee().getX1() == i && p.getCoordonnee().getY1() == j) {
-                    ret += ANSI_WHITE + p.getCouleur();
+                ret += ANSI_CYAN +  "   |   ";
+              }
+            }
+            for (int j = 0 ; j < this.TAILLE ; j++) {
+              yellow = false;
+              if (i % 2 == 0 && j % 2 == 0) {
+                for (int[] tab : deplacementsPossibles) {
+                  if (tab[0] == i && tab[1] == j) {
+                    ret += ANSI_PURPLE + "X";
+                    yellow = true;
+                  }
+                }
+                if (this.DAMIER[i][j] && !yellow) {
+                  ret += ANSI_GREEN + "X";
+                }
+                else {
+                  for (Pion p : listePion) {
+                    if (p.getCoordonnee().getX1() == i && p.getCoordonnee().getY1() == j) {
+                      ret += ANSI_WHITE + p.getCouleur();
+                    }
                   }
                 }
               }
-            }
-            else if (j % 2 == 0) {
-              if (this.DAMIER[i][j]) {
-                ret += " ";
-              }
-              else {
-                ret += ANSI_RED + "/";
-              }
+              else if (j % 2 == 0) {
+                if (this.DAMIER[i][j]) {
+                  ret += " ";
+                }
+                else {
+                  ret += ANSI_RED + "/";
+                }
 
-            }
-            else {
-              if (this.DAMIER[i][j]) {
-                ret += "   ";
               }
               else {
-                ret += ANSI_RED +  " / ";
+                if (this.DAMIER[i][j]) {
+                  ret += "   ";
+                }
+                else {
+                  ret += ANSI_RED +  " / ";
+                }
               }
             }
           }
         }
-      }
-      else {
-        ret += "\t\t       1   2   3   4   5   6   7   8   9";
-        ret += "\n\t\t   ________________________________________";
-        for (int i = 0 ; i < this.TAILLE ; i++) {
-          if (i > 0) {
-            ret +="|\n\t\t";
-          }
-          else {
-            ret += "\n\t\t";
-          }
-
-          if (i % 2 == 0) {
-            ret += letters[(int)(i/2)] + "  |   ";
-          }
-          else {
-            if (i == this.TAILLE - 1) {
-              ret  += "   ________________________________________";
+        else {
+          ret += "\t\t       1   2   3   4   5   6   7   8   9";
+          ret += "\n\t\t   ________________________________________";
+          for (int i = 0 ; i < this.TAILLE ; i++) {
+            if (i > 0) {
+              ret +="|\n\t\t";
             }
             else {
-              ret += "   |   ";
+              ret += "\n\t\t";
             }
-          }
-          for (int j = 0 ; j < this.TAILLE ; j++) {
-            if (i % 2 == 0 && j % 2 == 0) {
-              if (this.DAMIER[i][j]) {
-                ret += "X";
+
+            if (i % 2 == 0) {
+              ret += letters[(int)(i/2)] + "  |   ";
+            }
+            else {
+              if (i == this.TAILLE - 1) {
+                ret  += "   ________________________________________";
               }
               else {
-                for (Pion p : listePion) {
-                  if (p.getCoordonnee().getX1() == i && p.getCoordonnee().getY1() == j) {
-                    ret += p.getCouleur();
+                ret += "   |   ";
+              }
+            }
+            for (int j = 0 ; j < this.TAILLE ; j++) {
+              if (i % 2 == 0 && j % 2 == 0) {
+                if (this.DAMIER[i][j]) {
+                  ret += "X";
+                }
+                else {
+                  for (Pion p : listePion) {
+                    if (p.getCoordonnee().getX1() == i && p.getCoordonnee().getY1() == j) {
+                      ret += p.getCouleur();
+                    }
                   }
                 }
               }
-            }
-            else if (j % 2 == 0) {
-              if (this.DAMIER[i][j]) {
-                ret += " ";
-              }
-              else {
-                ret += "/";
-              }
+              else if (j % 2 == 0) {
+                if (this.DAMIER[i][j]) {
+                  ret += " ";
+                }
+                else {
+                  ret += "/";
+                }
 
-            }
-            else {
-              if (this.DAMIER[i][j]) {
-                ret += "   ";
               }
               else {
-                ret += " / ";
+                if (this.DAMIER[i][j]) {
+                  ret += "   ";
+                }
+                else {
+                  ret += " / ";
+                }
               }
             }
           }
-        }
 
+        }
       }
-      return ret;
+      catch (Exception e) {
+        System.err.println(e.getMessage());
+      }
+      finally {
+        return ret;
+      }
     }
 
     /**
@@ -190,44 +207,6 @@ public class Plateau {
         return this.DAMIER;
       }
 
-    public static void main(String[] args) {
-      Plateau p = new Plateau(18);
-      ArrayList<int[]> a = new ArrayList<int[]>();
-      int[] i = new int[2];
-      i[0] = 0;
-      i[1] = 1;
-      a.add(i);
-      int[] j = new int[2];
-      j[0] = 1;
-      j[1] = 1;
-      a.add(j);
-      int[] k = new int[2];
-      k[0] = 2;
-      k[1] = 1;
-      a.add(k);
-      int[] l = new int[2];
-      l[0] = 3;
-      l[1] = 2;
-      a.add(l);
-      int[] m = new int[2];
-      m[0] = 3;
-      m[1] = 3;
-      a.add(m);
-      int[] n = new int[2];
-      n[0] = 3;
-      n[1] = 4;
-      a.add(n);
-      p.setDisponibilite(a);
-      ArrayList<Pion> t = new ArrayList<Pion>();
-      t.add(new Pion("O",new Coordonnee(2,2,-1,-1)));
-      ArrayList<int[]> b = new ArrayList<int[]>();
-      int[] o = new int[2];
-      o[0] = 2;
-      o[1] = 2;
-      b.add(o);
-      p.setDisponibilite(b);
-      System.out.println(p.toString(t));
-    }
 
 
 }

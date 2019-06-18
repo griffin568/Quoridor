@@ -301,11 +301,10 @@ public class Partie {
       for (Joueur j : this.joueurs) {
         listePion.add(j.getPion());
       }
-      System.out.println(this.plateau.toString(listePion));
       while (true) {
         for (Joueur j : this.joueurs) {
+          System.out.println(this.plateau.toString(listePion,j.getPion()));
           j.jeu();
-          System.out.println(this.plateau.toString(listePion));
           fin();
         }
       }
