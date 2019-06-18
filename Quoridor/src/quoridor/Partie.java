@@ -107,10 +107,10 @@ public class Partie {
             ArrayList<Barriere> barriere1 = new ArrayList<Barriere>();
             ArrayList<Barriere> barriere2 = new ArrayList<Barriere>();
 
-            for (int j = 0; j <= Integer.parseInt(lesBarrieres[0]); j++) {
+            for (int j = 0; j < Integer.parseInt(lesBarrieres[0]); j++) {
               barriere1.add(new Barriere(couleur1, this.plateau));
             }
-            for (int j = 0; j <= Integer.parseInt(lesBarrieres[1]); j++) {
+            for (int j = 0; j < Integer.parseInt(lesBarrieres[1]); j++) {
               barriere2.add(new Barriere(couleur2, this.plateau));
             }
 
@@ -181,16 +181,16 @@ public class Partie {
             ArrayList<Barriere> barriere3 = new ArrayList<Barriere>();
             ArrayList<Barriere> barriere4 = new ArrayList<Barriere>();
 
-            for (int j = 0; j <= Integer.parseInt(lesBarrieres[0]); j++) {
+            for (int j = 0; j < Integer.parseInt(lesBarrieres[0]); j++) {
               barriere1.add(new Barriere(couleur1, this.plateau));
             }
-            for (int j = 0; j <= Integer.parseInt(lesBarrieres[1]); j++) {
+            for (int j = 0; j < Integer.parseInt(lesBarrieres[1]); j++) {
               barriere2.add(new Barriere(couleur2, this.plateau));
             }
-            for (int j = 0; j <= Integer.parseInt(lesBarrieres[2]); j++) {
+            for (int j = 0; j < Integer.parseInt(lesBarrieres[2]); j++) {
               barriere3.add(new Barriere(couleur3, this.plateau));
             }
-            for (int j = 0; j <= Integer.parseInt(lesBarrieres[3]); j++) {
+            for (int j = 0; j < Integer.parseInt(lesBarrieres[3]); j++) {
               barriere4.add(new Barriere(couleur4, this.plateau));
             }
 
