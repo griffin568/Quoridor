@@ -20,19 +20,16 @@ public class MainFrame extends JFrame {
     *
     */
   public MainFrame() {
-    super("Quoridor");
-
-    this.setIconImage(new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/data/Logo.png"))).getImage());
+    this.setIconImage(new ImageIcon("../data/Logo.jpg").getImage());
     this.getContentPane().setLayout(new BorderLayout());
     this.setDefaultCloseOperation(EXIT_ON_CLOSE);
     this.initComponents();
-
-    this.pack();
-    this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-    this.setUndecorated(true);
+    System.out.println("TEST");
+    //this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+    this.setSize(1300, 650);
+    //this.setUndecorated(true);
     this.setVisible(true);
     this.setResizable(false);
-
   }
 
   /**
@@ -57,21 +54,21 @@ public class MainFrame extends JFrame {
     this.switchablePanel.add(this.partie4Joueurs, "Partie 4 Joueurs");
 
     this.switchableCL = (CardLayout)(this.switchablePanel.getLayout());
-  this.switchableCL.show(this.switchablePanel, "Accueuil");
+    this.switchableCL.show(this.switchablePanel, "Accueuil");
   }
 
 
   /**
-    * Returns the switchable panel.
-    * @return the switchable panel
+    * Retourne le panel échangeable
+    * @return le panel échangeable
   */
   public JPanel getSwitchablePanel() {
     return this.switchablePanel;
   }
 
   /**
-    * Returns the switchable panel's CardLayout, needed to actually change the panels.
-    * @return the switchable panel's CardLayout
+    * Rend le panel qui est actuellement affiché à l'écran
+    * @return le panel actuel
   */
   public CardLayout getSwitchableCL() {
     return this.switchableCL;
