@@ -152,6 +152,12 @@ public class Plateau {
             }
             for (int j = 0 ; j < this.TAILLE ; j++) {
               if (i % 2 == 0 && j % 2 == 0) {
+                for (int[] tab : deplacementsPossibles) {
+                  if (tab[0] == i && tab[1] == j) {
+                    ret +=  "§";
+                    yellow = true;
+                  }
+                }
                 if (this.DAMIER[i][j]) {
                   ret += "X";
                 }
