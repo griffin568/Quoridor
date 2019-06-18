@@ -105,4 +105,22 @@ public class IA extends Joueur {
   public int[][] getPlusCourtChemin() {
     return plusCourtChemin;
   }
+
+  /**
+    * Change la difficulté de l'IA
+    * @param diff la nouvelle difficulté que l'on souhaite mettre à l'IA.
+    */
+  public void setDifficulte(Difficulte diff) {
+    try {
+      if (diff == null) {
+        throw new Exception("IA setDifficulte() - la difficulté n'est pas valide.");
+      }
+      else {
+        this.DIFFICULTE = diff;
+      }
+    }
+    catch(Exception e) {
+      System.err.println();
+    }
+  }
 }

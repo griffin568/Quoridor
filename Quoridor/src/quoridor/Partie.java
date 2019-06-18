@@ -72,12 +72,12 @@ public class Partie {
           throw new Exception("Partie constructeur - Le nom du fichier doit être valide pour pouvoir être utilisé.");
         }
         else {
+          this.joueurs = new ArrayList<Joueur>();
           ArrayList<String> lignes = RWFile.readFile(filename);
           String[] lesJoueurs = lignes.get(0).split(";"); // La liste des joueurs sous forme de String
           String[] lesPions = lignes.get(1).split(";"); // La liste des joueurs sous forme de String
           String[] lesBarrieres = lignes.get(2).split(";"); // La liste des barrieres sous forme de String
           String[] leReste = lignes.get(3).split(";"); // Le reste des informations (n° de tour & tour du premier joueur) sous forme de String
-
           ArrayList<String[]> desJoueurs = new ArrayList<String[]>(); // Liste de toutes les informations de chaque joueur
           int i = 0;
 
@@ -85,29 +85,32 @@ public class Partie {
             desJoueurs.add(j.split(" "));
             i++;
           }
-
-
-
+          this.tour = Integer.parseInt(leReste[0]);
 
           if (i == 2) {
             //Création des pions
             String[] pion1 = lesPions[0].split(" ");
             String[] pion2 = lesPions[1].split(" ");
+
             String couleur1 = pion1[0];
             String couleur2 = pion2[0];
+
             Coordonnee coord1 = new Coordonnee(Integer.parseInt(pion1[1]), Integer.parseInt(pion1[2]), -1, -1);
-            Coordonnee coord2 = new Coordonnee(Integer.parseInt(pion2[1]), Integer.parseInt(pion2[2]), -1, -1);;
-            Pion p1 = new Pion(couleur1, coord1);
-            Pion p2 = new Pion(couleur2, coord2);
+            Coordonnee coord2 = new Coordonnee(Integer.parseInt(pion2[1]), Integer.parseInt(pion2[2]), -1, -1);
+
+            Coordonnee coord1B = new Coordonnee(0, 8, -1 ,-1);
+            Coordonnee coord2B = new Coordonnee(16, 8, -1 ,-1);
+
+            Pion p1 = new Pion(couleur1, coord1B);
+            Pion p2 = new Pion(couleur2, coord2B);
 
             ArrayList<Barriere> barriere1 = new ArrayList<Barriere>();
             ArrayList<Barriere> barriere2 = new ArrayList<Barriere>();
 
-            for (int j = 0; i <= Integer.parseInt(lesBarrieres[0]); j++) {
+            for (int j = 0; j <= Integer.parseInt(lesBarrieres[0]); j++) {
               barriere1.add(new Barriere(couleur1, this.plateau));
             }
-
-            for (int j = 0; i <= Integer.parseInt(lesBarrieres[1]); j++) {
+            for (int j = 0; j <= Integer.parseInt(lesBarrieres[1]); j++) {
               barriere2.add(new Barriere(couleur2, this.plateau));
             }
 
@@ -117,35 +120,194 @@ public class Partie {
             String nom1 = joueur1[0];
             String nom2 = joueur2[0];
 
+            Joueur J1, J2;
             if (joueur1[1].equals("H") && joueur2[1].equals("H")) {
               this.mode = Mode.HH;
+              J1 = new Humain(nom1, 1, couleur1, barriere1, p1, this.plateau);
+              J2 = new Humain(nom2, 2, couleur2, barriere2, p2, this.plateau);
             }
             else if (joueur1[1].equals("H") && joueur2[1].equals("IA")) {
               this.mode = Mode.HI;
+              J1 = new Humain(nom1, 1, couleur1, barriere1, p1, this.plateau);
+              J2 = new IA(nom2, 2, couleur2, barriere2, p2, this.plateau, Difficulte.FACILE);
             }
             else {
               this.mode = Mode.II;
+              J1 = new IA(nom1, 1, couleur1, barriere1, p1, this.plateau, Difficulte.FACILE);
+              J2 = new IA(nom2, 2, couleur2, barriere2, p2, this.plateau, Difficulte.FACILE);
             }
+
+            if (leReste[1].equals("1")) {
+              this.joueurs.add(J1);
+              this.joueurs.add(J2);
+            }
+            else {
+              this.joueurs.add(J2);
+              this.joueurs.add(J1);
+            }
+
+            J1.deplacerPion(coord1, this.plateau.getDamier());
+            J2.deplacerPion(coord2, this.plateau.getDamier());
           }
 
           else {
+            String[] pion1 = lesPions[0].split(" ");
+            String[] pion2 = lesPions[1].split(" ");
+            String[] pion3 = lesPions[2].split(" ");
+            String[] pion4 = lesPions[3].split(" ");
+
+            String couleur1 = pion1[0];
+            String couleur2 = pion2[0];
+            String couleur3 = pion3[0];
+            String couleur4 = pion4[0];
+
+            Coordonnee coord1 = new Coordonnee(Integer.parseInt(pion1[1]), Integer.parseInt(pion1[2]), -1, -1);
+            Coordonnee coord2 = new Coordonnee(Integer.parseInt(pion2[1]), Integer.parseInt(pion2[2]), -1, -1);
+            Coordonnee coord3 = new Coordonnee(Integer.parseInt(pion3[1]), Integer.parseInt(pion3[2]), -1, -1);
+            Coordonnee coord4 = new Coordonnee(Integer.parseInt(pion4[1]), Integer.parseInt(pion4[2]), -1, -1);
+
+            Coordonnee coord1B = new Coordonnee(0, 8, -1 ,-1);
+            Coordonnee coord2B = new Coordonnee(16, 8, -1 ,-1);
+            Coordonnee coord3B = new Coordonnee(8, 0, -1 ,-1);
+            Coordonnee coord4B = new Coordonnee(8, 16, -1 ,-1);
+
+            Pion p1 = new Pion(couleur1, coord1);
+            Pion p2 = new Pion(couleur2, coord2);
+            Pion p3 = new Pion(couleur3, coord3);
+            Pion p4 = new Pion(couleur4, coord4);
+
+            ArrayList<Barriere> barriere1 = new ArrayList<Barriere>();
+            ArrayList<Barriere> barriere2 = new ArrayList<Barriere>();
+            ArrayList<Barriere> barriere3 = new ArrayList<Barriere>();
+            ArrayList<Barriere> barriere4 = new ArrayList<Barriere>();
+
+            for (int j = 0; j <= Integer.parseInt(lesBarrieres[0]); j++) {
+              barriere1.add(new Barriere(couleur1, this.plateau));
+            }
+            for (int j = 0; j <= Integer.parseInt(lesBarrieres[1]); j++) {
+              barriere2.add(new Barriere(couleur2, this.plateau));
+            }
+            for (int j = 0; j <= Integer.parseInt(lesBarrieres[2]); j++) {
+              barriere3.add(new Barriere(couleur3, this.plateau));
+            }
+            for (int j = 0; j <= Integer.parseInt(lesBarrieres[3]); j++) {
+              barriere4.add(new Barriere(couleur4, this.plateau));
+            }
+
             String[] joueur1 = desJoueurs.get(0);
             String[] joueur2 = desJoueurs.get(1);
             String[] joueur3 = desJoueurs.get(2);
             String[] joueur4 = desJoueurs.get(3);
 
+            String nom1 = joueur1[0];
+            String nom2 = joueur2[0];
+            String nom3 = joueur3[0];
+            String nom4 = joueur4[0];
 
+            Joueur J1, J2, J3, J4;
+            if (joueur1[1].equals("H") && joueur2[1].equals("H") && joueur3[1].equals("H") && joueur4[1].equals("H")) {
+              this.mode = Mode.HHHH;
+              J1 = new Humain(nom1, 1, couleur1, barriere1, p1, this.plateau);
+              J2 = new Humain(nom2, 2, couleur2, barriere2, p2, this.plateau);
+              J3 = new Humain(nom3, 3, couleur3, barriere3, p3, this.plateau);
+              J4 = new Humain(nom4, 4, couleur4, barriere4, p4, this.plateau);
+            }
+            else if (joueur1[1].equals("H") && joueur2[1].equals("H") && joueur3[1].equals("H") && joueur4[1].equals("IA")) {
+              J1 = new Humain(nom1, 1, couleur1, barriere1, p1, this.plateau);
+              J2 = new Humain(nom2, 2, couleur2, barriere2, p2, this.plateau);
+              J3 = new Humain(nom3, 3, couleur3, barriere3, p3, this.plateau);
+              J4 = new IA(nom4, 4, couleur4, barriere4, p4, this.plateau, Difficulte.FACILE);
+            }
+            else if (joueur1[1].equals("H") && joueur2[1].equals("H") && joueur3[1].equals("IA") && joueur4[1].equals("IA")) {
+              J1 = new Humain(nom1, 1, couleur1, barriere1, p1, this.plateau);
+              J2 = new Humain(nom2, 2, couleur2, barriere2, p2, this.plateau);
+              J3 = new IA(nom3, 3, couleur3, barriere3, p3, this.plateau, Difficulte.FACILE);
+              J4 = new IA(nom4, 4, couleur4, barriere4, p4, this.plateau, Difficulte.FACILE);
+            }
+            else if (joueur1[1].equals("H") && joueur2[1].equals("IA") && joueur3[1].equals("IA") && joueur4[1].equals("IA")) {
+              J1 = new Humain(nom1, 1, couleur1, barriere1, p1, this.plateau);
+              J2 = new IA(nom2, 2, couleur2, barriere2, p2, this.plateau, Difficulte.FACILE);
+              J3 = new IA(nom3, 3, couleur3, barriere4, p3, this.plateau, Difficulte.FACILE);
+              J4 = new IA(nom4, 4, couleur4, barriere4, p4, this.plateau, Difficulte.FACILE);
+            }
+            else {
+              J1 = new IA(nom1, 1, couleur1, barriere1, p1, this.plateau, Difficulte.FACILE);
+              J2 = new IA(nom2, 2, couleur2, barriere2, p2, this.plateau, Difficulte.FACILE);
+              J3 = new IA(nom3, 3, couleur3, barriere4, p3, this.plateau, Difficulte.FACILE);
+              J4 = new IA(nom4, 4, couleur4, barriere4, p4, this.plateau, Difficulte.FACILE);
+            }
+
+            if (leReste[1].equals("1")) {
+              this.joueurs.add(J1);
+              this.joueurs.add(J2);
+              this.joueurs.add(J3);
+              this.joueurs.add(J4);
+            }
+            else if (leReste[1].equals("2")) {
+              this.joueurs.add(J2);
+              this.joueurs.add(J3);
+              this.joueurs.add(J4);
+              this.joueurs.add(J1);
+            }
+            else if (leReste[1].equals("3")) {
+              this.joueurs.add(J3);
+              this.joueurs.add(J4);
+              this.joueurs.add(J1);
+              this.joueurs.add(J2);
+            }
+            else {
+              this.joueurs.add(J4);
+              this.joueurs.add(J1);
+              this.joueurs.add(J2);
+              this.joueurs.add(J3);
+            }
+            J1.deplacerPion(coord1, this.plateau.getDamier());
+            J2.deplacerPion(coord2, this.plateau.getDamier());
+            J3.deplacerPion(coord3, this.plateau.getDamier());
+            J4.deplacerPion(coord4, this.plateau.getDamier());
           }
 
+          i = 0;
+          for (String j : lesJoueurs) {
+            String[] lesInfos = j.split(" ");
+            if(lesInfos.length > 3) {
+              if (lesInfos[3].equals("FACILE")) {
+                ((IA)this.joueurs.get(i)).setDifficulte(Difficulte.FACILE);
+              }
+              else if (lesInfos[3].equals("MOYEN")) {
+                ((IA)this.joueurs.get(i)).setDifficulte(Difficulte.MOYEN);
+              }
+              else if (lesInfos[3].equals("DIFFICILE")) {
+                ((IA)this.joueurs.get(i)).setDifficulte(Difficulte.DIFFICILE);
+              }
+              else {
+                ((IA)this.joueurs.get(i)).setDifficulte(Difficulte.IMPOSSIBLE);
+              }
+            }
+            i++;
+          }
+
+          for (String b : lesBarrieres) {
+            if (b.length() > 3) {
+              String[] lesInfos = b.split(" ");
+              String couleur = lesInfos[0];
+              Coordonnee coord = new Coordonnee(Integer.parseInt(lesInfos[1]), Integer.parseInt(lesInfos[2]), Integer.parseInt(lesInfos[3]), Integer.parseInt(lesInfos[4]));
+              Barriere laBarriere = new Barriere(couleur, this.plateau);
+              laBarriere.setCoordonnee(coord);
+              addBarriere(laBarriere);
+            }
+          }
         }
       }
       catch(FileNotFoundException e) {
         System.err.println("Partie construceur - Fichier non trouvé (" + filename + ")");
       }
+      catch (IndexOutOfBoundsException e) {
+        System.err.println("IndexOutOfBoundsException");
+      }
       catch(Exception e) {
         System.err.println(e.getMessage());
       }
-
     }
 
     /**
@@ -178,10 +340,10 @@ public class Partie {
             String[] coord1 = lignes.get(1).split(" ");
             String[] coord2 = lignes.get(2).split(" ");
 
-            for (int i = 0; i<= 10; i++) {
+            for (int i = 0; i< 10; i++) {
               BarriereJ1.add(new Barriere("O", this.plateau));
             }
-            for (int i = 0; i <= 10; i++) {
+            for (int i = 0; i < 10; i++) {
               BarriereJ2.add(new Barriere("W", this.plateau));
             }
 
@@ -191,15 +353,15 @@ public class Partie {
             Joueur J1, J2;
             if (mode.equals(Mode.HH)) {
               J1 = new Humain("Joueur1",1,"O",BarriereJ1,new Pion("O",c1), this.plateau);
-              J2 = new Humain("Joueur2",1,"W",BarriereJ1,new Pion("W",c2), this.plateau);
+              J2 = new Humain("Joueur2",1,"W",BarriereJ2,new Pion("W",c2), this.plateau);
             }
             else if (mode.equals(Mode.HI)) {
               J1 = new Humain("Joueur1",1,"O",BarriereJ1,new Pion("O",c1), this.plateau);
-              J2 = new IA("IA1",1,"W",BarriereJ1,new Pion("W",c2), this.plateau,Difficulte.FACILE);
+              J2 = new IA("IA1",1,"W",BarriereJ2,new Pion("W",c2), this.plateau,Difficulte.FACILE);
             }
             else {
               J1 = new IA("Joueur1",1,"O",BarriereJ1,new Pion("O",c1), this.plateau,Difficulte.FACILE);
-              J2 = new IA("IA1",1,"W",BarriereJ1,new Pion("W",c2), this.plateau,Difficulte.FACILE);
+              J2 = new IA("IA1",1,"W",BarriereJ2,new Pion("W",c2), this.plateau,Difficulte.FACILE);
             }
 
             ArrayList<int[]> aChanger = new ArrayList<int[]>();
@@ -225,16 +387,16 @@ public class Partie {
             String[] coord3 = lignes.get(3).split(" ");
             String[] coord4 = lignes.get(4).split(" ");
 
-            for (int i = 0; i<= 5; i++) {
+            for (int i = 0; i< 5; i++) {
               BarriereJ1.add(new Barriere("O", this.plateau));
             }
-            for (int i = 0; i<= 5; i++) {
+            for (int i = 0; i< 5; i++) {
               BarriereJ2.add(new Barriere("W", this.plateau));
             }
-            for (int i = 0; i<= 5; i++) {
+            for (int i = 0; i< 5; i++) {
               BarriereJ3.add(new Barriere("Z", this.plateau));
             }
-            for (int i = 0; i<= 5; i++) {
+            for (int i = 0; i< 5; i++) {
               BarriereJ4.add(new Barriere("A", this.plateau));
             }
 
@@ -244,9 +406,9 @@ public class Partie {
             Coordonnee c4 = new Coordonnee(Integer.parseInt(coord4[0]),Integer.parseInt(coord4[1]), -1, -1);
 
             Joueur J1 = new Humain("Joueur1",1,"O",BarriereJ1,new Pion("O",c1), this.plateau);
-            Joueur J2 = new Humain("Joueur2",1,"W",BarriereJ1,new Pion("W",c1), this.plateau);
-            Joueur J3 = new Humain("Joueur3",1,"Z",BarriereJ1,new Pion("Z",c1), this.plateau);
-            Joueur J4 = new Humain("Joueur4",1,"A",BarriereJ1,new Pion("A",c1), this.plateau);
+            Joueur J2 = new Humain("Joueur2",1,"W",BarriereJ2,new Pion("W",c1), this.plateau);
+            Joueur J3 = new Humain("Joueur3",1,"Z",BarriereJ3,new Pion("Z",c1), this.plateau);
+            Joueur J4 = new Humain("Joueur4",1,"A",BarriereJ4,new Pion("A",c1), this.plateau);
 
             this.joueurs.add(J1);
             this.joueurs.add(J2);
@@ -304,7 +466,10 @@ public class Partie {
       while (true) {
         for (Joueur j : this.joueurs) {
           System.out.println(this.plateau.toString(listePion,j.getPion()));
-          j.jeu();
+          Barriere b = j.jeu();
+          if (b != null) {
+            addBarriere(b);
+          }
           fin();
         }
       }
