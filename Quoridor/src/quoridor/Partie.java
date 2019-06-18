@@ -73,7 +73,11 @@ public class Partie {
         }
         else {
           ArrayList<String> lignes = RWFile.readFile(filename);
-          String[] lesJoueurs = lignes[0].split(";"); // La liste des joueurs sous forme de String
+          String[] lesJoueurs = lignes.get(0).split(";"); // La liste des joueurs sous forme de String
+          String[] lesPions = lignes.get(1).split(";"); // La liste des joueurs sous forme de String
+          String[] lesBarrieres = lignes.get(2).split(";"); // La liste des barrieres sous forme de String
+          String[] leReste = lignes.get(3).split(";"); // Le reste des informations (n° de tour & tour du premier joueur) sous forme de String
+
           ArrayList<String[]> desJoueurs = new ArrayList<String[]>(); // Liste de toutes les informations de chaque joueur
           int i = 0;
 
@@ -82,16 +86,55 @@ public class Partie {
             i++;
           }
 
+
+
+
           if (i == 2) {
+            //Création des pions
+            String[] pion1 = lesPions[0].split(" ");
+            String[] pion2 = lesPions[1].split(" ");
+            String couleur1 = pion1[0];
+            String couleur2 = pion2[0];
+            Coordonnee coord1 = new Coordonnee(Integer.parseInt(pion1[1]), Integer.parseInt(pion1[2]), -1, -1);
+            Coordonnee coord2 = new Coordonnee(Integer.parseInt(pion2[1]), Integer.parseInt(pion2[2]), -1, -1);;
+            Pion p1 = new Pion(couleur1, coord1);
+            Pion p2 = new Pion(couleur2, coord2);
+
+            ArrayList<Barriere> barriere1 = new ArrayList<Barriere>();
+            ArrayList<Barriere> barriere2 = new ArrayList<Barriere>();
+
+            for (int j = 0; i <= Integer.parseInt(lesBarrieres[0]); j++) {
+              barriere1.add(new Barriere(couleur1, this.plateau));
+            }
+
+            for (int j = 0; i <= Integer.parseInt(lesBarrieres[1]); j++) {
+              barriere2.add(new Barriere(couleur2, this.plateau));
+            }
+
             String[] joueur1 = desJoueurs.get(0);
             String[] joueur2 = desJoueurs.get(1);
 
+            String nom1 = joueur1[0];
+            String nom2 = joueur2[0];
+
+            if (joueur1[1].equals("H") && joueur2[1].equals("H")) {
+              this.mode = Mode.HH;
+            }
+            else if (joueur1[1].equals("H") && joueur2[1].equals("IA")) {
+              this.mode = Mode.HI;
+            }
+            else {
+              this.mode = Mode.II;
+            }
           }
+
           else {
             String[] joueur1 = desJoueurs.get(0);
             String[] joueur2 = desJoueurs.get(1);
             String[] joueur3 = desJoueurs.get(2);
             String[] joueur4 = desJoueurs.get(3);
+
+
           }
 
         }
@@ -258,8 +301,8 @@ public class Partie {
       for (Joueur j : this.joueurs) {
         listePion.add(j.getPion());
       }
+      System.out.println(this.plateau.toString(listePion));
       while (true) {
-        System.out.println(this.plateau.toString(listePion));
         for (Joueur j : this.joueurs) {
           j.jeu();
           System.out.println(this.plateau.toString(listePion));
