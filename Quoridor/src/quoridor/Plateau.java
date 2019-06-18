@@ -154,7 +154,7 @@ public class Plateau {
               if (i % 2 == 0 && j % 2 == 0) {
                 for (int[] tab : deplacementsPossibles) {
                   if (tab[0] == i && tab[1] == j) {
-                    ret +=  "§";
+                    ret +=  "$";
                     yellow = true;
                   }
                 }
