@@ -3,7 +3,7 @@ package view;
 import javax.swing.*;
 import java.awt.*;
 
-public class AccueuilFrame extends JPanel {
+public class AccueilFrame extends JPanel {
 
   private JButton PhotoButton;
 
