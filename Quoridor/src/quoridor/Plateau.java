@@ -158,7 +158,7 @@ public class Plateau {
                     yellow = true;
                   }
                 }
-                if (this.DAMIER[i][j]) {
+                if (this.DAMIER[i][j] && !yellow) {
                   ret += "X";
                 }
                 else {
