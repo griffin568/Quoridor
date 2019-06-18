@@ -1,4 +1,6 @@
+import java.awt.*;
 import quoridor.*;
+import view.*;
 import java.util.ArrayList;
 
 /**
@@ -8,8 +10,13 @@ import java.util.ArrayList;
 public class Launcher {
 
     public static void main(String[] args) {
-      Partie test = new Partie(Mode.HH, "Texte");
+      java.awt.EventQueue.invokeLater(new Runnable() {
+        public void run() {
+          MainFrame gui = new MainFrame();
+        }
+      });
+      /*Partie test = new Partie(Mode.HH, "Texte");
       test.charger("sauvegarde1");
-      test.start();
+      test.start();*/
     }
 }
