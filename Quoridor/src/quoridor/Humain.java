@@ -61,6 +61,7 @@ public class Humain extends Joueur {
             }
           }
           else if (nPosition.trim().equalsIgnoreCase("showme")) {
+            System.out.println("Nom du joueur : " + this.nom);
             System.out.println("Pion : " + this.pion.getCouleur().charAt(0));
             System.out.println("Barrieres restantes : " + this.barrieres.size());
           }

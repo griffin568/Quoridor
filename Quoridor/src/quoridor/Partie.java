@@ -15,6 +15,7 @@ public class Partie {
     private Plateau plateau;
     private ArrayList<Joueur> joueurs;
     private ArrayList<Barriere> barrieres;
+    private int profondeur;
 
     /**
       * Créé un nouvel objet Partie
@@ -470,6 +471,20 @@ public class Partie {
           if (b != null) {
             addBarriere(b);
           }
+          for (Joueur j2 : this.joueurs) {
+            this.profondeur = 0;
+            int[][] copieDamier = this.copieDamier();
+            copieDamier[j2.getPion().getCoordonnee().getX1()][j2.getPion().getCoordonnee().getY1()] = 2;
+            if (!checkChemins(j2.getPion().getCoordonnee().getX1(),j2.getPion().getCoordonnee().getY1(),j2.getNumero(),copieDamier)) {
+              System.out.println("ERREUR PAS POSSIBLE");
+              System.exit(0);
+            }
+            else if (this.profondeur >= 81) {
+              System.out.println("ERREUR PAS POSSIBLE");
+              System.exit(0);
+            }
+          }
+
           fin();
         }
       }
@@ -552,4 +567,181 @@ public class Partie {
  public ArrayList<Joueur> getJoueurs() {
    return this.joueurs;
  }
+
+ /**
+   * Donne une copie du damier actuel sur laquelle travailler
+   * @return une copie du damier
+   */
+   private int[][] copieDamier() {
+     int[][] ret = new int[this.plateau.getDamier().length][this.plateau.getDamier().length];
+     for (int i = 0 ; i < this.plateau.getDamier().length ; i++) {
+       for (int j = 0 ; j < this.plateau.getDamier().length ; j++) {
+         if (this.plateau.getDamier()[i][j]) {
+           ret[i][j] = 1;
+         }
+         else {
+           ret[i][j] = 0;
+         }
+       }
+     }
+     return ret;
+   }
+
+  /**
+    * Vérifie qu'une case n'ai pas déjà été visitée auparavent
+    * @param x la coordonnée X de la case
+    * @param y la coordonnée Y de la case
+    * @param damier la copie du damier sur laquelle on travaille
+    * @return 1 si la case n'a pas déjà été visitée
+    */
+    private int checkVisite (int x , int y , int[][] damier) {
+        int ret = 0;
+        try {
+          if (x < 0 || x >= damier.length || y < 0 || y >= damier.length) {
+            throw new Exception ("Erreur, case en dehors du plateau");
+          }
+          else if (damier == null) {
+            throw new NullPointerException("Erreur, damier null");
+          }
+          else {
+            ret = damier[x][y];
+          }
+        }
+        catch (NullPointerException e) {
+          System.err.println(e.getMessage());
+        }
+        catch (Exception ex) {
+          System.err.println(ex.getMessage());
+        }
+        finally {
+          return ret;
+        }
+    }
+
+  /**
+    * Donne les cases atteignables depuis la position actuelle
+    * @param x la coordonnée X de la position actuelle
+    * @param y la coordonnée Y de la position actuelle
+    * @return un tableau à deux dimensions contenant les différents déplacements possibles
+    */
+    private int[][] deplacementsSuivants (int x , int y , int[][] damier) {
+      int[][] ret = null;
+      try {
+        if (x < 0 || x >= damier.length || y < 0 || y >= damier.length) {
+          throw new Exception ("Erreur, indice en dehors du plateau");
+        }
+        else {
+          boolean[][] damierBoolean = new boolean[damier.length][damier.length];
+
+
+          for (int i = 0 ; i < damier.length ; i++) {
+            for (int j = 0 ; j < damier.length ; j++) {
+              if (damier[i][j] == 0) {
+                damierBoolean[i][j] = false;
+              }
+              else {
+                damierBoolean[i][j] = true;
+              }
+            }
+          }
+
+          Pion self = new Pion("X",new Coordonnee(x,y,-1,-1));
+          ArrayList<int[]> listeCoupsPossibles = new ArrayList<int[]>();
+          for (int[] coo : self.getDeplacementPossibles(damierBoolean)) {
+            if (damier[coo[0]][coo[1]] == 1) {
+              listeCoupsPossibles.add(coo);
+            }
+          }
+          ret = new int[listeCoupsPossibles.size()][2];
+          for (int i = 0 ; i < listeCoupsPossibles.size() ; i++) {
+            ret[i] = listeCoupsPossibles.get(i);
+          }
+        }
+      }
+      catch (NullPointerException e) {
+        System.err.println("Erreur, damier inexistant");
+      }
+      catch (Exception ex) {
+        System.err.println(ex.getMessage());
+      }
+      finally {
+        return ret;
+      }
+    }
+
+  /**
+    * Teste récursivement s'il existe un chemin possible vers une ligne d'arrivée
+    * @param x la coordonnée X
+    * @param y la coordonnée y
+    * @param num le numéro du joueur
+    * @param damier le damier à partir duquel on effectue le test
+    * @return true si  le chemin est accessibles
+    */
+    private boolean checkChemins (int x , int y , int num , int[][] damier) {
+      boolean ret = false;
+      try {
+        int[][] newPosition = deplacementsSuivants(x,y,damier);
+        int i = 0;
+
+        while (i < newPosition.length && !ret) {
+          if (checkVisite(newPosition[i][0],newPosition[i][1],damier) == 1) {
+            this.profondeur++;
+            damier[newPosition[i][0]][newPosition[i][1]] = 2;
+            if (num == 1) {
+              if (newPosition[i][0] == 16) {
+                ret = true;
+              }
+            }
+            else if (num == 2) {
+              if (newPosition[i][0] == 0) {
+                ret = true;
+              }
+            }
+            else if (num == 3) {
+              if (newPosition[i][1] == 16) {
+                ret = true;
+              }
+            }
+            else if (num == 4) {
+              if (newPosition[i][1] == 0) {
+                ret = true;
+              }
+            }
+            if (this.profondeur == 81) {
+              ret = true;
+            }
+            else {
+              if (checkChemins(newPosition[i][0],newPosition[i][1],num,damier)) {
+                ret = true;
+              }
+              else {
+                this.profondeur--;
+                damier[newPosition[i][0]][newPosition[i][1]] = 1;
+              }
+            }
+          }
+          i++;
+        }
+      }
+      catch (NullPointerException e) {
+        System.err.println("Erreur checkChemins(), parametre null");
+      }
+      catch (IndexOutOfBoundsException ex) {
+        System.err.println("Erreur checkChemins(), indice en dehors du plateau");
+      }
+      catch (Exception exc) {
+        System.err.println("Erreur checkChemins(), cause inconnue");
+      }
+      finally {
+        for (int k = 0 ; k < damier.length ; k++) {
+          for (int l = 0 ; l < damier.length ; l++) {
+            System.out.print(damier[k][l] + " ");
+          }
+          System.out.println();
+        }
+        System.out.println(ret);
+        return ret;
+      }
+
+    }
 }
