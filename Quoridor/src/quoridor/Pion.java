@@ -85,6 +85,8 @@ public class Pion {
       int y = this.coordonnee.getY1();
       ArrayList<int[]> temp = new ArrayList<int[]>();
       int[] deplacement;
+      boolean nextTo = false;
+      int[] next = new int[2];
       for (int i = -2 ; i <= 2 ; i++) {
         for (int j = -2 ; j <= 2 ; j++) {
           if (i % 2 == 0 && j % 2 == 0) {
@@ -98,20 +100,48 @@ public class Pion {
               else if (!damier[x+i][y+j] && damier[x+((int)i/2)][y+((int)j/2)]) {
                 if (x+2*i >= 0 && x+2*i < damier.length && y+2*j >= 0 && y+2*j < damier.length) {
                   if (damier[(int)x+3*i/2][(int)y+3*j/2] && damier[x+2*i][y+2*j]) {
-                    deplacement = new int[2];
-                    deplacement[0] = x+2*i;
-                    deplacement[1] = y+2*j;
-                    temp.add(deplacement);
+                    if (x+2*i >= 0 && x+2*i < damier.length && y+2*j >= 0 && y+2*j < damier.length) {
+                      deplacement = new int[2];
+                      deplacement[0] = x+2*i;
+                      deplacement[1] = y+2*j;
+                      temp.add(deplacement);
                   }
+                }
+                else {
+                  nextTo = true;
+                  next[0] = x+i;
+                  next[1] = y+j;
                 }
               }
             }
           }
         }
       }
-      this.deplacementPossibles = new int[temp.size()][temp.size()];
-      for (int i = 0 ; i < temp.size() ; i++) {
-        this.deplacementPossibles[i] = temp.get(i);
+    }
+    ArrayList<int[]> temp2 = new ArrayList<int[]>();
+    for (int k = 0 ; k < temp.size() ; k++) {
+      if (!nextTo && (temp.get(k)[0] == x || temp.get(k)[1] == y)) {
+        temp2.add(temp.get(k));
+      }
+      else if (nextTo && !(Math.abs(next[0] - temp.get(k)[0]) == 4 || Math.abs(next[1] - temp.get(k)[1]) == 4)) {
+        temp2.add(temp.get(k));
+      }
+      else if (nextTo) {
+        if (next[0] == x) {
+          if (temp.get(k)[0] == x && Math.abs(temp.get(k)[1] - next[1]) == 4) {
+            temp2.add(temp.get(k));
+          }
+        }
+        else if (next[1] == y) {
+          if (temp.get(k)[1] == y && Math.abs(temp.get(k)[0] - next[0]) == 4) {
+            temp2.add(temp.get(k));
+          }
+        }
       }
     }
+    this.deplacementPossibles = new int[temp2.size()][temp2.size()];
+    for (int k = 0 ; k < temp2.size() ; k++) {
+      this.deplacementPossibles[k] = temp2.get(k);
+    }
+  }
 }
