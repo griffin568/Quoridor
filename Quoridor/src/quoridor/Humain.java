@@ -54,8 +54,15 @@ public class Humain extends Joueur {
               System.out.println(line);
             }
           }
+          else if (nPosition.split(" ")[0].equalsIgnoreCase("save")) {
+            String nb = nPosition.split(" ")[1].trim();
+            if (nb.equalsIgnoreCase("1") || nb.equalsIgnoreCase("2") || nb.equalsIgnoreCase("3")) {
+              ret = new Barriere(nPosition,this.plateau);
+            }
+          }
           else if (nPosition.trim().equalsIgnoreCase("showme")) {
-            System.out.println(this.pion.getCouleur().charAt(0));
+            System.out.println("Pion : " + this.pion.getCouleur().charAt(0));
+            System.out.println("Barrieres restantes : " + this.barrieres.size());
           }
           else if (nPosition.split(" ")[0].trim().equalsIgnoreCase("move")) {
             for (int[] deplacement : deplacementsPossibles) {
