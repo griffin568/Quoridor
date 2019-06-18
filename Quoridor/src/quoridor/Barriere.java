@@ -105,9 +105,12 @@ public class Barriere {
             ret = this;
           }
         }
+        if (ret == null) {
+          throw new Exception("Le coup n'est pas possible à cet emplacement.");
+        }
       }
       catch(Exception e) {
-        System.err.println();
+        System.err.println(e.getMessage());
       }
       finally {
         return ret;
