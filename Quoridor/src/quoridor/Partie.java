@@ -15,7 +15,8 @@ public class Partie {
     private Plateau plateau;
     private ArrayList<Joueur> joueurs;
     private ArrayList<Barriere> barrieres;
-    private int profondeur;
+    private long startRec;
+    private long endRec;
 
     /**
       * Créé un nouvel objet Partie
@@ -472,14 +473,15 @@ public class Partie {
             addBarriere(b);
           }
           for (Joueur j2 : this.joueurs) {
-            this.profondeur = 0;
+            this.startRec = System.nanoTime();
+            this.endRec = 5*1000000000;
             int[][] copieDamier = this.copieDamier();
             copieDamier[j2.getPion().getCoordonnee().getX1()][j2.getPion().getCoordonnee().getY1()] = 2;
             if (!checkChemins(j2.getPion().getCoordonnee().getX1(),j2.getPion().getCoordonnee().getY1(),j2.getNumero(),copieDamier)) {
               System.out.println("ERREUR PAS POSSIBLE");
               System.exit(0);
             }
-            else if (this.profondeur >= 81) {
+            else if (this.startRec == -1) {
               System.out.println("ERREUR PAS POSSIBLE");
               System.exit(0);
             }
@@ -680,47 +682,46 @@ public class Partie {
     private boolean checkChemins (int x , int y , int num , int[][] damier) {
       boolean ret = false;
       try {
-        int[][] newPosition = deplacementsSuivants(x,y,damier);
-        int i = 0;
+        if (Math.abs(this.startRec - System.nanoTime()) < this.endRec) {
+          int[][] newPosition = deplacementsSuivants(x,y,damier);
+          int i = 0;
 
-        while (i < newPosition.length && !ret) {
-          if (checkVisite(newPosition[i][0],newPosition[i][1],damier) == 1) {
-            this.profondeur++;
-            damier[newPosition[i][0]][newPosition[i][1]] = 2;
-            if (num == 1) {
-              if (newPosition[i][0] == 16) {
-                ret = true;
+          while (i < newPosition.length && !ret) {
+            if (checkVisite(newPosition[i][0],newPosition[i][1],damier) == 1) {
+              damier[newPosition[i][0]][newPosition[i][1]] = 2;
+              if (num == 1) {
+                if (newPosition[i][0] == 16) {
+                  ret = true;
+                }
               }
-            }
-            else if (num == 2) {
-              if (newPosition[i][0] == 0) {
-                ret = true;
+              else if (num == 2) {
+                if (newPosition[i][0] == 0) {
+                  ret = true;
+                }
               }
-            }
-            else if (num == 3) {
-              if (newPosition[i][1] == 16) {
-                ret = true;
+              else if (num == 3) {
+                if (newPosition[i][1] == 16) {
+                  ret = true;
+                }
               }
-            }
-            else if (num == 4) {
-              if (newPosition[i][1] == 0) {
-                ret = true;
+              else if (num == 4) {
+                if (newPosition[i][1] == 0) {
+                  ret = true;
+                }
               }
+                if (checkChemins(newPosition[i][0],newPosition[i][1],num,damier)) {
+                  ret = true;
+                }
+                else {
+                  damier[newPosition[i][0]][newPosition[i][1]] = 1;
+                }
             }
-            if (this.profondeur == 81) {
-              ret = true;
-            }
-            else {
-              if (checkChemins(newPosition[i][0],newPosition[i][1],num,damier)) {
-                ret = true;
-              }
-              else {
-                this.profondeur--;
-                damier[newPosition[i][0]][newPosition[i][1]] = 1;
-              }
-            }
+            i++;
           }
-          i++;
+        }
+        else {
+          ret = true;
+          this.startRec = -1;
         }
       }
       catch (NullPointerException e) {
@@ -733,13 +734,6 @@ public class Partie {
         System.err.println("Erreur checkChemins(), cause inconnue");
       }
       finally {
-        for (int k = 0 ; k < damier.length ; k++) {
-          for (int l = 0 ; l < damier.length ; l++) {
-            System.out.print(damier[k][l] + " ");
-          }
-          System.out.println();
-        }
-        System.out.println(ret);
         return ret;
       }
 
