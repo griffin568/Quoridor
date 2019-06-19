@@ -408,9 +408,9 @@ public class Partie {
             Coordonnee c4 = new Coordonnee(Integer.parseInt(coord4[0]),Integer.parseInt(coord4[1]), -1, -1);
 
             Joueur J1 = new Humain("Joueur1",1,"O",BarriereJ1,new Pion("O",c1), this.plateau);
-            Joueur J2 = new Humain("Joueur2",1,"W",BarriereJ2,new Pion("W",c2), this.plateau);
-            Joueur J3 = new Humain("Joueur3",1,"Z",BarriereJ3,new Pion("Z",c3), this.plateau);
-            Joueur J4 = new Humain("Joueur4",1,"A",BarriereJ4,new Pion("A",c4), this.plateau);
+            Joueur J2 = new Humain("Joueur2",2,"W",BarriereJ2,new Pion("W",c2), this.plateau);
+            Joueur J3 = new Humain("Joueur3",3,"Z",BarriereJ3,new Pion("Z",c3), this.plateau);
+            Joueur J4 = new Humain("Joueur4",4,"A",BarriereJ4,new Pion("A",c4), this.plateau);
 
             ArrayList<int[]> aChanger = new ArrayList<int[]>();
             int[] lesCoords1 = {Integer.parseInt(coord1[0]),Integer.parseInt(coord1[1])};
@@ -421,7 +421,7 @@ public class Partie {
             aChanger.add(lesCoords2);
             aChanger.add(lesCoords3);
             aChanger.add(lesCoords4);
-            this.plateau.setDisponibilite(aChanger)
+            this.plateau.setDisponibilite(aChanger);
 
             this.joueurs.add(J1);
             this.joueurs.add(J2);
@@ -484,16 +484,18 @@ public class Partie {
             addBarriere(b);
           }
           for (Joueur j2 : this.joueurs) {
-            this.startRec = System.nanoTime();
-            this.endRec = 5*1000000000;
+            this.startRec = System.currentTimeMillis();
+            this.endRec = 5*1000;
             int[][] copieDamier = this.copieDamier();
             copieDamier[j2.getPion().getCoordonnee().getX1()][j2.getPion().getCoordonnee().getY1()] = 2;
             if (!checkChemins(j2.getPion().getCoordonnee().getX1(),j2.getPion().getCoordonnee().getY1(),j2.getNumero(),copieDamier)) {
               System.out.println("ERREUR PAS POSSIBLE");
+              System.out.println("check1");
               System.exit(0);
             }
             else if (this.startRec == -1) {
               System.out.println("ERREUR PAS POSSIBLE");
+              System.out.println("check2");
               System.exit(0);
             }
           }
@@ -693,7 +695,7 @@ public class Partie {
     private boolean checkChemins (int x , int y , int num , int[][] damier) {
       boolean ret = false;
       try {
-        if (Math.abs(this.startRec - System.nanoTime()) < this.endRec) {
+        if (Math.abs(this.startRec - System.currentTimeMillis()) < this.endRec) {
           int[][] newPosition = deplacementsSuivants(x,y,damier);
           int i = 0;
 
@@ -701,23 +703,55 @@ public class Partie {
             if (checkVisite(newPosition[i][0],newPosition[i][1],damier) == 1) {
               damier[newPosition[i][0]][newPosition[i][1]] = 2;
               if (num == 1) {
-                if (newPosition[i][0] == 16) {
-                  ret = true;
+                int k = 0;
+                while (k < damier.length && !ret) {
+                  int l = 0;
+                  while (l < damier.length && !ret) {
+                    if (k == 16 && damier[k][l] == 2) {
+                      ret = true;
+                    }
+                    l += 2;
+                  }
+                  k += 2;
                 }
               }
               else if (num == 2) {
-                if (newPosition[i][0] == 0) {
-                  ret = true;
+                int k = 0;
+                while (k < damier.length && !ret) {
+                  int l = 0;
+                  while (l < damier.length && !ret) {
+                    if (k == 0 && damier[k][l] == 2) {
+                      ret = true;
+                    }
+                    l += 2;
+                  }
+                  k += 2;
                 }
               }
               else if (num == 3) {
-                if (newPosition[i][1] == 16) {
-                  ret = true;
+                int k = 0;
+                while (k < damier.length && !ret) {
+                  int l = 0;
+                  while (l < damier.length && !ret) {
+                    if (l == 16 && damier[k][l] == 2) {
+                      ret = true;
+                    }
+                    l += 2;
+                  }
+                  k += 2;
                 }
               }
               else if (num == 4) {
-                if (newPosition[i][1] == 0) {
-                  ret = true;
+                int k = 0;
+                while (k < damier.length && !ret) {
+                  int l = 0;
+                  while (l < damier.length && !ret) {
+                    if (l == 0 && damier[k][l] == 2) {
+                      ret = true;
+                    }
+                    l += 2;
+                  }
+                  k += 2;
                 }
               }
                 if (checkChemins(newPosition[i][0],newPosition[i][1],num,damier)) {
