@@ -9,12 +9,13 @@ public class MainFrame extends JFrame {
   private JPanel switchablePanel;
   private CardLayout switchableCL;
 
-  private AccueuilFrame accueuil;
+  private AccueilFrame acccueil;
   private ChargementFrame chargement;
   private ChoixNombreFrame choixNombre;
   private PartieFrame partie;
   private Partie2JoueursFrame partie2Joueurs;
   private Partie4JoueursFrame partie4Joueurs;
+  private PauseFrame pause;
 
   /**
     *
@@ -24,10 +25,9 @@ public class MainFrame extends JFrame {
     this.getContentPane().setLayout(new BorderLayout());
     this.setDefaultCloseOperation(EXIT_ON_CLOSE);
     this.initComponents();
-    System.out.println("TEST");
-    //this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+    this.setExtendedState(JFrame.MAXIMIZED_BOTH);
     this.setSize(1300, 650);
-    //this.setUndecorated(true);
+    this.setUndecorated(true);
     this.setVisible(true);
     this.setResizable(false);
   }
@@ -35,18 +35,19 @@ public class MainFrame extends JFrame {
   /**
     *
     */
-  public void initComponents() {
+  private void initComponents() {
 
-    this.accueuil = new AccueuilFrame();
-    this.chargement = new ChargementFrame();
-    this.choixNombre = new ChoixNombreFrame();
-    this.partie = new PartieFrame();
-    this.partie2Joueurs = new Partie2JoueursFrame();
-    this.partie4Joueurs = new Partie4JoueursFrame();
+    this.acccueil = new AccueilFrame(this);
+    this.chargement = new ChargementFrame(this,this.acccueil);
+    this.choixNombre = new ChoixNombreFrame(this,this.acccueil);
+    this.pause = new Pause(this, this.acccueil);
+    this.partie = new PartieFrame(this);
+    this.partie2Joueurs = new Partie2JoueursFrame(this,this.choixNombre);
+    this.partie4Joueurs = new Partie4JoueursFrame(this,this.choixNombre);
 
     this.switchablePanel = new JPanel(new CardLayout());
 
-    this.switchablePanel.add(this.accueuil, "Accueuil");
+    this.switchablePanel.add(this.acccueil, "Accueuil");
     this.switchablePanel.add(this.chargement, "Chargement");
     this.switchablePanel.add(this.choixNombre, "choixNombre");
     this.switchablePanel.add(this.partie, "Partie");
@@ -55,6 +56,8 @@ public class MainFrame extends JFrame {
 
     this.switchableCL = (CardLayout)(this.switchablePanel.getLayout());
     this.switchableCL.show(this.switchablePanel, "Accueuil");
+
+    this.add(this.switchablePanel, BorderLayout.CENTER);
   }
 
 
