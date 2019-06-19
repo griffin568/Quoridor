@@ -17,7 +17,7 @@ public class AccueilFrame extends JPanel {
   private JLabel titre;
 
   /**
-    * Créer une page d'acccueil vide. Ce constructeur est utilisé pour permettre son utilisation future dans d'autres classes.
+    * Créé une page d'acccueil vide. Ce constructeur est utilisé pour permettre son utilisation future dans d'autres classes.
     */
   public AccueilFrame() {}
 
