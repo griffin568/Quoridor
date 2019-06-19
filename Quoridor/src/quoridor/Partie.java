@@ -407,9 +407,9 @@ public class Partie {
             Coordonnee c4 = new Coordonnee(Integer.parseInt(coord4[0]),Integer.parseInt(coord4[1]), -1, -1);
 
             Joueur J1 = new Humain("Joueur1",1,"O",BarriereJ1,new Pion("O",c1), this.plateau);
-            Joueur J2 = new Humain("Joueur2",1,"W",BarriereJ2,new Pion("W",c1), this.plateau);
-            Joueur J3 = new Humain("Joueur3",1,"Z",BarriereJ3,new Pion("Z",c1), this.plateau);
-            Joueur J4 = new Humain("Joueur4",1,"A",BarriereJ4,new Pion("A",c1), this.plateau);
+            Joueur J2 = new Humain("Joueur2",1,"W",BarriereJ2,new Pion("W",c2), this.plateau);
+            Joueur J3 = new Humain("Joueur3",1,"Z",BarriereJ3,new Pion("Z",c3), this.plateau);
+            Joueur J4 = new Humain("Joueur4",1,"A",BarriereJ4,new Pion("A",c4), this.plateau);
 
             this.joueurs.add(J1);
             this.joueurs.add(J2);
