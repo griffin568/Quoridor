@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class PartieFrame extends JPanel {
 
-  public PartieFrame(MainFrame parent) {
+  public PartieFrame(MainFrame parent, JPanel mainF) {
 
   }
 }

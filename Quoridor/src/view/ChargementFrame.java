@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class ChargementFrame extends JPanel {
 
-  public ChargementFrame(MainFrame parent, JPanel preced) {
-    
+  public ChargementFrame(MainFrame parent) {
+
   }
 }

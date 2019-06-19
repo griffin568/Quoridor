@@ -37,13 +37,13 @@ public class MainFrame extends JFrame {
     *
     */
   private void initComponents() {
-
-    this.acccueil = new AccueilFrame(this);
-    this.chargement = new ChargementFrame(this,this.acccueil);
-    this.choixNombre = new ChoixNombreFrame(this,this.acccueil);
-    this.partie = new PartieFrame(this);
-    this.partie2Joueurs = new Partie2JoueursFrame(this,this.choixNombre);
-    this.partie4Joueurs = new Partie4JoueursFrame(this,this.choixNombre);
+    this.acccueil = new AccueilFrame();
+    this.partie = new PartieFrame(this, this.acccueil);
+    this.chargement = new ChargementFrame(this);
+    this.partie2Joueurs = new Partie2JoueursFrame(this, this.partie);
+    this.partie4Joueurs = new Partie4JoueursFrame(this, this.partie);
+    this.choixNombre = new ChoixNombreFrame(this, this.partie2Joueurs, this.partie4Joueurs);
+    this.acccueil = new AccueilFrame(this, this.chargement, this.choixNombre);
 
     this.switchablePanel = new JPanel(new CardLayout());
 
@@ -77,6 +77,11 @@ public class MainFrame extends JFrame {
     return this.switchableCL;
   }
 
+
+  /**
+    * Active ou désactive le menu pause. Cette méthode sera appelée par le listener de la classe PartieFrame
+    * @param b vrai si on active le menu pause, faux si on souhaite le désactiver.
+    */
   public void activerPause(boolean b) {
     if (b) {
       this.pause = new MainPauseFrame(this, this.acccueil);

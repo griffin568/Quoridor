@@ -8,15 +8,32 @@ public class AccueilFrame extends JPanel {
 
   private MainFrame parent;
   private JButton PhotoButton, LancerBton, ChargerBton, QuitterBton;
+  private JPanel chargement, choixNombre;
 
-  public AccueilFrame(MainFrame parent) {
+
+  public AccueilFrame() {
+    
+  }
+
+
+  public AccueilFrame(MainFrame parent, JPanel chargement, JPanel choixNombre) {
     try {
       if (parent == null) {
-        throw new Exception("La Frame parent doit exister pour créer l'Accueil.");
+        throw new Exception("L'écran principal * parent doit exister pour créer l'Accueil.");
       }
-      this.parent = parent;
-      this.setBackground(Color.BLACK);
-      initComponent();
+      else if (chargement == null) {
+        throw new Exception("L'écran de chargement de partie doit exister pour créer l'Accueil.");
+      }
+      else if (choixNombre == null) {
+        throw new Exception("L'écran de choix de nombre de joueurs doit exister pour créer l'Accueil.");
+      }
+      else {
+        this.parent = parent;
+        this.chargement = chargement;
+        this.choixNombre = choixNombre;
+        this.setBackground(Color.BLACK);
+        initComponent();
+      }
     }
     catch(Exception e) {
       System.err.println(e.getMessage());
@@ -39,6 +56,8 @@ public class AccueilFrame extends JPanel {
     this.QuitterBton = new JButton("QUITTER");
 
     this.QuitterBton.addActionListener(new DownButtonListener(this.parent, this));
+    this.LancerBton.addActionListener(new AccueilListener(this.parent, this.choixNombre));
+    this.ChargerBton.addActionListener(new AccueilListener(this.parent, this.chargement));
 
     this.LancerBton.setPreferredSize(new Dimension(500, 100));
     this.ChargerBton.setPreferredSize(new Dimension(500, 100));
