@@ -1,8 +1,8 @@
 package view;
 
+import controller.*;
 import javax.swing.*;
 import java.awt.*;
-import view.controller.*;
 
 /**
   * Cette classe gère la création de la page d'acccueil du jeu et de ses composants graphiques.
@@ -30,7 +30,7 @@ public class AccueilFrame extends JPanel {
   public AccueilFrame(MainFrame parent, JPanel chargement, JPanel choixNombre) {
     try {
       if (parent == null) {
-        throw new Exception("L'écran principal * parent doit exister pour créer l'Accueil.");
+        throw new Exception("L'écran principal doit exister pour créer l'Accueil.");
       }
       else if (chargement == null) {
         throw new Exception("L'écran de chargement de partie doit exister pour créer l'Accueil.");
@@ -64,12 +64,13 @@ public class AccueilFrame extends JPanel {
     rightContainer.setBackground(Color.BLACK);
     downContainer.setBackground(Color.BLACK);
 
-    this.PhotoButton = new JButton(new ImageIcon("../data/Accueil_Photo.png"));
+    this.titre = new JLabel("QUORIDOR");
     this.LancerBton = new JButton("Lancer une nouvelle partie");
     this.ChargerBton = new JButton("Charger une nouvelle partie");
     this.QuitterBton = new JButton("QUITTER");
+    this.PhotoButton = new JButton(new ImageIcon("../data/img/Accueil_Photo.png"));
 
-    this.QuitterBton.addActionListener(new DownButtonListener(this.parent, this));
+    this.QuitterBton.addActionListener(new DownButtonListener(this.parent, ""));
     this.LancerBton.addActionListener(new AccueilListener(this.parent, this.choixNombre));
     this.ChargerBton.addActionListener(new AccueilListener(this.parent, this.chargement));
 
@@ -83,8 +84,6 @@ public class AccueilFrame extends JPanel {
     this.PhotoButton.setFocusable(false);
 
     leftContainer.add(this.PhotoButton,BorderLayout.CENTER);
-    rightContainer.add(new JLabel(" "),BorderLayout.WEST);
-    rightContainer.add(new JLabel(" "),BorderLayout.EAST);
     rightContainer.add(this.LancerBton,BorderLayout.NORTH);
     rightContainer.add(this.ChargerBton,BorderLayout.SOUTH);
     downContainer.add(this.QuitterBton,BorderLayout.EAST);

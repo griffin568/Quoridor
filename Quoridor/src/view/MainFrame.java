@@ -22,7 +22,7 @@ public class MainFrame extends JFrame {
     *
     */
   public MainFrame() {
-    this.setIconImage(new ImageIcon("../data/Logo.jpg").getImage());
+    this.setIconImage(new ImageIcon("../data/img/Logo.jpg").getImage());
     this.setTitle("Quoridor");
     this.getContentPane().setLayout(new BorderLayout());
     this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -39,7 +39,7 @@ public class MainFrame extends JFrame {
   private void initComponents() {
     this.acccueil = new AccueilFrame();
     this.partie = new PartieFrame(this, this.acccueil);
-    this.chargement = new ChargementFrame(this);
+    this.chargement = new ChargementFrame(this, this.partie);
     this.partie2Joueurs = new Partie2JoueursFrame(this, this.partie);
     this.partie4Joueurs = new Partie4JoueursFrame(this, this.partie);
     this.choixNombre = new ChoixNombreFrame(this, this.partie2Joueurs, this.partie4Joueurs);
