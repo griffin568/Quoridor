@@ -412,6 +412,17 @@ public class Partie {
             Joueur J3 = new Humain("Joueur3",1,"Z",BarriereJ3,new Pion("Z",c3), this.plateau);
             Joueur J4 = new Humain("Joueur4",1,"A",BarriereJ4,new Pion("A",c4), this.plateau);
 
+            ArrayList<int[]> aChanger = new ArrayList<int[]>();
+            int[] lesCoords1 = {Integer.parseInt(coord1[0]),Integer.parseInt(coord1[1])};
+            int[] lesCoords2 = {Integer.parseInt(coord2[0]),Integer.parseInt(coord1[1])};
+            int[] lesCoords3 = {Integer.parseInt(coord3[0]),Integer.parseInt(coord3[1])};
+            int[] lesCoords4 = {Integer.parseInt(coord4[0]),Integer.parseInt(coord4[1])};
+            aChanger.add(lesCoords1);
+            aChanger.add(lesCoords2);
+            aChanger.add(lesCoords3);
+            aChanger.add(lesCoords4);
+            this.plateau.setDisponibilite(aChanger)
+
             this.joueurs.add(J1);
             this.joueurs.add(J2);
             this.joueurs.add(J3);
