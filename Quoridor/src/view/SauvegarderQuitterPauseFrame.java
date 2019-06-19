@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class SauvegarderQuitterPauseFrame extends JPanel {
 
-  public SauvegarderQuitterPauseFrame(MainFrame parent) {
+  public SauvegarderQuitterPauseFrame(MainPauseFrame parent) {
 
   }
 }

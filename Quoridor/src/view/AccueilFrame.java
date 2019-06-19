@@ -12,7 +12,7 @@ public class AccueilFrame extends JPanel {
   public AccueilFrame(MainFrame parent) {
     try {
       if (parent == null) {
-        throw new Exception("La Frame parent doit exister pour créer l'Accueil !");
+        throw new Exception("La Frame parent doit exister pour créer l'Accueil.");
       }
       this.parent = parent;
       this.setBackground(Color.BLACK);
@@ -38,7 +38,7 @@ public class AccueilFrame extends JPanel {
     this.ChargerBton = new JButton("Charger une nouvelle partie");
     this.QuitterBton = new JButton("QUITTER");
 
-    this.QuitterBton.addActionListener(new DownButtonListener(this.parent));
+    this.QuitterBton.addActionListener(new DownButtonListener(this.parent, this));
 
     this.LancerBton.setPreferredSize(new Dimension(500, 100));
     this.ChargerBton.setPreferredSize(new Dimension(500, 100));

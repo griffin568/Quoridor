@@ -43,7 +43,7 @@ public class DownButtonListener implements ActionListener {
       System.exit(0);
     }
     else if (source.getText().equalsIgnoreCase("RETOUR")) {
-      this.mainF.getSwitchableCL().show();
+      
     }
   }
 }

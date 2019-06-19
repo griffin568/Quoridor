@@ -2,6 +2,7 @@ package view;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowEvent;
 
 public class MainFrame extends JFrame {
 
@@ -15,21 +16,21 @@ public class MainFrame extends JFrame {
   private PartieFrame partie;
   private Partie2JoueursFrame partie2Joueurs;
   private Partie4JoueursFrame partie4Joueurs;
-  private PauseFrame pause;
+  private MainPauseFrame pause;
 
   /**
     *
     */
   public MainFrame() {
     this.setIconImage(new ImageIcon("../data/Logo.jpg").getImage());
+    this.setTitle("Quoridor");
     this.getContentPane().setLayout(new BorderLayout());
     this.setDefaultCloseOperation(EXIT_ON_CLOSE);
     this.initComponents();
     this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-    this.setSize(1300, 650);
     this.setUndecorated(true);
-    this.setVisible(true);
     this.setResizable(false);
+    this.setVisible(true);
   }
 
   /**
@@ -40,7 +41,6 @@ public class MainFrame extends JFrame {
     this.acccueil = new AccueilFrame(this);
     this.chargement = new ChargementFrame(this,this.acccueil);
     this.choixNombre = new ChoixNombreFrame(this,this.acccueil);
-    this.pause = new Pause(this, this.acccueil);
     this.partie = new PartieFrame(this);
     this.partie2Joueurs = new Partie2JoueursFrame(this,this.choixNombre);
     this.partie4Joueurs = new Partie4JoueursFrame(this,this.choixNombre);
@@ -77,5 +77,12 @@ public class MainFrame extends JFrame {
     return this.switchableCL;
   }
 
-
+  public void activerPause(boolean b) {
+    if (b) {
+      this.pause = new MainPauseFrame(this, this.acccueil);
+    }
+    else {
+      this.pause.dispatchEvent(new WindowEvent(this.pause, WindowEvent.WINDOW_CLOSING));
+    }
+  }
 }

@@ -3,9 +3,9 @@ package view;
 import javax.swing.*;
 import java.awt.*;
 
-public class PauseFrame extends JFrame {
+public class PauseFrame extends JPanel {
 
-  public PauseFrame(MainFrame parent) {
+  public PauseFrame(MainPauseFrame parent) {
 
   }
 }
