@@ -355,15 +355,15 @@ public class Partie {
             Joueur J1, J2;
             if (mode.equals(Mode.HH)) {
               J1 = new Humain("Joueur1",1,"O",BarriereJ1,new Pion("O",c1), this.plateau);
-              J2 = new Humain("Joueur2",1,"W",BarriereJ2,new Pion("W",c2), this.plateau);
+              J2 = new Humain("Joueur2",2,"W",BarriereJ2,new Pion("W",c2), this.plateau);
             }
             else if (mode.equals(Mode.HI)) {
               J1 = new Humain("Joueur1",1,"O",BarriereJ1,new Pion("O",c1), this.plateau);
-              J2 = new IA("IA1",1,"W",BarriereJ2,new Pion("W",c2), this.plateau,Difficulte.FACILE);
+              J2 = new IA("IA1",2,"W",BarriereJ2,new Pion("W",c2), this.plateau,Difficulte.FACILE);
             }
             else {
-              J1 = new IA("IA1",1,"O",BarriereJ1,new Pion("O",c1), this.plateau,Difficulte.FACILE);
-              J2 = new IA("IA2",1,"W",BarriereJ2,new Pion("W",c2), this.plateau,Difficulte.FACILE);
+              J1 = new IA("Joueur1",1,"O",BarriereJ1,new Pion("O",c1), this.plateau,Difficulte.FACILE);
+              J2 = new IA("IA1",2,"W",BarriereJ2,new Pion("W",c2), this.plateau,Difficulte.FACILE);
             }
 
             ArrayList<int[]> aChanger = new ArrayList<int[]>();
@@ -477,9 +477,13 @@ public class Partie {
         listePion.add(j.getPion());
       }
       while (true) {
-        for (Joueur j : this.joueurs) {
-          System.out.println(this.plateau.toString(listePion,j.getPion()));
-          Barriere b = j.jeu();
+        for (int i = 0 ; i < this.joueurs.size() ; i++) {
+          boolean error = false;
+          Plateau oldPlateau = this.savePlateau();
+          ArrayList<Joueur> oldJoueurs = this.saveJoueurs(oldPlateau);
+          ArrayList<Barriere> oldBarrieres = this.saveBarrieres();
+          System.out.println(this.plateau.toString(listePion,this.joueurs.get(i).getPion()));
+          Barriere b = this.joueurs.get(i).jeu();
           if (b != null) {
             addBarriere(b);
           }
@@ -489,18 +493,32 @@ public class Partie {
             int[][] copieDamier = this.copieDamier();
             copieDamier[j2.getPion().getCoordonnee().getX1()][j2.getPion().getCoordonnee().getY1()] = 2;
             if (!checkChemins(j2.getPion().getCoordonnee().getX1(),j2.getPion().getCoordonnee().getY1(),j2.getNumero(),copieDamier)) {
-              System.out.println("ERREUR PAS POSSIBLE");
-              System.out.println("check1");
-              System.exit(0);
+              System.out.println("Impossible, " + j2.getNom() + " se retrouverait bloque");
+              this.plateau = oldPlateau;
+              this.joueurs = oldJoueurs;
+              this.barrieres = oldBarrieres;
+              listePion = new ArrayList<Pion>();
+              for (Joueur j : this.joueurs) {
+                listePion.add(j.getPion());
+              }
+              error = true;
             }
             else if (this.startRec == -1) {
-              System.out.println("ERREUR PAS POSSIBLE");
-              System.out.println("check2");
-              System.exit(0);
+              System.out.println("Impossible, " + j2.getNom() + " se retrouverait bloque");
+              this.plateau = oldPlateau;
+              this.joueurs = oldJoueurs;
+              this.barrieres = oldBarrieres;
+              listePion = new ArrayList<Pion>();
+              for (Joueur j : this.joueurs) {
+                listePion.add(j.getPion());
+              }
+              error = true;
             }
           }
-
           fin();
+          if (error) {
+            i--;
+          }
         }
       }
     }
@@ -783,4 +801,58 @@ public class Partie {
       }
 
     }
+
+    /**
+      * Sauvegarde l'état du plateau
+      * @return le plateau sauvegardé
+      */
+      private Plateau savePlateau() {
+        boolean[][] retDamier = new boolean[this.plateau.getDamier().length][this.plateau.getDamier().length];
+        for (int i = 0 ; i < retDamier.length ; i++) {
+          for (int j = 0 ; j < retDamier.length ; j++) {
+            retDamier[i][j] = this.plateau.getDamier()[i][j];
+          }
+        }
+        Plateau ret = new Plateau(retDamier);
+        return ret;
+      }
+
+    /**
+      * Sauvegarde l'état des joueurs
+      * @return une ArrayList contenant les joueurs sauvegardés
+      */
+      private ArrayList<Joueur> saveJoueurs(Plateau plateau) {
+        ArrayList<Joueur> ret = new ArrayList<Joueur>();
+        Pion p;
+        ArrayList<Barriere> listeBarriere;
+        for (Joueur j : this.joueurs) {
+          p = new Pion(j.getCouleur(),j.getPion().getCoordonnee());
+          listeBarriere = new ArrayList<Barriere>();
+          for (Barriere b  : j.getBarrieres()) {
+            Barriere newB = new Barriere(j.getCouleur(),this.plateau);
+            listeBarriere.add(newB);
+          }
+          if (j.isHumain()) {
+            ret.add(new Humain(j.getNom(),j.getNumero(),j.getCouleur(),listeBarriere,p,plateau));
+          }
+          else {
+            ret.add(new IA(j.getNom(),j.getNumero(),j.getCouleur(),listeBarriere,p,plateau,((IA)j).getDifficulte()));
+          }
+        }
+        return ret;
+      }
+
+    /**
+      * Sauvegarde l'état de l'attribut barrieres
+      * @return une sauvegarde de cette attribut
+      */
+      private ArrayList<Barriere> saveBarrieres() {
+        ArrayList<Barriere> ret = new ArrayList<Barriere>();
+        for (Barriere b : this.barrieres) {
+          ret.add(b);
+        }
+        return ret;
+      }
+
+
 }

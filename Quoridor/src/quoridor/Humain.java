@@ -86,11 +86,12 @@ public class Humain extends Joueur {
               int y1 = (Integer.parseInt(nPosition.split(" ")[2].split(",")[0].trim().split("")[1])-1)*2;
               int x2 = (letters.indexOf(nPosition.split(" ")[1].split(",")[1].trim().split("")[0])*2)-1;
               int y2 = (Integer.parseInt(nPosition.split(" ")[2].split(",")[1].trim().split("")[0])-1)*2;
-              Barriere tmp = placerBarriere(new Coordonnee(x1,y1,x2,y2));
-              if (tmp != null) {
-                ok = true;
-                ret = tmp;
+                Barriere tmp = placerBarriere(new Coordonnee(x1,y1,x2,y2));
+                if (tmp != null) {
+                  ok = true;
+                  ret = tmp;
               }
+
 
             }
             else {
@@ -98,11 +99,10 @@ public class Humain extends Joueur {
               int y1 = (letters.indexOf(nPosition.split(" ")[2].split(",")[0].trim().split("")[1]) * 2);
               int x2 = (int)((Integer.parseInt(nPosition.split(" ")[1].split(",")[1].trim().split("")[0])-1)*2 + (Integer.parseInt(nPosition.split(" ")[1].split(",")[0].trim().split("")[1])-1)*2)/2;
               int y2 = (letters.indexOf(nPosition.split(" ")[2].split(",")[1].trim().split("")[0]) * 2);
-              System.out.println(x1);
-              Barriere tmp = placerBarriere(new Coordonnee(y1,x1,y2,x2));
-               if (tmp != null) {
-                 ok = true;
-                 ret = tmp;
+                Barriere tmp = placerBarriere(new Coordonnee(y1,x1,y2,x2));
+                 if (tmp != null) {
+                   ok = true;
+                   ret = tmp;
                }
             }
 

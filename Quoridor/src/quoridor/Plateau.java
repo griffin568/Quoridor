@@ -47,6 +47,25 @@ public class Plateau {
     }
 
     /**
+      * Créé un nouvel objet Plateau avec un damier existant
+      * @param damier le damier utilisé par le Plateau
+      */
+      public Plateau (boolean[][] damier) {
+        try {
+          if (damier == null) {
+            throw new Exception ("Erreur Plateau(), parametre null");
+          }
+          else {
+            this.DAMIER = damier;
+            this.TAILLE = damier.length;
+          }
+        }
+        catch (Exception e) {
+          System.err.println(e.getMessage());
+        }
+      }
+
+    /**
       * Retourne la taille du plateau
       * @return la taille du plateau
       */
