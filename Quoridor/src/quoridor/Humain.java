@@ -47,23 +47,28 @@ public class Humain extends Joueur {
         letters.add("G");
         letters.add("H");
         letters.add("I");
-        while (!nPosition.trim().equalsIgnoreCase("pass") && !ok) {
+        while (!ok) {
           if (nPosition.trim().equalsIgnoreCase("help")) {
             ArrayList<String> help = RWFile.readFile("README");
             for (String line : help) {
               System.out.println(line);
             }
           }
-          else if (nPosition.split(" ")[0].equalsIgnoreCase("save")) {
+          else if (nPosition.split(" ")[0].trim().equalsIgnoreCase("save")) {
             String nb = nPosition.split(" ")[1].trim();
             if (nb.equalsIgnoreCase("1") || nb.equalsIgnoreCase("2") || nb.equalsIgnoreCase("3")) {
               ret = new Barriere(nPosition,this.plateau);
+              ok = true;
             }
           }
           else if (nPosition.trim().equalsIgnoreCase("showme")) {
             System.out.println("Nom du joueur : " + this.nom);
             System.out.println("Pion : " + this.pion.getCouleur().charAt(0));
             System.out.println("Barrieres restantes : " + this.barrieres.size());
+          }
+          else if (nPosition.trim().equalsIgnoreCase("back")) {
+            ret = new Barriere(nPosition.trim(),this.plateau);
+            ok = true;
           }
           else if (nPosition.split(" ")[0].trim().equalsIgnoreCase("move")) {
             for (int[] deplacement : deplacementsPossibles) {
@@ -117,9 +122,11 @@ public class Humain extends Joueur {
       }
       catch (NumberFormatException e) {
         System.err.println("Erreur dans le format des coordonnees, tapez 'help' pour plus d'informations");
+        ret = new Barriere("error",this.plateau);
       }
       catch (IndexOutOfBoundsException ex) {
         System.err.println("Erreur, indice en dehors du tableau");
+        ret = new Barriere("error",this.plateau);
       }
       finally {
         return ret;

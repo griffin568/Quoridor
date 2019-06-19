@@ -18,7 +18,9 @@ public class Launcher {
       });
       /**
       Partie test = new Partie(Mode.HH, "Texte");
+      test.charger("sauvegarde2");
       test.start();
       */
+
     }
 }
