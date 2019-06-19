@@ -362,8 +362,8 @@ public class Partie {
               J2 = new IA("IA1",1,"W",BarriereJ2,new Pion("W",c2), this.plateau,Difficulte.FACILE);
             }
             else {
-              J1 = new IA("Joueur1",1,"O",BarriereJ1,new Pion("O",c1), this.plateau,Difficulte.FACILE);
-              J2 = new IA("IA1",1,"W",BarriereJ2,new Pion("W",c2), this.plateau,Difficulte.FACILE);
+              J1 = new IA("IA1",1,"O",BarriereJ1,new Pion("O",c1), this.plateau,Difficulte.FACILE);
+              J2 = new IA("IA2",1,"W",BarriereJ2,new Pion("W",c2), this.plateau,Difficulte.FACILE);
             }
 
             ArrayList<int[]> aChanger = new ArrayList<int[]>();
