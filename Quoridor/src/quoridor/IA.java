@@ -99,9 +99,9 @@ public class IA extends Joueur {
   /**
     * Identifie un chemin de victoire pour un joueur grâce à l'algorithme de Dijkstra
     * @param joueur le joueur dont il faut identifier le chemin
-    * @return le chemin trouvé pour ce joueur 
+    * @return le chemin trouvé pour ce joueur
     */
-  private ArrayList<int> dijkstra (Joueur joueur) {
+  private ArrayList<int[]> dijkstra (Joueur joueur) {
 
   }
 
