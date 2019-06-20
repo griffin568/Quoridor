@@ -1,4 +1,4 @@
-Joueur1 H ;Joueur2 H  
-O 2 8;W 16 8;
-10;8;W 4 9 6 9;W 9 2 9 4
-4;1
+Joueur1 H ;Joueur2 H ;Joueur3 H ;Joueur4 H  
+O 2 8;W 14 8;Z 8 2;A 8 16;
+5;5;5;5;
+0;4

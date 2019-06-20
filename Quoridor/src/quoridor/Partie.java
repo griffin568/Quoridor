@@ -174,10 +174,10 @@ public class Partie {
             Coordonnee coord3B = new Coordonnee(8, 0, -1 ,-1);
             Coordonnee coord4B = new Coordonnee(8, 16, -1 ,-1);
 
-            Pion p1 = new Pion(couleur1, coord1);
-            Pion p2 = new Pion(couleur2, coord2);
-            Pion p3 = new Pion(couleur3, coord3);
-            Pion p4 = new Pion(couleur4, coord4);
+            Pion p1 = new Pion(couleur1, coord1B);
+            Pion p2 = new Pion(couleur2, coord2B);
+            Pion p3 = new Pion(couleur3, coord3B);
+            Pion p4 = new Pion(couleur4, coord4B);
 
             ArrayList<Barriere> barriere1 = new ArrayList<Barriere>();
             ArrayList<Barriere> barriere2 = new ArrayList<Barriere>();
@@ -572,6 +572,9 @@ public class Partie {
               error = true;
             }
           }
+          System.out.println(this.joueurs.get(0).getCouleur());
+          System.out.println(this.joueurs.get(0).getNom());
+          System.out.println(this.joueurs.get(0).getPion().getCoordonnee().getX1() + "   " + this.joueurs.get(1).getPion().getCoordonnee().getY1());
           fin();
           if (error) {
             i--;
