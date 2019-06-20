@@ -31,7 +31,7 @@ public class ChargementFrame extends JPanel {
         throw new Exception("ChargementFrame constructeur - L'écran de jeu doit exister pour créer l'écran de chargement de parties.");
       }
       else {
-        this.mainF = mainF;
+        this.mainF = parent;
         this.partie = partie;
         this.setBackground(Color.BLACK);
         initComponent();
@@ -46,6 +46,9 @@ public class ChargementFrame extends JPanel {
     *Initialise les composants graphiques de la page de chargement (principalement les boutons cliquables).
     */
   private void initComponent() {
+    ImageIcon corbeille = new ImageIcon("../data/img/Corbeille.png");
+    ImageIcon resizedCorbeille = new ImageIcon(corbeille.getImage().getScaledInstance(98, 142, java.awt.Image.SCALE_SMOOTH));
+
     this.setLayout(new BorderLayout());
     JPanel upContainer = new JPanel(new BorderLayout());
     JPanel downContainer = new JPanel(new BorderLayout());
@@ -60,7 +63,7 @@ public class ChargementFrame extends JPanel {
     this.save2 = new JButton("Emplacement 2");
     this.save3 = new JButton("Emplacement 3");
     this.retour = new JButton("RETOUR");
-    this.corbeille = new JButton(new ImageIcon("../data/img/Corbeille.png"));
+    this.corbeille = new JButton(resizedCorbeille);
 
     this.retour.addActionListener(new DownButtonListener(this.mainF, "Accueil"));
 
@@ -71,6 +74,7 @@ public class ChargementFrame extends JPanel {
     this.save1.setPreferredSize(new Dimension(500, 100));
     this.save2.setPreferredSize(new Dimension(500, 100));
     this.save3.setPreferredSize(new Dimension(500, 100));
+    this.retour.setPreferredSize(new Dimension(200, 50));
 
     upContainer.add(this.titre, BorderLayout.CENTER);
     upContainer.add(this.corbeille, BorderLayout.EAST);

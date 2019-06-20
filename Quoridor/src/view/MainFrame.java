@@ -47,7 +47,7 @@ public class MainFrame extends JFrame {
 
     this.switchablePanel = new JPanel(new CardLayout());
 
-    this.switchablePanel.add(this.acccueil, "Accueuil");
+    this.switchablePanel.add(this.acccueil, "Accueil");
     this.switchablePanel.add(this.chargement, "Chargement");
     this.switchablePanel.add(this.choixNombre, "choixNombre");
     this.switchablePanel.add(this.partie, "Partie");

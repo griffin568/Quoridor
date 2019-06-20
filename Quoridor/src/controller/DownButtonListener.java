@@ -11,11 +11,11 @@ public class DownButtonListener implements ActionListener {
   private String preced;
 
   /**
-    * Listener qui écoute les boutons présents en bas des différentes pages de l'application
-    * (Les boutons 'QUITTER' et 'RETOUR').
-    * @param mainF La fenêtre principale sur laquelle le bouton est placé
-    * @param preced La page que nous devrons afficher lors de l'appuie sur un bouton 'RETOUR'
-    */
+  * Listener qui écoute les boutons présents en bas des différentes pages de l'application
+  * (Les boutons 'QUITTER' et 'RETOUR').
+  * @param mainF La fenêtre principale sur laquelle le bouton est placé
+  * @param preced La page que nous devrons afficher lors de l'appuie sur un bouton 'RETOUR'
+  */
   public DownButtonListener(MainFrame mainF, String preced) {
     try {
       if (mainF == null) {
@@ -35,24 +35,30 @@ public class DownButtonListener implements ActionListener {
   }
 
   /**
-    * Ecoute les actions sur des boutons
-    * @param ev l'action réalisé (Clique sur le bouton)
-    */
+  * Ecoute les actions sur des boutons
+  * @param ev l'action réalisé (Clique sur le bouton)
+  */
   public void actionPerformed(ActionEvent ev) {
-    JButton source = (JButton)ev.getSource();
-    if (source.getText().equalsIgnoreCase("QUITTER")) {
-      System.exit(0);
+    try {
+
+      JButton source = (JButton)ev.getSource();
+      if (source.getText().equalsIgnoreCase("QUITTER")) {
+        System.exit(0);
+      }
+      else if (source.getText().equalsIgnoreCase("RETOUR")) {
+        if (this.preced.equalsIgnoreCase("Accueil")) {
+          this.mainF.getSwitchableCL().show(this.mainF.getSwitchablePanel(),"Accueil");
+        }
+        else if (this.preced.equalsIgnoreCase("choixNombre")) {
+          this.mainF.getSwitchableCL().show(this.mainF.getSwitchablePanel(),"choixNombre");
+        }
+        else if (this.preced.equalsIgnoreCase("Pause")) {
+          this.mainF.getSwitchableCL().show(this.mainF.getSwitchablePanel(),"Pause");
+        }
+      }
     }
-    else if (source.getText().equalsIgnoreCase("RETOUR")) {
-      if (this.preced.equalsIgnoreCase("Accueil")) {
-        this.mainF.getSwitchableCL().show(this.mainF.getSwitchablePanel(),"Accueil");
-      }
-      else if (this.preced.equalsIgnoreCase("choixNombre")) {
-        this.mainF.getSwitchableCL().show(this.mainF.getSwitchablePanel(),"choixNombre");
-      }
-      else if (this.preced.equalsIgnoreCase("Pause")) {
-        this.mainF.getSwitchableCL().show(this.mainF.getSwitchablePanel(),"Pause");
-      }
+    catch (Exception e) {
+      System.out.println(e.getMessage());
     }
   }
 }
