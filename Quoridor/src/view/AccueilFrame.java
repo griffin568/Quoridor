@@ -61,9 +61,10 @@ public class AccueilFrame extends JPanel {
     JPanel downContainer = new JPanel(new BorderLayout());
     JPanel upContainer = new JPanel(new BorderLayout());
 
-    leftContainer.setBackground(Color.BLACK);
+    upContainer.setBackground(Color.BLACK);
     rightContainer.setBackground(Color.BLACK);
     downContainer.setBackground(Color.BLACK);
+    leftContainer.setBackground(Color.BLACK);
 
     this.titre = new JLabel("QUORIDOR");
     this.LancerBton = new JButton("Lancer une nouvelle partie");
