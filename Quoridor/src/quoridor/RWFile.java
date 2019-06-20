@@ -1,6 +1,7 @@
 package quoridor;
 import java.util.ArrayList;
 import java.io.*;
+import java.util.Scanner;
 
 public class RWFile {
 
@@ -12,10 +13,13 @@ public class RWFile {
   public static ArrayList<String> readFile(String fileName) {
     ArrayList<String> liste = new ArrayList<String>();
     try {
-      DataInputStream dataIn = new DataInputStream(new FileInputStream("../data/" + fileName));
-      while (dataIn.available() > 0) {
-        liste.add(dataIn.readLine());
+      fileName = "../data/" + fileName;
+      FileReader reader = new FileReader(fileName);
+      Scanner scan = new Scanner(reader);
+      while (scan.hasNextLine()) {
+        liste.add(scan.nextLine());
       }
+      scan.close();
     }
     catch (FileNotFoundException e) {
       System.out.println("RWFile readFile() - Fichier non trouvé : " + fileName);
@@ -48,40 +52,56 @@ public class RWFile {
         throw new Exception("RWFile writeFile() - Le dernier joueur ayant joué doit exister");
       }
       else {
-        DataOutputStream dataOut = new DataOutputStream(new FileOutputStream ("../data/" + fileName));
-
+        fileName = "../data/" + fileName /*+ ".txt"*/;
+        PrintWriter out = new PrintWriter(fileName);
         for (Joueur j : joueurs) {
-          dataOut.writeUTF(j.getNom());
+          out.print(j.getNom());
           if (j.isHumain()) {
-            dataOut.writeUTF(" H ; ");
+            if (joueurs.indexOf(j) != joueurs.size() - 1) {
+              out.print(" H ;");
+            }
+            else {
+              out.print(" H  ");
+            }
+
           }
           else {
             IA ia = (IA)j;
-            dataOut.writeUTF(" IA " + ia.getDifficulte() + " ; ");
+            if (joueurs.indexOf(j) != joueurs.size() - 1) {
+              out.print(" IA " + ia.getDifficulte() + ";");
+            }
+            else {
+              out.print(" IA " + ia.getDifficulte());
+            }
           }
         }
-        dataOut.writeUTF("\n");
+        out.println();
 
         for (Joueur j : joueurs) {
           Pion p = j.getPion();
           Coordonnee coord = p.getCoordonnee();
-          dataOut.writeUTF(p.getCouleur() + " " + coord.getX1() + " " + coord.getY1() + " ; ");
+          out.print(p.getCouleur() + " " + coord.getX1() + " " + coord.getY1() + ";");
         }
-        dataOut.writeUTF("\n");
+        out.println();
 
         for (Joueur j : joueurs) {
           ArrayList<Barriere> lesBarrieres = j.getBarrieres();
-          dataOut.writeUTF(String.valueOf(lesBarrieres.size()));
+          out.print(String.valueOf(lesBarrieres.size()) + ";");
         }
 
         for (Barriere b : barrieres) {
           Coordonnee coord = b.getCoordonnee();
-          dataOut.writeUTF(b.getCouleur() + " " + coord.getX1() + " " + coord.getY1() + " " + coord.getX2() + " " + coord.getY2());
+          if (barrieres.indexOf(b) != barrieres.size() - 1) {
+            out.print(b.getCouleur() + " " + coord.getX1() + " " + coord.getY1() + " " + coord.getX2() + " " + coord.getY2() + ";");
+          }
+          else {
+            out.print(b.getCouleur() + " " + coord.getX1() + " " + coord.getY1() + " " + coord.getX2() + " " + coord.getY2());
+          }
         }
-        dataOut.writeUTF("\n");
+        out.println();
 
-        dataOut.writeUTF(tour + " ; " + String.valueOf(dernierJoueur.getNumero()));
-        dataOut.close();
+        out.print(tour + ";" + String.valueOf(dernierJoueur.getNumero()));
+        out.close();
       }
     }
     catch(FileNotFoundException e) {

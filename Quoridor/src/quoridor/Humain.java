@@ -61,6 +61,13 @@ public class Humain extends Joueur {
               ok = true;
             }
           }
+          else if (nPosition.split(" ")[0].trim().equalsIgnoreCase("load")) {
+            String nb = nPosition.split(" ")[1].trim();
+            if (nb.equalsIgnoreCase("1") || nb.equalsIgnoreCase("2") || nb.equalsIgnoreCase("3")) {
+              ret = new Barriere(nPosition,this.plateau);
+              ok = true;
+            }
+          }
           else if (nPosition.trim().equalsIgnoreCase("showme")) {
             System.out.println("Nom du joueur : " + this.nom);
             System.out.println("Pion : " + this.pion.getCouleur().charAt(0));

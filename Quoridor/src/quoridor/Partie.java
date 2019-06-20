@@ -74,6 +74,7 @@ public class Partie {
           throw new Exception("Partie constructeur - Le nom du fichier doit être valide pour pouvoir être utilisé.");
         }
         else {
+          this.plateau = new Plateau(this.plateau.getDamier().length);
           this.joueurs = new ArrayList<Joueur>();
           ArrayList<String> lignes = RWFile.readFile(filename);
           String[] lesJoueurs = lignes.get(0).split(";"); // La liste des joueurs sous forme de String
@@ -87,15 +88,15 @@ public class Partie {
             desJoueurs.add(j.split(" "));
             i++;
           }
-          this.tour = Integer.parseInt(leReste[0]);
+          this.tour = Integer.parseInt(leReste[0].trim());
 
           if (i == 2) {
             //Création des pions
             String[] pion1 = lesPions[0].split(" ");
             String[] pion2 = lesPions[1].split(" ");
 
-            String couleur1 = pion1[0];
-            String couleur2 = pion2[0];
+            String couleur1 = pion1[0].trim();
+            String couleur2 = pion2[0].trim();
 
             Coordonnee coord1 = new Coordonnee(Integer.parseInt(pion1[1]), Integer.parseInt(pion1[2]), -1, -1);
             Coordonnee coord2 = new Coordonnee(Integer.parseInt(pion2[1]), Integer.parseInt(pion2[2]), -1, -1);
@@ -109,10 +110,10 @@ public class Partie {
             ArrayList<Barriere> barriere1 = new ArrayList<Barriere>();
             ArrayList<Barriere> barriere2 = new ArrayList<Barriere>();
 
-            for (int j = 0; j < Integer.parseInt(lesBarrieres[0]); j++) {
+            for (int j = 0; j < Integer.parseInt(lesBarrieres[0].trim()); j++) {
               barriere1.add(new Barriere(couleur1, this.plateau));
             }
-            for (int j = 0; j < Integer.parseInt(lesBarrieres[1]); j++) {
+            for (int j = 0; j < Integer.parseInt(lesBarrieres[1].trim()); j++) {
               barriere2.add(new Barriere(couleur2, this.plateau));
             }
 
@@ -123,12 +124,12 @@ public class Partie {
             String nom2 = joueur2[0];
 
             Joueur J1, J2;
-            if (joueur1[1].equals("H") && joueur2[1].equals("H")) {
+            if (joueur1[1].trim().equals("H") && joueur2[1].trim().equals("H")) {
               this.mode = Mode.HH;
               J1 = new Humain(nom1, 1, couleur1, barriere1, p1, this.plateau);
               J2 = new Humain(nom2, 2, couleur2, barriere2, p2, this.plateau);
             }
-            else if (joueur1[1].equals("H") && joueur2[1].equals("IA")) {
+            else if (joueur1[1].trim().equals("H") && joueur2[1].trim().equals("IA")) {
               this.mode = Mode.HI;
               J1 = new Humain(nom1, 1, couleur1, barriere1, p1, this.plateau);
               J2 = new IA(nom2, 2, couleur2, barriere2, p2, this.plateau, Difficulte.FACILE);
@@ -139,7 +140,7 @@ public class Partie {
               J2 = new IA(nom2, 2, couleur2, barriere2, p2, this.plateau, Difficulte.FACILE);
             }
 
-            if (leReste[1].equals("1")) {
+            if (leReste[1].trim().equals("1")) {
               this.joueurs.add(J1);
               this.joueurs.add(J2);
             }
@@ -207,26 +208,26 @@ public class Partie {
             String nom4 = joueur4[0];
 
             Joueur J1, J2, J3, J4;
-            if (joueur1[1].equals("H") && joueur2[1].equals("H") && joueur3[1].equals("H") && joueur4[1].equals("H")) {
+            if (joueur1[1].trim().equals("H") && joueur2[1].trim().equals("H") && joueur3[1].trim().equals("H") && joueur4[1].trim().equals("H")) {
               this.mode = Mode.HHHH;
               J1 = new Humain(nom1, 1, couleur1, barriere1, p1, this.plateau);
               J2 = new Humain(nom2, 2, couleur2, barriere2, p2, this.plateau);
               J3 = new Humain(nom3, 3, couleur3, barriere3, p3, this.plateau);
               J4 = new Humain(nom4, 4, couleur4, barriere4, p4, this.plateau);
             }
-            else if (joueur1[1].equals("H") && joueur2[1].equals("H") && joueur3[1].equals("H") && joueur4[1].equals("IA")) {
+            else if (joueur1[1].trim().equals("H") && joueur2[1].trim().equals("H") && joueur3[1].trim().equals("H") && joueur4[1].trim().equals("IA")) {
               J1 = new Humain(nom1, 1, couleur1, barriere1, p1, this.plateau);
               J2 = new Humain(nom2, 2, couleur2, barriere2, p2, this.plateau);
               J3 = new Humain(nom3, 3, couleur3, barriere3, p3, this.plateau);
               J4 = new IA(nom4, 4, couleur4, barriere4, p4, this.plateau, Difficulte.FACILE);
             }
-            else if (joueur1[1].equals("H") && joueur2[1].equals("H") && joueur3[1].equals("IA") && joueur4[1].equals("IA")) {
+            else if (joueur1[1].trim().equals("H") && joueur2[1].trim().equals("H") && joueur3[1].trim().equals("IA") && joueur4[1].trim().equals("IA")) {
               J1 = new Humain(nom1, 1, couleur1, barriere1, p1, this.plateau);
               J2 = new Humain(nom2, 2, couleur2, barriere2, p2, this.plateau);
               J3 = new IA(nom3, 3, couleur3, barriere3, p3, this.plateau, Difficulte.FACILE);
               J4 = new IA(nom4, 4, couleur4, barriere4, p4, this.plateau, Difficulte.FACILE);
             }
-            else if (joueur1[1].equals("H") && joueur2[1].equals("IA") && joueur3[1].equals("IA") && joueur4[1].equals("IA")) {
+            else if (joueur1[1].trim().equals("H") && joueur2[1].trim().equals("IA") && joueur3[1].trim().equals("IA") && joueur4[1].trim().equals("IA")) {
               J1 = new Humain(nom1, 1, couleur1, barriere1, p1, this.plateau);
               J2 = new IA(nom2, 2, couleur2, barriere2, p2, this.plateau, Difficulte.FACILE);
               J3 = new IA(nom3, 3, couleur3, barriere4, p3, this.plateau, Difficulte.FACILE);
@@ -239,19 +240,19 @@ public class Partie {
               J4 = new IA(nom4, 4, couleur4, barriere4, p4, this.plateau, Difficulte.FACILE);
             }
 
-            if (leReste[1].equals("1")) {
+            if (leReste[1].trim().equals("1")) {
               this.joueurs.add(J1);
               this.joueurs.add(J2);
               this.joueurs.add(J3);
               this.joueurs.add(J4);
             }
-            else if (leReste[1].equals("2")) {
+            else if (leReste[1].trim().equals("2")) {
               this.joueurs.add(J2);
               this.joueurs.add(J3);
               this.joueurs.add(J4);
               this.joueurs.add(J1);
             }
-            else if (leReste[1].equals("3")) {
+            else if (leReste[1].trim().equals("3")) {
               this.joueurs.add(J3);
               this.joueurs.add(J4);
               this.joueurs.add(J1);
@@ -273,13 +274,13 @@ public class Partie {
           for (String j : lesJoueurs) {
             String[] lesInfos = j.split(" ");
             if(lesInfos.length > 3) {
-              if (lesInfos[3].equals("FACILE")) {
+              if (lesInfos[3].trim().equals("FACILE")) {
                 ((IA)this.joueurs.get(i)).setDifficulte(Difficulte.FACILE);
               }
-              else if (lesInfos[3].equals("MOYEN")) {
+              else if (lesInfos[3].trim().equals("MOYEN")) {
                 ((IA)this.joueurs.get(i)).setDifficulte(Difficulte.MOYEN);
               }
-              else if (lesInfos[3].equals("DIFFICILE")) {
+              else if (lesInfos[3].trim().equals("DIFFICILE")) {
                 ((IA)this.joueurs.get(i)).setDifficulte(Difficulte.DIFFICILE);
               }
               else {
@@ -526,6 +527,19 @@ public class Partie {
                 System.err.println("Erreur lors de la sauvegarde de la partie, numero de fichier invalide");
               }
             }
+            else if (b.getCouleur().split(" ")[0].trim().equalsIgnoreCase("load")) {
+              if (b.getCouleur().split(" ")[1].trim().equals("1") || b.getCouleur().split(" ")[1].trim().equals("2") || b.getCouleur().split(" ")[1].trim().equals("3")) {
+                System.out.println("chargement en cours");
+                this.charger("sauvegarde" + b.getCouleur().split(" ")[1]);
+                listePion = new ArrayList<Pion>();
+                for (Joueur j : this.joueurs) {
+                  listePion.add(j.getPion());
+                }
+              }
+              else {
+                System.err.println("Erreur lors du chargement de la partie, numero de fichier invalide");
+              }
+            }
             else {
               addBarriere(b);
             }
@@ -563,6 +577,7 @@ public class Partie {
             i--;
           }
         }
+        this.tour++;
       }
     }
 
