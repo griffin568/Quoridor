@@ -83,6 +83,10 @@ public class IA extends Joueur {
           Collections.shuffle(d);
           deplacerPion(new Coordonnee(d.get(0)[0],d.get(0)[1],-1,-1),this.plateau.getDamier());
         }
+        else if (this.DIFFICULTE == Difficulte.MOYEN) {
+          int[][] deplacementPossibles = this.pion.getDeplacementPossibles(this.plateau.getDamier());
+
+        }
       }
       catch (NullPointerException e) {
         System.err.println(e.getMessage());
@@ -91,6 +95,15 @@ public class IA extends Joueur {
         return ret;
       }
     }
+
+  /**
+    * Identifie un chemin de victoire pour un joueur grâce à l'algorithme de Dijkstra
+    * @param joueur le joueur dont il faut identifier le chemin
+    * @return le chemin trouvé pour ce joueur 
+    */
+  private ArrayList<int> dijkstra (Joueur joueur) {
+
+  }
 
   /**
   * Retourne la difficulté de l'IA

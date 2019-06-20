@@ -408,10 +408,38 @@ public class Partie {
             Coordonnee c3 = new Coordonnee(Integer.parseInt(coord3[0]),Integer.parseInt(coord3[1]), -1, -1);
             Coordonnee c4 = new Coordonnee(Integer.parseInt(coord4[0]),Integer.parseInt(coord4[1]), -1, -1);
 
-            Joueur J1 = new Humain("Joueur1",1,"O",BarriereJ1,new Pion("O",c1), this.plateau);
-            Joueur J2 = new Humain("Joueur2",2,"W",BarriereJ2,new Pion("W",c2), this.plateau);
-            Joueur J3 = new Humain("Joueur3",3,"Z",BarriereJ3,new Pion("Z",c3), this.plateau);
-            Joueur J4 = new Humain("Joueur4",4,"A",BarriereJ4,new Pion("A",c4), this.plateau);
+            Joueur J1,J2,J3,J4;
+
+            if (this.mode.equals(Mode.HHHH)) {
+              J1 = new Humain("Joueur1",1,"O",BarriereJ1,new Pion("O",c1), this.plateau);
+              J2 = new Humain("Joueur2",2,"W",BarriereJ2,new Pion("W",c2), this.plateau);
+              J3 = new Humain("Joueur3",3,"Z",BarriereJ3,new Pion("Z",c3), this.plateau);
+              J4 = new Humain("Joueur4",4,"A",BarriereJ4,new Pion("A",c4), this.plateau);
+            }
+            else if (this.mode.equals(Mode.HHHI)) {
+              J1 = new Humain("Joueur1",1,"O",BarriereJ1,new Pion("O",c1), this.plateau);
+              J2 = new Humain("Joueur2",2,"W",BarriereJ2,new Pion("W",c2), this.plateau);
+              J3 = new Humain("Joueur3",3,"Z",BarriereJ3,new Pion("Z",c3), this.plateau);
+              J4 = new IA("Joueur4",4,"A",BarriereJ4,new Pion("A",c4), this.plateau,Difficulte.FACILE);
+            }
+            else if (this.mode.equals(Mode.HHII)) {
+              J1 = new Humain("Joueur1",1,"O",BarriereJ1,new Pion("O",c1), this.plateau);
+              J2 = new Humain("Joueur2",2,"W",BarriereJ2,new Pion("W",c2), this.plateau);
+              J3 = new IA("Joueur3",3,"Z",BarriereJ3,new Pion("Z",c3), this.plateau,Difficulte.FACILE);
+              J4 = new IA("Joueur4",4,"A",BarriereJ4,new Pion("A",c4), this.plateau,Difficulte.FACILE);
+            }
+            else if (this.mode.equals(Mode.HIII)) {
+              J1 = new Humain("Joueur1",1,"O",BarriereJ1,new Pion("O",c1), this.plateau);
+              J2 = new IA("Joueur2",2,"W",BarriereJ2,new Pion("W",c2), this.plateau,Difficulte.FACILE);
+              J3 = new IA("Joueur3",3,"Z",BarriereJ3,new Pion("Z",c3), this.plateau,Difficulte.FACILE);
+              J4 = new IA("Joueur4",4,"A",BarriereJ4,new Pion("A",c4), this.plateau,Difficulte.FACILE);
+            }
+            else {
+              J1 = new IA("Joueur1",1,"O",BarriereJ1,new Pion("O",c1), this.plateau,Difficulte.FACILE);
+              J2 = new IA("Joueur2",2,"W",BarriereJ2,new Pion("W",c2), this.plateau,Difficulte.FACILE);
+              J3 = new IA("Joueur3",3,"Z",BarriereJ3,new Pion("Z",c3), this.plateau,Difficulte.FACILE);
+              J4 = new IA("Joueur4",4,"A",BarriereJ4,new Pion("A",c4), this.plateau,Difficulte.FACILE);
+            }
 
             ArrayList<int[]> aChanger = new ArrayList<int[]>();
             int[] lesCoords1 = {Integer.parseInt(coord1[0]),Integer.parseInt(coord1[1])};
@@ -522,6 +550,7 @@ public class Partie {
               if (b.getCouleur().split(" ")[1].trim().equals("1") || b.getCouleur().split(" ")[1].trim().equals("2") || b.getCouleur().split(" ")[1].trim().equals("3")) {
                 System.out.println("sauvegarde en cours");
                 this.sauvegarder("sauvegarde" + b.getCouleur().split(" ")[1] , this.joueurs.get(i));
+                i--;
               }
               else {
                 System.err.println("Erreur lors de la sauvegarde de la partie, numero de fichier invalide");
@@ -535,6 +564,7 @@ public class Partie {
                 for (Joueur j : this.joueurs) {
                   listePion.add(j.getPion());
                 }
+                i = -1;
               }
               else {
                 System.err.println("Erreur lors du chargement de la partie, numero de fichier invalide");
@@ -572,9 +602,6 @@ public class Partie {
               error = true;
             }
           }
-          System.out.println(this.joueurs.get(0).getCouleur());
-          System.out.println(this.joueurs.get(0).getNom());
-          System.out.println(this.joueurs.get(0).getPion().getCoordonnee().getX1() + "   " + this.joueurs.get(1).getPion().getCoordonnee().getY1());
           fin();
           if (error) {
             i--;
@@ -589,21 +616,31 @@ public class Partie {
       */
     public void fin() {
       try {
-        if (this.joueurs.get(0).getPion().getCoordonnee().getX1() == 16) {
-          System.out.println(this.joueurs.get(0).getNom() + " a gagne");
-          System.exit(0);
+        ArrayList<Pion> listePion = new ArrayList<Pion>();
+        for (Joueur j : this.joueurs) {
+          listePion.add(j.getPion());
         }
-        else if (this.joueurs.get(1).getPion().getCoordonnee().getX1() == 0) {
-          System.out.println(this.joueurs.get(1).getNom() + " a gagne");
-          System.exit(0);
-        }
-        else if (this.joueurs.get(2).getPion().getCoordonnee().getY1() == 16) {
-          System.out.println(this.joueurs.get(2).getNom() + " a gagne");
-          System.exit(0);
-        }
-        else if (this.joueurs.get(3).getPion().getCoordonnee().getY1() == 0) {
-          System.out.println(this.joueurs.get(3).getNom() + " a gagne");
-          System.exit(0);
+        for (Joueur j : this.joueurs) {
+          if (j.getNumero() == 1 && j.getPion().getCoordonnee().getX1() == 16) {
+            System.out.println(this.joueurs.get(0).getNom() + " a gagne");
+            System.out.println(this.plateau.toString(listePion,j.getPion()));
+            System.exit(0);
+          }
+          else if (j.getNumero() == 2 && j.getPion().getCoordonnee().getX1() == 0) {
+            System.out.println(this.joueurs.get(1).getNom() + " a gagne");
+            System.out.println(this.plateau.toString(listePion,j.getPion()));
+            System.exit(0);
+          }
+          else if (j.getNumero() == 3 && j.getPion().getCoordonnee().getY1() == 16) {
+            System.out.println(this.joueurs.get(2).getNom() + " a gagne");
+            System.out.println(this.plateau.toString(listePion,j.getPion()));
+            System.exit(0);
+          }
+          else if (j.getNumero() == 4 && j.getPion().getCoordonnee().getY1() == 0) {
+            System.out.println(this.joueurs.get(3).getNom() + " a gagne");
+            System.out.println(this.plateau.toString(listePion,j.getPion()));
+            System.exit(0);
+          }
         }
       }
       catch (IndexOutOfBoundsException e) {
