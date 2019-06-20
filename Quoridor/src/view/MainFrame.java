@@ -44,6 +44,7 @@ public class MainFrame extends JFrame {
     this.partie4Joueurs = new Partie4JoueursFrame(this, this.partie);
     this.choixNombre = new ChoixNombreFrame(this, this.partie2Joueurs, this.partie4Joueurs);
     this.acccueil = new AccueilFrame(this, this.chargement, this.choixNombre);
+    this.pause = new MainPauseFrame(this, this.acccueil);
 
     this.switchablePanel = new JPanel(new CardLayout());
 
@@ -77,6 +78,13 @@ public class MainFrame extends JFrame {
     return this.switchableCL;
   }
 
+  /**
+    * Rend l'écran affichant la partie
+    * @return l'écran de la partie actuelle
+    */
+    public PartieFrame getPartie() {
+      return this.partie;
+    }
 
   /**
     * Active ou désactive le menu pause. Cette méthode sera appelée par le listener de la classe PartieFrame
@@ -88,6 +96,7 @@ public class MainFrame extends JFrame {
     }
     else {
       this.pause.dispatchEvent(new WindowEvent(this.pause, WindowEvent.WINDOW_CLOSING));
+      this.switchableCL.show(this.switchablePanel, "Accueil");
     }
   }
 }
