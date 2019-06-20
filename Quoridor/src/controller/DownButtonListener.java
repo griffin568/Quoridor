@@ -39,28 +39,23 @@ public class DownButtonListener implements ActionListener {
   * @param ev l'action réalisé (Clique sur le bouton)
   */
   public void actionPerformed(ActionEvent ev) {
-    try {
-      JButton source = (JButton)ev.getSource();
-      if (source.getText().equalsIgnoreCase("QUITTER")) {
-        System.exit(0);
-      }
-      else if (source.getText().equalsIgnoreCase("RETOUR")) {
-        if (this.preced.equalsIgnoreCase("Accueil")) {
-          MainFrame laMainF = (MainFrame) this.mainF;
-          laMainF.getSwitchableCL().show(laMainF.getSwitchablePanel(),"Accueil");
-        }
-        else if (this.preced.equalsIgnoreCase("choixNombre")) {
-          MainFrame laMainF = (MainFrame) this.mainF;
-          laMainF.getSwitchableCL().show(laMainF.getSwitchablePanel(),"choixNombre");
-        }
-        else if (this.preced.equalsIgnoreCase("Pause")) {
-          MainPauseFrame laMainF = (MainPauseFrame) this.mainF;
-          laMainF.getSwitchableCL().show(laMainF.getSwitchablePanel(),"Pause");
-        }
-      }
+    JButton source = (JButton)ev.getSource();
+    if (source.getText().equalsIgnoreCase("QUITTER")) {
+      System.exit(0);
     }
-    catch (Exception e) {
-      System.out.println(e.getMessage());
+    else if (source.getText().equalsIgnoreCase("RETOUR")) {
+      if (this.preced.equalsIgnoreCase("Accueil")) {
+        MainFrame laMainF = (MainFrame) this.mainF;
+        laMainF.getSwitchableCL().show(laMainF.getSwitchablePanel(),"Accueil");
+      }
+      else if (this.preced.equalsIgnoreCase("choixNombre")) {
+        MainFrame laMainF = (MainFrame) this.mainF;
+        laMainF.getSwitchableCL().show(laMainF.getSwitchablePanel(),"choixNombre");
+      }
+      else if (this.preced.equalsIgnoreCase("Pause")) {
+        MainPauseFrame laMainF = (MainPauseFrame) this.mainF;
+        laMainF.getSwitchableCL().show(laMainF.getSwitchablePanel(),"Pause");
+      }
     }
   }
 }
