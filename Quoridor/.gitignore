@@ -10,6 +10,9 @@
 # PDF file
 *.pdf
 
+# Runnable file
+*.bat
+
 # BlueJ files
 *.ctxt
 
