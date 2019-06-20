@@ -103,6 +103,7 @@ public class IA extends Joueur {
     */
   private ArrayList<int[]> dijkstra (Joueur joueur) {
 
+    return null;
   }
 
   /**

@@ -24,7 +24,7 @@ public class Partie2JoueursFrame extends JPanel {
         throw new Exception("L'écran principal doit exister pour créer l'écran de sélection de joueurs (Partie à 2 joueurs).");
       }
       else if (partie == null) {
-        throw new Exception("L'écran de jeu) doit exister pour créer l'écran de sélection de joueurs (Partie à 2 joueurs).");
+        throw new Exception("L'écran de jeu doit exister pour créer l'écran de sélection de joueurs (Partie à 2 joueurs).");
       }
       else {
         this.mainF = parent;
@@ -70,6 +70,8 @@ public class Partie2JoueursFrame extends JPanel {
     this.visuelBton.setPreferredSize(new Dimension(500, 100));
     this.retour.setPreferredSize(new Dimension(200, 50));
     this.titre.setForeground(Color.WHITE);
+    this.j1Label.setForeground(Color.WHITE);
+    this.j2Label.setForeground(Color.WHITE);
 
     upContainer.add(this.titre,BorderLayout.CENTER);
     leftCenterContainer.add(this.texteBton);
