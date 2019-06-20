@@ -1,7 +1,7 @@
 import java.awt.*;
 import quoridor.*;
 import view.*;
-import view.controller.*;
+import controller.*;
 import java.util.ArrayList;
 
 /**
