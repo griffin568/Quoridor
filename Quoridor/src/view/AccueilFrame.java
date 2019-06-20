@@ -59,6 +59,7 @@ public class AccueilFrame extends JPanel {
     JPanel leftContainer = new JPanel(new BorderLayout());
     JPanel rightContainer = new JPanel(new BorderLayout());
     JPanel downContainer = new JPanel(new BorderLayout());
+    JPanel upContainer = new JPanel(new BorderLayout());
 
     leftContainer.setBackground(Color.BLACK);
     rightContainer.setBackground(Color.BLACK);
@@ -77,17 +78,20 @@ public class AccueilFrame extends JPanel {
     this.LancerBton.setPreferredSize(new Dimension(500, 100));
     this.ChargerBton.setPreferredSize(new Dimension(500, 100));
     this.QuitterBton.setPreferredSize(new Dimension(200, 50));
+    this.titre.setForeground(Color.WHITE);
 
     this.PhotoButton.setOpaque(false);
     this.PhotoButton.setContentAreaFilled(false);
     this.PhotoButton.setBorderPainted(false);
     this.PhotoButton.setFocusable(false);
 
+    upContainer.add(this.titre,BorderLayout.CENTER);
     leftContainer.add(this.PhotoButton,BorderLayout.CENTER);
     rightContainer.add(this.LancerBton,BorderLayout.NORTH);
     rightContainer.add(this.ChargerBton,BorderLayout.SOUTH);
     downContainer.add(this.QuitterBton,BorderLayout.EAST);
 
+    add(upContainer,BorderLayout.NORTH);
     add(leftContainer,BorderLayout.WEST);
     add(rightContainer,BorderLayout.EAST);
     add(downContainer,BorderLayout.SOUTH);

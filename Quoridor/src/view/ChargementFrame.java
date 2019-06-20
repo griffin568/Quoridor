@@ -75,6 +75,7 @@ public class ChargementFrame extends JPanel {
     this.save2.setPreferredSize(new Dimension(500, 100));
     this.save3.setPreferredSize(new Dimension(500, 100));
     this.retour.setPreferredSize(new Dimension(200, 50));
+    this.titre.setForeground(Color.WHITE);
 
     upContainer.add(this.titre, BorderLayout.CENTER);
     upContainer.add(this.corbeille, BorderLayout.EAST);
