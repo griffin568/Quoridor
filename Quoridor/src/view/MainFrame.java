@@ -44,6 +44,7 @@ public class MainFrame extends JFrame {
     this.partie4Joueurs = new Partie4JoueursFrame(this, this.partie);
     this.choixNombre = new ChoixNombreFrame(this, this.partie2Joueurs, this.partie4Joueurs);
     this.acccueil = new AccueilFrame(this, this.chargement, this.choixNombre);
+    this.pause = new MainPauseFrame(this, this.acccueil);
 
     this.switchablePanel = new JPanel(new CardLayout());
 

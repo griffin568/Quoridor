@@ -10,6 +10,7 @@ public class MainPauseFrame extends JFrame {
 
   private MainFrame parent;
   private AccueilFrame acccueil;
+
   private PauseFrame pause;
   private ChargementPauseFrame chargementPause;
   private SauvegarderPauseFrame sauvegardePause;
@@ -35,7 +36,7 @@ public class MainPauseFrame extends JFrame {
 
         this.setSize(1300, 650);
         this.setResizable(false);
-        this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setVisible(true);
       }
     }
@@ -47,7 +48,7 @@ public class MainPauseFrame extends JFrame {
 
 
   private void initComponent() {
-    this.pause = new PauseFrame(this);
+    this.pause = new PauseFrame(this, this.acccueil);
     this.chargementPause = new ChargementPauseFrame(this);
     this.sauvegardePause = new SauvegarderPauseFrame(this);
     this.sauvegardeQuitterPause = new SauvegarderQuitterPauseFrame(this);
