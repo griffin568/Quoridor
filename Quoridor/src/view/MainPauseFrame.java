@@ -2,6 +2,7 @@ package view;
 
 import javax.swing.*;
 import java.awt.*;
+import controller.*;
 
 public class MainPauseFrame extends JFrame {
 
@@ -49,13 +50,13 @@ public class MainPauseFrame extends JFrame {
 
   private void initComponent() {
     this.pause = new PauseFrame(this, this.acccueil);
-    this.chargementPause = new ChargementPauseFrame(this);
+    this.chargementPause = new ChargementPauseFrame(this,this.parent.getPartie());
     this.sauvegardePause = new SauvegarderPauseFrame(this);
     this.sauvegardeQuitterPause = new SauvegarderQuitterPauseFrame(this);
 
     this.switchablePanel = new JPanel(new CardLayout());
     this.switchablePanel.add(this.pause, "Pause");
-    this.switchablePanel.add(this.chargementPause, "Chargement");
+    this.switchablePanel.add(this.chargementPause, "Charger");
     this.switchablePanel.add(this.sauvegardePause, "Sauvegarder");
     this.switchablePanel.add(this.sauvegardeQuitterPause, "SauvegarderQuitter");
 
@@ -63,5 +64,25 @@ public class MainPauseFrame extends JFrame {
     this.switchableCL.show(this.switchablePanel, "Pause");
 
     this.add(this.switchablePanel, BorderLayout.CENTER);
+  }
+
+  public MainFrame getMainFrame() {
+    return this.parent;
+  }
+
+  /**
+    * Retourne le panel échangeable
+    * @return le panel échangeable
+  */
+  public JPanel getSwitchablePanel() {
+    return this.switchablePanel;
+  }
+
+  /**
+    * Rend le panel qui est actuellement affiché à l'écran
+    * @return le panel actuel
+  */
+  public CardLayout getSwitchableCL() {
+    return this.switchableCL;
   }
 }

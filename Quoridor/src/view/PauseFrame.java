@@ -2,6 +2,7 @@ package view;
 
 import javax.swing.*;
 import java.awt.*;
+import controller.*;
 
 public class PauseFrame extends JPanel {
 
@@ -45,6 +46,13 @@ public class PauseFrame extends JPanel {
     this.charger = new JButton("CHARGER UNE PARTIE");
     this.sauvegarderQuitter = new JButton("SAUVEGARDER ET QUITTER");
     this.menu = new JButton("MENU PRINCIPAL");
+
+    this.reprendre.addActionListener(new PauseListener(this.mainF));
+    this.sauvegarder.addActionListener(new PauseListener(this.mainF));
+    this.charger.addActionListener(new PauseListener(this.mainF));
+    this.sauvegarderQuitter.addActionListener(new PauseListener(this.mainF));
+    this.menu.addActionListener(new PauseListener(this.mainF));
+
 
     this.reprendre.setPreferredSize(new Dimension(500, 100));
     this.sauvegarder.setPreferredSize(new Dimension(500, 100));

@@ -7,7 +7,7 @@ import view.*;
 
 public class DownButtonListener implements ActionListener {
 
-  private MainFrame mainF;
+  private JFrame mainF;
   private String preced;
 
   /**
@@ -16,7 +16,7 @@ public class DownButtonListener implements ActionListener {
   * @param mainF La fenêtre principale sur laquelle le bouton est placé
   * @param preced La page que nous devrons afficher lors de l'appuie sur un bouton 'RETOUR'
   */
-  public DownButtonListener(MainFrame mainF, String preced) {
+  public DownButtonListener(JFrame mainF, String preced) {
     try {
       if (mainF == null) {
         throw new Exception("DownButtonListener constructeur - L'écran principal doit exister pour être utilisé dans le listener.");
@@ -40,20 +40,22 @@ public class DownButtonListener implements ActionListener {
   */
   public void actionPerformed(ActionEvent ev) {
     try {
-
       JButton source = (JButton)ev.getSource();
       if (source.getText().equalsIgnoreCase("QUITTER")) {
         System.exit(0);
       }
       else if (source.getText().equalsIgnoreCase("RETOUR")) {
         if (this.preced.equalsIgnoreCase("Accueil")) {
-          this.mainF.getSwitchableCL().show(this.mainF.getSwitchablePanel(),"Accueil");
+          MainFrame laMainF = (MainFrame) this.mainF;
+          laMainF.getSwitchableCL().show(laMainF.getSwitchablePanel(),"Accueil");
         }
         else if (this.preced.equalsIgnoreCase("choixNombre")) {
-          this.mainF.getSwitchableCL().show(this.mainF.getSwitchablePanel(),"choixNombre");
+          MainFrame laMainF = (MainFrame) this.mainF;
+          laMainF.getSwitchableCL().show(laMainF.getSwitchablePanel(),"choixNombre");
         }
         else if (this.preced.equalsIgnoreCase("Pause")) {
-          this.mainF.getSwitchableCL().show(this.mainF.getSwitchablePanel(),"Pause");
+          MainPauseFrame laMainF = (MainPauseFrame) this.mainF;
+          laMainF.getSwitchableCL().show(laMainF.getSwitchablePanel(),"Pause");
         }
       }
     }
