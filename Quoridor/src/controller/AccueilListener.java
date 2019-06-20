@@ -1,4 +1,4 @@
-package view.controller;
+package controller;
 
 import javax.swing.event.*;
 import java.awt.event.*;
