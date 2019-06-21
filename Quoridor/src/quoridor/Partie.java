@@ -2,6 +2,7 @@ package quoridor;
 
 import java.util.ArrayList;
 import java.io.FileNotFoundException;
+import quoridor.dijkstra.*;
 
 /**
 * Cette classe gère les différents aspect de la partie
@@ -531,37 +532,40 @@ public class Partie {
           }
         }
         for (Joueur j2 : this.joueurs) {
-          this.startRec = System.currentTimeMillis();
-          this.endRec = 5*1000;
-          int[][] copieDamier = this.copieDamier();
-          copieDamier[j2.getPion().getCoordonnee().getX1()][j2.getPion().getCoordonnee().getY1()] = 2;
-          if (!checkChemins(j2.getPion().getCoordonnee().getX1(),j2.getPion().getCoordonnee().getY1(),j2.getNumero(),copieDamier)) {
-            System.out.println("Impossible, " + j2.getNom() + " se retrouverait bloque");
-            this.plateau = oldPlateau;
-            this.joueurs = oldJoueurs;
-            this.barrieres = oldBarrieres;
-            listePion = new ArrayList<Pion>();
-            for (Joueur j : this.joueurs) {
-              listePion.add(j.getPion());
+          Graphe checkError = new Graphe(j2.getPion().getCoordonnee().getX1(),j2.getPion().getCoordonnee().getY1(),this.copieDamier());
+          for (Noeud n : graphe.getNoeuds()) {
+            if (n.getNom().equals(String.valueOf(j2.getPion().getCoordonnee().getX1()) + " " + String.valueOf(j2.getPion().getCoordonnee().getY1()))) {
+              depart = n;
             }
-            error = true;
           }
-          else if (this.startRec == -1) {
-            System.out.println("Impossible, " + j2.getNom() + " se retrouverait bloque");
-            this.plateau = oldPlateau;
-            this.joueurs = oldJoueurs;
-            this.barrieres = oldBarrieres;
-            listePion = new ArrayList<Pion>();
-            for (Joueur j : this.joueurs) {
-              listePion.add(j.getPion());
-            }
+          if (depart == null) {
+            throw new Exception("Erreur de l'IA, parametres null");
+          }
+          else {
+            graphe = Graphe.dijkstra(graphe,depart);
+            int indice = 0;
             error = true;
+            while (indice < graphe.getNoeuds().size() && error) {
+              if (j2.getNumero == 1) {
+                if (graphe.getNoeuds().get(i).getNom().split(" ")[0].equals("16")) {
+                  error = false;
+                }
+              }
+            }
           }
         }
-        fin();
         if (error) {
+          System.out.println("Impossible, " + j2.getNom() + " se retrouverait bloque");
+          this.plateau = oldPlateau;
+          this.joueurs = oldJoueurs;
+          this.barrieres = oldBarrieres;
+          listePion = new ArrayList<Pion>();
+          for (Joueur j : this.joueurs) {
+            listePion.add(j.getPion());
+          }
           i--;
         }
+        fin();
       }
       this.tour++;
     }
@@ -622,6 +626,14 @@ public class Partie {
     }
   }
 
+/**
+  * Retourne les barrières posées
+  * @return la liste contenant ces barrières
+  */
+  public ArrayList<Barriere> getBarrieres() {
+    return this.barrieres;
+  }
+
 
 /**
   * Retourne le numéro du tour actuel
@@ -664,6 +676,9 @@ public class Partie {
     for (int i = 0 ; i < this.plateau.getDamier().length ; i++) {
       for (int j = 0 ; j < this.plateau.getDamier().length ; j++) {
         if (this.plateau.getDamier()[i][j]) {
+          ret[i][j] = 1;
+        }
+        else if (i % 2 == 0 && j % 2 == 0) {
           ret[i][j] = 1;
         }
         else {
@@ -852,6 +867,12 @@ public class Partie {
       System.err.println("Erreur checkChemins(), cause inconnue");
     }
     finally {
+      for (int i = 0 ; i < damier.length ; i++) {
+        for (int j = 0 ; j < damier.length ; j++) {
+          System.out.print(damier[i][j] + " ");
+        }
+        System.out.println();
+      }
       return ret;
     }
 

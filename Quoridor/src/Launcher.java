@@ -11,16 +11,17 @@ import java.util.ArrayList;
 public class Launcher {
 
     public static void main(String[] args) {
+      /**
       java.awt.EventQueue.invokeLater(new Runnable() {
         public void run() {
           MainFrame gui = new MainFrame();
         }
       });
-      /**
-      Partie test = new Partie(Mode.HHHH, "Texte");
+      */
+      Partie test = new Partie(Mode.HI);
+      ((IA)(test.getJoueurs().get(1))).setDifficulte(Difficulte.DIFFICILE);
       //test.charger("sauvegarde2");
       test.start();
-      */
 
     }
 }

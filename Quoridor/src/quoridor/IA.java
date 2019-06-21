@@ -12,7 +12,7 @@ import quoridor.dijkstra.*;
 public class IA extends Joueur {
 
     private Difficulte DIFFICULTE;
-    private int[][] plusCourtChemin;
+    private ArrayList<Noeud> plusCourtChemin;
 
     /**
       * Créé un nouvel objet IA
@@ -44,9 +44,9 @@ public class IA extends Joueur {
 
     /**
       * Modifie le plus court chemin en déplacement de pion que l'IA prévoie
-      * @param plusCourtChemin un tableau a deux dimensions contenant le plus court chemin que l'IA doit identifier
+      * @param plusCourtChemin une liste des Noeuds à parcourir
       */
-    public void setPlusCourtChemin(int[][] plusCourtChemin) {
+    public void setPlusCourtChemin(ArrayList<Noeud> plusCourtChemin) {
       try {
         if (plusCourtChemin == null) {
           throw new Exception("Erreur setPlusCourtChemin(), parametre null");
@@ -64,7 +64,53 @@ public class IA extends Joueur {
       * Identifie le plus court chemin pour chacun des joueurs et planifie les actions de l'IA en conséquences
       */
     public void plannification() {
-
+      try {
+        Graphe graphe = new Graphe(this.pion.getCoordonnee().getX1(),this.pion.getCoordonnee().getY1(),this.plateau.getDamier());
+        Noeud depart = null;
+        for (Noeud n : graphe.getNoeuds()) {
+          if (n.getNom().equals(String.valueOf(this.pion.getCoordonnee().getX1()) + " " + String.valueOf(this.pion.getCoordonnee().getY1()))) {
+            depart = n;
+          }
+        }
+        if (depart == null) {
+          throw new Exception("Erreur de l'IA, parametres null");
+        }
+        else {
+          graphe = Graphe.dijkstra(graphe,depart);
+          ArrayList<ArrayList<Noeud>> chemins = new ArrayList<ArrayList<Noeud>>();
+          for (Noeud n : graphe.getNoeuds()) {
+            if (this.NUMERO == 1) {
+              if (n.getNom().split(" ")[0].trim().equals("16")) {
+                ArrayList<Noeud> unChemin = new ArrayList<Noeud>();
+                for (Noeud n2 : n.getPlusCourtChemin()) {
+                  unChemin.add(n2);
+                }
+                unChemin.add(n);
+                chemins.add(unChemin);
+              }
+            }
+            else if (this.NUMERO == 2) {
+              if (n.getNom().split(" ")[0].trim().equals("0")) {
+                ArrayList<Noeud> unChemin = new ArrayList<Noeud>();
+                for (Noeud n2 : n.getPlusCourtChemin()) {
+                  unChemin.add(n2);
+                }
+                unChemin.add(n);
+                chemins.add(unChemin);
+              }
+            }
+          }
+          this.plusCourtChemin = chemins.get(0);
+          for (ArrayList<Noeud> chemin : chemins) {
+            if (chemin.get(chemin.size()-1).getDistance() < this.plusCourtChemin.get(this.plusCourtChemin.size()-1).getDistance()) {
+              this.plusCourtChemin = chemin;
+            }
+          }
+        }
+      }
+      catch (Exception e) {
+        System.err.println("Erreur de l'IA");
+      }
 
     }
 
@@ -85,13 +131,22 @@ public class IA extends Joueur {
           Collections.shuffle(d);
           deplacerPion(new Coordonnee(d.get(0)[0],d.get(0)[1],-1,-1),this.plateau.getDamier());
         }
-        else if (this.DIFFICULTE == Difficulte.MOYEN) {
-          int[][] deplacementPossibles = this.pion.getDeplacementPossibles(this.plateau.getDamier());
-
+        else if (this.DIFFICULTE == Difficulte.DIFFICILE) {
+          plannification();
+          Noeud next = this.plusCourtChemin.get(1);
+          int nextX = Integer.parseInt(next.getNom().split(" ")[0]);
+          int nextY = Integer.parseInt(next.getNom().split(" ")[1]);
+          deplacerPion(new Coordonnee(nextX,nextY,-1,-1),this.plateau.getDamier());
         }
       }
       catch (NullPointerException e) {
-        System.err.println(e.getMessage());
+        System.err.println("Erreur de l'IA , pointeur null");
+      }
+      catch (IndexOutOfBoundsException ex) {
+        System.err.println("Erreur de l'IA, indice hors des bornes");
+      }
+      catch (Exception exc) {
+        System.err.println("Erreur inconnue");
       }
       finally {
         return ret;
@@ -118,9 +173,9 @@ public class IA extends Joueur {
 
   /**
   * Retourne le plus court chemin en déplacement de pion pour gagner que l'IA a prévu
-  * @return un tableau a deux dimensions contenant le plus court chemin identifié par l'IA
+  * @return la liste de noeuds contenant les différents noeuds que l'IA doit parcourir
   */
-  public int[][] getPlusCourtChemin() {
+  public ArrayList<Noeud> getPlusCourtChemin() {
     return plusCourtChemin;
   }
 
