@@ -4,11 +4,18 @@ import quoridor.*;
 import controller.*;
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class PartieFrame extends JPanel {
 
   private MainFrame mainF;
   private Partie laPartie;
+
+  private Plateau plateau;
+  private boolean[][] damier;
+  private JButton[][] damierB;
+  private ArrayList<Joueur> lesJoueurs;
+  private ArrayList<Barriere> lesBarrieres;
 
   /**
     * Créé une page de jeu vide. Ce constructeur est utilisé pour permettre son utilisation future dans d'autres classes.
@@ -27,6 +34,13 @@ public class PartieFrame extends JPanel {
         this.mainF = parent;
         this.laPartie = new Partie(leMode);
         this.setBackground(Color.BLACK);
+
+        this.plateau = this.laPartie.getPlateau();
+        this.damier = this.plateau.getDamier();
+        this.damierB = new JButton[17][17];
+        this.lesJoueurs = this.laPartie.getJoueurs();
+        this.lesBarrieres = this.laPartie.getBarrieres();
+
         initComponent();
       }
     }
@@ -45,7 +59,15 @@ public class PartieFrame extends JPanel {
       }
       else {
         this.mainF = parent;
+        this.laPartie = laPartie;
         this.setBackground(Color.BLACK);
+
+        this.plateau = this.laPartie.getPlateau();
+        this.damier = this.plateau.getDamier();
+        this.damierB = new JButton[17][17];
+        this.lesJoueurs = this.laPartie.getJoueurs();
+        this.lesBarrieres = this.laPartie.getBarrieres();
+
         initComponent();
       }
     }
@@ -54,95 +76,41 @@ public class PartieFrame extends JPanel {
     }
   }
 
-    private void initComponent() {
-      this.setLayout(new GridLayout(17,17));
-      Plateau plateau = this.laPartie.getPlateau();
-      boolean[][] damier = plateau.getDamier();
-      JButton[][] damierB = new JButton[17][17];
-      final String PATH = "../data/img/";
-
-      //Création des différents buttons
-      for (int i = 0; i < damier.length - 1; i++) {
-        for (int j = 0; j < damier[i].length - 1; j++) {
-          if ((i % 2 == 1) || (j % 2 == 1)) {
-            //JButton des murs
-            damierB[i][j] = new JButton(new ImageIcon(PATH + "brick.jpg"));
+  public void initComponent() {
+    this.setLayout(new GridLayout(17,17));
+    final String PATH = "../data/img/";
+    for (int i = 0; i < this.damier.length - 1; i++) {
+      for (int j = 0; j < this.damier[i].length - 1; j++) {
+        if ((i % 2 == 1) || (j % 2 == 1)) {
+          //JButton des murs
+          if (!this.damier[i][j]) { // Si la case contient une barrière
+            this.damierB[i][j] = new JButton(new ImageIcon(PATH + "Barriere.jpg"));
           }
           else {
-            //JButton des cases
-            damierB[i][j] = new JButton(new ImageIcon(PATH + "brick2.jpg"));
+            this.damierB[i][j] = new JButton(new ImageIcon(PATH + "NonBarriere.jpg"));
           }
-          damierB[i][j].addKeyListener(new PartiePauseListener(this.mainF));
-          damierB[i][j].setOpaque(false);
-          damierB[i][j].setContentAreaFilled(false);
-          damierB[i][j].setBorderPainted(false);
-          this.add(damierB[i][j]);
         }
+        else {
+          //JButton des cases
+          this.damierB[i][j] = new JButton(new ImageIcon(PATH + "brick2.jpg"));
+          if (!this.damier[i][j]) {//Si la case contient un pion
+            for (Joueur jo : this.lesJoueurs) {
+              Pion p = jo.getPion();
+              if ((p.getCoordonnee().getX1() == i) && (p.getCoordonnee().getY1() == j)) {
+                this.damierB[i][j] = new JButton(new ImageIcon(PATH + "Pion-" + jo.getCouleur() +".jpg"));
+              }
+            }
+          }
+          else {
+              this.damierB[i][j] = new JButton(new ImageIcon(PATH + "NonPion.jpg"));
+          }
+        }
+        this.damierB[i][j].addKeyListener(new PartiePauseListener(this.mainF));
+        this.damierB[i][j].setOpaque(false);
+        this.damierB[i][j].setContentAreaFilled(false);
+        this.damierB[i][j].setBorderPainted(false);
+        this.add(this.damierB[i][j]);
       }
     }
-
-    /**
-     * GridTableModel : the graphical table
-    public class GridTableModel extends AbstractTableModel {
-
-      private int noOfRows, noOfCols;
-      private Square[][] grid;
-      private static final String PATH = "../data/";    // the folder
-      // the image are directly created from the files
-      private String imageFree= "blue.png";
-      private String imageWhite= "pion-blanc.png";
-      private String imageBlack= "pion-noir.png";
-      private String imageNone="gris.png";
-      */
-
-     /*
-      * Constructor
-      * @param grid : the table to display
-      public GridTableModel(Square[][] grid) {
-        this.grid = grid;
-        noOfRows = this.grid.length;
-        noOfCols = this.grid[0].length;
-      }
-
-    // Implementing the tree inherited abstract methods:
-
-       public int getRowCount() {
-        return(noOfRows);
-      }
-      public int getColumnCount() {
-        return(noOfCols);
-      }
-
-      public Object getValueAt(int r,int c) {
-        Object result = new Object();
-        Square sq = grid[r][c];
-        if (sq.isFree()) result= new ImageIcon(PATH + imageFree);
-        else if (sq.isForbidden()) result= new ImageIcon(PATH + imageNone);
-        else if (sq.getColor() ==CoinColor.WHITE) result= new ImageIcon(PATH + imageWhite); // couleur
-        else result= new ImageIcon(PATH + imageBlack);
-        return result;
-      }
-
-      */
-
-      /**
-       * get the name of the column
-       * @param c : the number of the column
-       * @return a String for the name of the column
-      public String getColumnName(int c){
-        return (new Integer(c).toString());
-      }
-      */
-
-       /**
-       * get the class of the object at column c
-       * @param c : the number of the column
-       * @return the class of the object at column c
-       public Class getColumnClass(int c) {
-          return this.getValueAt(0, c).getClass();
-       }
-    }
-
-
-    */
+  }
 }

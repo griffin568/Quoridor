@@ -39,7 +39,7 @@ public class MainFrame extends JFrame {
     */
   private void initComponents() {
     this.acccueil = new AccueilFrame();
-    this.partie = new PartieFrame(this, Mode.HH);
+    this.partie = new PartieFrame(this, Mode.HHHH);
     this.chargement = new ChargementFrame(this, this.partie);
     this.partie2Joueurs = new Partie2JoueursFrame(this, this.partie);
     this.partie4Joueurs = new Partie4JoueursFrame(this, this.partie);
