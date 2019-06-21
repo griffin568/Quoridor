@@ -3,6 +3,7 @@ package view;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowEvent;
+import quoridor.*;
 
 public class MainFrame extends JFrame {
 
@@ -38,13 +39,13 @@ public class MainFrame extends JFrame {
     */
   private void initComponents() {
     this.acccueil = new AccueilFrame();
-    this.partie = new PartieFrame(this, this.acccueil);
+    this.partie = new PartieFrame(this, Mode.HH);
     this.chargement = new ChargementFrame(this, this.partie);
     this.partie2Joueurs = new Partie2JoueursFrame(this, this.partie);
     this.partie4Joueurs = new Partie4JoueursFrame(this, this.partie);
     this.choixNombre = new ChoixNombreFrame(this, this.partie2Joueurs, this.partie4Joueurs);
     this.acccueil = new AccueilFrame(this, this.chargement, this.choixNombre);
-    this.pause = new MainPauseFrame(this, this.acccueil);
+    //this.pause = new MainPauseFrame(this, this.acccueil);
 
     this.switchablePanel = new JPanel(new CardLayout());
 
@@ -56,7 +57,7 @@ public class MainFrame extends JFrame {
     this.switchablePanel.add(this.partie4Joueurs, "Partie 4 Joueurs");
 
     this.switchableCL = (CardLayout)(this.switchablePanel.getLayout());
-    this.switchableCL.show(this.switchablePanel, "Accueuil");
+    this.switchableCL.show(this.switchablePanel, "Partie");
 
     this.add(this.switchablePanel, BorderLayout.CENTER);
   }
@@ -84,6 +85,24 @@ public class MainFrame extends JFrame {
     */
     public PartieFrame getPartie() {
       return this.partie;
+    }
+
+  /**
+    *
+    * @return
+    */
+    public void setPartie(PartieFrame partie) {
+      try {
+        if (partie == null) {
+          throw new Exception("MainFrame setPartie - La partie doit exister pour pouvoir être changée");
+        }
+        else {
+          this.partie = partie;
+        }
+      }
+      catch(Exception e) {
+        System.err.println(e.getMessage());
+      }
     }
 
   /**
