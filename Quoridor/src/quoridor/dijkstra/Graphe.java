@@ -65,6 +65,48 @@ public class Graphe {
     }
 
   /**
+    * Créé un nouvel objet Graphe à partir d'un damier int[][]
+    * @param x la coordonnée X du pion de l'IA
+    * @param y la coordonnée Y du pion de l'IA
+    * @param damier ce damier
+    */
+    public Graphe (int x , int y ,int[][] damier) {
+      try {
+        if (damier == null) {
+          throw new Exception ("Erreur du constructeur Graphe(), parametre null");
+        }
+        else if (x < 0 || x >= damier.length || y < 0 || y >= damier.length) {
+          throw new Exception ("Erreur du constructeur Graphe(), coordonnees invalides");
+        }
+        else {
+          this.noeuds = new ArrayList<Noeud>();
+          String[] letters = {"A","B","C","D","E","F","G","H","I"};
+          for (int i = 0 ; i < damier.length ; i += 2) {
+            for (int j = 0 ; j < damier.length ; j += 2) {
+              this.noeuds.add(new Noeud(i + " " +  j));
+            }
+          }
+          damier[x][y] = 2;
+          for (Noeud noeud : this.noeuds) {
+            int[][] voisins = deplacementsSuivants(Integer.parseInt(noeud.getNom().split(" ")[0]),Integer.parseInt(noeud.getNom().split(" ")[1]),damier);
+            for (int[] deplacement : voisins) {
+              Noeud adj = null;
+              for (Noeud noeud2 : this.noeuds) {
+                if (noeud2.getNom().split(" ")[0].equals(String.valueOf(deplacement[0])) && noeud2.getNom().split(" ")[1].equals(String.valueOf(deplacement[1]))) {
+                  adj = noeud2;
+                }
+              }
+              noeud.addNoeudAdjacent(adj,1);
+            }
+          }
+        }
+      }
+      catch (Exception e) {
+        System.err.println(e.getMessage());
+      }
+    }
+
+  /**
     * Donne une copie du damier sur lequel travailler
     * @param damier le damier originel
     * @return une copie du damier (int[][])

@@ -533,29 +533,45 @@ public class Partie {
         }
         for (Joueur j2 : this.joueurs) {
           Graphe checkError = new Graphe(j2.getPion().getCoordonnee().getX1(),j2.getPion().getCoordonnee().getY1(),this.copieDamier());
-          for (Noeud n : graphe.getNoeuds()) {
+          Noeud depart = null;
+          for (Noeud n : checkError.getNoeuds()) {
             if (n.getNom().equals(String.valueOf(j2.getPion().getCoordonnee().getX1()) + " " + String.valueOf(j2.getPion().getCoordonnee().getY1()))) {
               depart = n;
             }
           }
           if (depart == null) {
-            throw new Exception("Erreur de l'IA, parametres null");
+            System.err.println("Erreur dans le déroulement de la partie");
           }
           else {
-            graphe = Graphe.dijkstra(graphe,depart);
+            checkError = Graphe.dijkstra(checkError,depart);
             int indice = 0;
             error = true;
-            while (indice < graphe.getNoeuds().size() && error) {
-              if (j2.getNumero == 1) {
-                if (graphe.getNoeuds().get(i).getNom().split(" ")[0].equals("16")) {
+            while (indice < checkError.getNoeuds().size() && error) {
+              if (j2.getNumero() == 1) {
+                if (checkError.getNoeuds().get(i).getNom().split(" ")[0].equals("16") && checkError.getNoeuds().get(i).getDistance() < Integer.MAX_VALUE) {
                   error = false;
                 }
               }
+              else if (j2.getNumero() == 2) {
+                if (checkError.getNoeuds().get(i).getNom().split(" ")[0].equals("0") && checkError.getNoeuds().get(i).getDistance() < Integer.MAX_VALUE) {
+                  error = false;
+                }
+              }
+              else if (j2.getNumero() == 3) {
+                if (checkError.getNoeuds().get(i).getNom().split(" ")[1].equals("16") && checkError.getNoeuds().get(i).getDistance() < Integer.MAX_VALUE) {
+                  error = false;
+                }
+              }
+              else if (j2.getNumero() == 4) {
+                if (checkError.getNoeuds().get(i).getNom().split(" ")[0].equals("0") && checkError.getNoeuds().get(i).getDistance() < Integer.MAX_VALUE) {
+                  error = false;
+                }
+              }
+              indice++;
             }
           }
         }
         if (error) {
-          System.out.println("Impossible, " + j2.getNom() + " se retrouverait bloque");
           this.plateau = oldPlateau;
           this.joueurs = oldJoueurs;
           this.barrieres = oldBarrieres;

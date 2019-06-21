@@ -121,7 +121,7 @@ public class IA extends Joueur {
       Barriere ret = null;
       try {
         System.out.println("L'IA est en train de jouer");
-        Thread.sleep(1000);
+        Thread.sleep(500);
         if (this.DIFFICULTE == Difficulte.FACILE) {
           int[][] deplacementPossibles = this.pion.getDeplacementPossibles(this.plateau.getDamier());
           ArrayList<int[]> d = new ArrayList<int[]>();
