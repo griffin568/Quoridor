@@ -18,9 +18,135 @@ public class Graphe {
     * Créé un nouvel objet de type Graphe
     */
     public Graphe() {
-      noeuds = new ArrayList<Noeud>();
+      this.noeuds = new ArrayList<Noeud>();
     }
 
+  /**
+    * Créé un nouveau Graphe à partir d'un tableau de booléens
+    * @param x la coordonnée X du pion de l'IA
+    * @param y la coordonnée Y du pion de l'IA
+    * @param damier le tableau de booléens
+    */
+    public Graphe (int x , int y , boolean[][] damier) {
+      try {
+        if (damier == null) {
+          throw new Exception ("Erreur du constructeur Graphe(), parametre null");
+        }
+        else if (x < 0 || x >= damier.length || y < 0 || y >= damier.length) {
+          throw new Exception ("Erreur du constructeur Graphe(), coordonnees invalides");
+        }
+        else {
+          this.noeuds = new ArrayList<Noeud>();
+          String[] letters = {"A","B","C","D","E","F","G","H","I"};
+          for (int i = 0 ; i < damier.length ; i += 2) {
+            for (int j = 0 ; j < damier.length ; j += 2) {
+              this.noeuds.add(new Noeud(i + " " +  j));
+            }
+          }
+          int[][] newDamier = copieDamier(damier);
+          newDamier[x][y] = 2;
+          for (Noeud noeud : this.noeuds) {
+            int[][] voisins = deplacementsSuivants(Integer.parseInt(noeud.getNom().split(" ")[0]),Integer.parseInt(noeud.getNom().split(" ")[1]),newDamier);
+            for (int[] deplacement : voisins) {
+              Noeud adj = null;
+              for (Noeud noeud2 : this.noeuds) {
+                if (noeud2.getNom().split(" ")[0].equals(String.valueOf(deplacement[0])) && noeud2.getNom().split(" ")[1].equals(String.valueOf(deplacement[1]))) {
+                  adj = noeud2;
+                }
+              }
+              noeud.addNoeudAdjacent(adj,1);
+            }
+          }
+        }
+      }
+      catch (Exception e) {
+        System.err.println(e.getMessage());
+      }
+    }
+
+  /**
+    * Donne une copie du damier sur lequel travailler
+    * @param damier le damier originel
+    * @return une copie du damier (int[][])
+    */
+    private int[][] copieDamier(boolean[][] damier) {
+      int[][] ret = null;
+      try {
+        if (damier == null) {
+          throw new Exception ("Erreur copieDamier(), parametre null");
+        }
+        else {
+          ret = new int[damier.length][damier.length];
+          for (int i = 0 ; i < damier.length ; i++) {
+            for (int j = 0 ; j < damier.length ; j++) {
+              if (damier[i][j]) {
+                ret[i][j] = 1;
+              }
+              else {
+                ret[i][j] = 0;
+              }
+            }
+          }
+        }
+      }
+      catch (Exception e) {
+        System.err.println(e.getMessage());
+      }
+      finally {
+        return ret;
+      }
+    }
+
+  /**
+    * Donne les cases atteignables depuis la position actuelle
+    * @param x la coordonnée X de la position actuelle
+    * @param y la coordonnée Y de la position actuelle
+    * @return un tableau à deux dimensions contenant les différents déplacements possibles
+    */
+    private int[][] deplacementsSuivants (int x , int y , int[][] damier) {
+      int[][] ret = null;
+      try {
+        if (x < 0 || x >= damier.length || y < 0 || y >= damier.length) {
+          throw new Exception ("Erreur, indice en dehors du plateau");
+        }
+        else {
+          boolean[][] damierBoolean = new boolean[damier.length][damier.length];
+
+
+          for (int i = 0 ; i < damier.length ; i++) {
+            for (int j = 0 ; j < damier.length ; j++) {
+              if (damier[i][j] == 0) {
+                damierBoolean[i][j] = false;
+              }
+              else {
+                damierBoolean[i][j] = true;
+              }
+            }
+          }
+
+          Pion self = new Pion("X",new Coordonnee(x,y,-1,-1));
+          ArrayList<int[]> listeCoupsPossibles = new ArrayList<int[]>();
+          for (int[] coo : self.getDeplacementPossibles(damierBoolean)) {
+            if (damier[coo[0]][coo[1]] == 1) {
+              listeCoupsPossibles.add(coo);
+            }
+          }
+          ret = new int[listeCoupsPossibles.size()][2];
+          for (int i = 0 ; i < listeCoupsPossibles.size() ; i++) {
+            ret[i] = listeCoupsPossibles.get(i);
+          }
+        }
+      }
+      catch (NullPointerException e) {
+        System.err.println("Erreur, damier inexistant");
+      }
+      catch (Exception ex) {
+        System.err.println(ex.getMessage());
+      }
+      finally {
+        return ret;
+      }
+    }
   /**
     * Ajoute un noeud au graphe
     * @param noeud le noeud à ajouter

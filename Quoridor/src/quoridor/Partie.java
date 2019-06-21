@@ -18,7 +18,7 @@ public class Partie {
   private long startRec;
   private long endRec;
 
-  /**
+/**
   * Créé un nouvel objet Partie
   * @param fileName le nom du fichier de configuration
   */
@@ -38,7 +38,7 @@ public class Partie {
   }
 
 
-  /**
+/**
   * Sauvegarde la partie
   */
   public void sauvegarder(String fileName, Joueur leJoueur) {
@@ -60,7 +60,7 @@ public class Partie {
 
   }
 
-  /**
+/**
   * Charge les données de sauvegarde contenues dans le fichier sélectionné
   * @param filename le fichier contenant les données à charger
   */
@@ -309,7 +309,7 @@ public class Partie {
     }
   }
 
-  /**
+/**
   * Initialise les différents éléments constants de la partie
   * @param mode le mode jeu de la partie à créer
   */
@@ -321,7 +321,7 @@ public class Partie {
     configuration(mode);
   }
 
-  /**
+/**
   * Configure les éléments non constants de la partie à l'aide du fichier de configuration
   * @param mode le mode de jeu de la partie à créer
   */
@@ -451,21 +451,9 @@ public class Partie {
       this.joueurs.add(J4);
     }
 
-    if (mode.equals(Mode.HH) || mode.equals(Mode.HI)) {
-      ArrayList<Barriere> BarriereJ1 = new ArrayList<Barriere>();
-      ArrayList<Barriere> BarriereJ2 = new ArrayList<Barriere>();
-      ArrayList<String> lignes = RWFile.readFile("config2");
-      this.plateau = new Plateau(Integer.parseInt(lignes.get(0)));
-      for (int i = 0; i<= 10; i++) {
-        BarriereJ1.add(new Barriere("ROUGE", this.plateau));
-      }
-      for (int i = 0; i <= 10; i++) {
-        BarriereJ2.add(new Barriere("VERT", this.plateau));
-      }
-    }
   }
 
-  /**
+/**
   * Lance la partie
   */
   public void start() {
@@ -579,7 +567,7 @@ public class Partie {
     }
   }
 
-  /**
+/**
   * Termine la partie
   */
   public void fin() {
@@ -616,7 +604,7 @@ public class Partie {
     }
   }
 
-  /**
+/**
   * Ajoute une barrière à la liste des barrières sur le plateau
   * @param barriere la barrière à ajouter à la liste
   */
@@ -635,7 +623,7 @@ public class Partie {
   }
 
 
-  /**
+/**
   * Retourne le numéro du tour actuel
   * @return le numéro du tour
   */
@@ -643,7 +631,7 @@ public class Partie {
     return this.tour;
   }
 
-  /**
+/**
   * Retourne le mode de jeu utilisé
   * @return le mode de jeu utilisé
   */
@@ -651,7 +639,7 @@ public class Partie {
     return this.mode;
   }
 
-  /**
+/**
   * Retourne le plateau de jeu
   * @return le plateau de jeu
   */
@@ -659,7 +647,7 @@ public class Partie {
     return this.plateau;
   }
 
-  /**
+/**
   * Retourne la liste des joueurs présent dans la partie
   * @return la liste de joueurs de la partie
   */
@@ -667,7 +655,7 @@ public class Partie {
     return this.joueurs;
   }
 
-  /**
+/**
   * Donne une copie du damier actuel sur laquelle travailler
   * @return une copie du damier
   */
@@ -686,7 +674,7 @@ public class Partie {
     return ret;
   }
 
-  /**
+/**
   * Vérifie qu'une case n'ai pas déjà été visitée auparavent
   * @param x la coordonnée X de la case
   * @param y la coordonnée Y de la case
@@ -717,7 +705,7 @@ public class Partie {
     }
   }
 
-  /**
+/**
   * Donne les cases atteignables depuis la position actuelle
   * @param x la coordonnée X de la position actuelle
   * @param y la coordonnée Y de la position actuelle
@@ -768,7 +756,8 @@ public class Partie {
     }
   }
 
-  /**
+
+/**
   * Teste récursivement s'il existe un chemin possible vers une ligne d'arrivée
   * @param x la coordonnée X
   * @param y la coordonnée y
@@ -868,7 +857,7 @@ public class Partie {
 
   }
 
-  /**
+/**
   * Sauvegarde l'état du plateau
   * @return le plateau sauvegardé
   */
@@ -883,7 +872,7 @@ public class Partie {
     return ret;
   }
 
-  /**
+/**
   * Sauvegarde l'état des joueurs
   * @return une ArrayList contenant les joueurs sauvegardés
   */
@@ -908,7 +897,7 @@ public class Partie {
     return ret;
   }
 
-  /**
+/**
   * Sauvegarde l'état de l'attribut barrieres
   * @return une sauvegarde de cette attribut
   */

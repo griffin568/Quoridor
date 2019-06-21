@@ -71,7 +71,7 @@ public class Noeud {
         }
       }
       catch (Exception e) {
-        System.err.println(e.getMessage());
+
       }
     }
 

@@ -2,6 +2,7 @@ package quoridor;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import quoridor.dijkstra.*;
 
 /**
   * Cette classe gère les joueurs IA
@@ -63,6 +64,7 @@ public class IA extends Joueur {
       * Identifie le plus court chemin pour chacun des joueurs et planifie les actions de l'IA en conséquences
       */
     public void plannification() {
+
 
     }
 
