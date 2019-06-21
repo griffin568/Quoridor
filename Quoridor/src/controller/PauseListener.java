@@ -35,7 +35,7 @@ public class PauseListener implements ActionListener {
   public void actionPerformed(ActionEvent ev) {
     JButton source = (JButton)ev.getSource();
     if (source.getText().equalsIgnoreCase("REPRENDRE LA PARTIE")) {
-      this.mainF.getSwitchableCL().show(this.mainF.getSwitchablePanel(),"Pause");
+      this.mainF.dispatchEvent(new WindowEvent(this.mainF, WindowEvent.WINDOW_CLOSING));
     }
     else if (source.getText().equalsIgnoreCase("SAUVEGARDER LA PARTIE")) {
       this.mainF.getSwitchableCL().show(this.mainF.getSwitchablePanel(),"Sauvegarder");
