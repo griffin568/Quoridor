@@ -129,12 +129,12 @@ public class Partie {
           else if (joueur1[1].trim().equals("H") && joueur2[1].trim().equals("IA")) {
             this.mode = Mode.HI;
             J1 = new Humain(nom1, 1, couleur1, barriere1, p1, this.plateau);
-            J2 = new IA(nom2, 2, couleur2, barriere2, p2, this.plateau, Difficulte.FACILE);
+            J2 = new IA(nom2, 2, couleur2, barriere2, p2, this.plateau, Difficulte.FACILE,this.joueurs);
           }
           else {
             this.mode = Mode.II;
-            J1 = new IA(nom1, 1, couleur1, barriere1, p1, this.plateau, Difficulte.FACILE);
-            J2 = new IA(nom2, 2, couleur2, barriere2, p2, this.plateau, Difficulte.FACILE);
+            J1 = new IA(nom1, 1, couleur1, barriere1, p1, this.plateau, Difficulte.FACILE,this.joueurs);
+            J2 = new IA(nom2, 2, couleur2, barriere2, p2, this.plateau, Difficulte.FACILE,this.joueurs);
           }
 
           if (leReste[1].trim().equals("1")) {
@@ -216,25 +216,25 @@ public class Partie {
             J1 = new Humain(nom1, 1, couleur1, barriere1, p1, this.plateau);
             J2 = new Humain(nom2, 2, couleur2, barriere2, p2, this.plateau);
             J3 = new Humain(nom3, 3, couleur3, barriere3, p3, this.plateau);
-            J4 = new IA(nom4, 4, couleur4, barriere4, p4, this.plateau, Difficulte.FACILE);
+            J4 = new IA(nom4, 4, couleur4, barriere4, p4, this.plateau, Difficulte.FACILE,this.joueurs);
           }
           else if (joueur1[1].trim().equals("H") && joueur2[1].trim().equals("H") && joueur3[1].trim().equals("IA") && joueur4[1].trim().equals("IA")) {
             J1 = new Humain(nom1, 1, couleur1, barriere1, p1, this.plateau);
             J2 = new Humain(nom2, 2, couleur2, barriere2, p2, this.plateau);
-            J3 = new IA(nom3, 3, couleur3, barriere3, p3, this.plateau, Difficulte.FACILE);
-            J4 = new IA(nom4, 4, couleur4, barriere4, p4, this.plateau, Difficulte.FACILE);
+            J3 = new IA(nom3, 3, couleur3, barriere3, p3, this.plateau, Difficulte.FACILE,this.joueurs);
+            J4 = new IA(nom4, 4, couleur4, barriere4, p4, this.plateau, Difficulte.FACILE,this.joueurs);
           }
           else if (joueur1[1].trim().equals("H") && joueur2[1].trim().equals("IA") && joueur3[1].trim().equals("IA") && joueur4[1].trim().equals("IA")) {
             J1 = new Humain(nom1, 1, couleur1, barriere1, p1, this.plateau);
-            J2 = new IA(nom2, 2, couleur2, barriere2, p2, this.plateau, Difficulte.FACILE);
-            J3 = new IA(nom3, 3, couleur3, barriere4, p3, this.plateau, Difficulte.FACILE);
-            J4 = new IA(nom4, 4, couleur4, barriere4, p4, this.plateau, Difficulte.FACILE);
+            J2 = new IA(nom2, 2, couleur2, barriere2, p2, this.plateau, Difficulte.FACILE,this.joueurs);
+            J3 = new IA(nom3, 3, couleur3, barriere4, p3, this.plateau, Difficulte.FACILE,this.joueurs);
+            J4 = new IA(nom4, 4, couleur4, barriere4, p4, this.plateau, Difficulte.FACILE,this.joueurs);
           }
           else {
-            J1 = new IA(nom1, 1, couleur1, barriere1, p1, this.plateau, Difficulte.FACILE);
-            J2 = new IA(nom2, 2, couleur2, barriere2, p2, this.plateau, Difficulte.FACILE);
-            J3 = new IA(nom3, 3, couleur3, barriere4, p3, this.plateau, Difficulte.FACILE);
-            J4 = new IA(nom4, 4, couleur4, barriere4, p4, this.plateau, Difficulte.FACILE);
+            J1 = new IA(nom1, 1, couleur1, barriere1, p1, this.plateau, Difficulte.FACILE,this.joueurs);
+            J2 = new IA(nom2, 2, couleur2, barriere2, p2, this.plateau, Difficulte.FACILE,this.joueurs);
+            J3 = new IA(nom3, 3, couleur3, barriere4, p3, this.plateau, Difficulte.FACILE,this.joueurs);
+            J4 = new IA(nom4, 4, couleur4, barriere4, p4, this.plateau, Difficulte.FACILE,this.joueurs);
           }
 
           if (leReste[1].trim().equals("1")) {
@@ -354,11 +354,11 @@ public class Partie {
       }
       else if (mode.equals(Mode.HI)) {
         J1 = new Humain("Joueur1",1,"O",BarriereJ1,new Pion("O",c1), this.plateau);
-        J2 = new IA("IA1",2,"W",BarriereJ2,new Pion("W",c2), this.plateau,Difficulte.FACILE);
+        J2 = new IA("IA1",2,"W",BarriereJ2,new Pion("W",c2), this.plateau,Difficulte.FACILE,this.joueurs);
       }
       else {
-        J1 = new IA("Joueur1",1,"O",BarriereJ1,new Pion("O",c1), this.plateau,Difficulte.FACILE);
-        J2 = new IA("IA1",2,"W",BarriereJ2,new Pion("W",c2), this.plateau,Difficulte.FACILE);
+        J1 = new IA("Joueur1",1,"O",BarriereJ1,new Pion("O",c1), this.plateau,Difficulte.FACILE,this.joueurs);
+        J2 = new IA("IA1",2,"W",BarriereJ2,new Pion("W",c2), this.plateau,Difficulte.FACILE,this.joueurs);
       }
 
       ArrayList<int[]> aChanger = new ArrayList<int[]>();
@@ -414,25 +414,25 @@ public class Partie {
         J1 = new Humain("Joueur1",1,"O",BarriereJ1,new Pion("O",c1), this.plateau);
         J2 = new Humain("Joueur2",2,"W",BarriereJ2,new Pion("W",c2), this.plateau);
         J3 = new Humain("Joueur3",3,"Z",BarriereJ3,new Pion("Z",c3), this.plateau);
-        J4 = new IA("Joueur4",4,"A",BarriereJ4,new Pion("A",c4), this.plateau,Difficulte.FACILE);
+        J4 = new IA("Joueur4",4,"A",BarriereJ4,new Pion("A",c4), this.plateau,Difficulte.FACILE,this.joueurs);
       }
       else if (this.mode.equals(Mode.HHII)) {
         J1 = new Humain("Joueur1",1,"O",BarriereJ1,new Pion("O",c1), this.plateau);
         J2 = new Humain("Joueur2",2,"W",BarriereJ2,new Pion("W",c2), this.plateau);
-        J3 = new IA("Joueur3",3,"Z",BarriereJ3,new Pion("Z",c3), this.plateau,Difficulte.FACILE);
-        J4 = new IA("Joueur4",4,"A",BarriereJ4,new Pion("A",c4), this.plateau,Difficulte.FACILE);
+        J3 = new IA("Joueur3",3,"Z",BarriereJ3,new Pion("Z",c3), this.plateau,Difficulte.FACILE,this.joueurs);
+        J4 = new IA("Joueur4",4,"A",BarriereJ4,new Pion("A",c4), this.plateau,Difficulte.FACILE,this.joueurs);
       }
       else if (this.mode.equals(Mode.HIII)) {
         J1 = new Humain("Joueur1",1,"O",BarriereJ1,new Pion("O",c1), this.plateau);
-        J2 = new IA("Joueur2",2,"W",BarriereJ2,new Pion("W",c2), this.plateau,Difficulte.FACILE);
-        J3 = new IA("Joueur3",3,"Z",BarriereJ3,new Pion("Z",c3), this.plateau,Difficulte.FACILE);
-        J4 = new IA("Joueur4",4,"A",BarriereJ4,new Pion("A",c4), this.plateau,Difficulte.FACILE);
+        J2 = new IA("Joueur2",2,"W",BarriereJ2,new Pion("W",c2), this.plateau,Difficulte.FACILE,this.joueurs);
+        J3 = new IA("Joueur3",3,"Z",BarriereJ3,new Pion("Z",c3), this.plateau,Difficulte.FACILE,this.joueurs);
+        J4 = new IA("Joueur4",4,"A",BarriereJ4,new Pion("A",c4), this.plateau,Difficulte.FACILE,this.joueurs);
       }
       else {
-        J1 = new IA("Joueur1",1,"O",BarriereJ1,new Pion("O",c1), this.plateau,Difficulte.FACILE);
-        J2 = new IA("Joueur2",2,"W",BarriereJ2,new Pion("W",c2), this.plateau,Difficulte.FACILE);
-        J3 = new IA("Joueur3",3,"Z",BarriereJ3,new Pion("Z",c3), this.plateau,Difficulte.FACILE);
-        J4 = new IA("Joueur4",4,"A",BarriereJ4,new Pion("A",c4), this.plateau,Difficulte.FACILE);
+        J1 = new IA("Joueur1",1,"O",BarriereJ1,new Pion("O",c1), this.plateau,Difficulte.FACILE,this.joueurs);
+        J2 = new IA("Joueur2",2,"W",BarriereJ2,new Pion("W",c2), this.plateau,Difficulte.FACILE,this.joueurs);
+        J3 = new IA("Joueur3",3,"Z",BarriereJ3,new Pion("Z",c3), this.plateau,Difficulte.FACILE,this.joueurs);
+        J4 = new IA("Joueur4",4,"A",BarriereJ4,new Pion("A",c4), this.plateau,Difficulte.FACILE,this.joueurs);
       }
 
       ArrayList<int[]> aChanger = new ArrayList<int[]>();
@@ -578,6 +578,9 @@ public class Partie {
           listePion = new ArrayList<Pion>();
           for (Joueur j : this.joueurs) {
             listePion.add(j.getPion());
+            if (!j.isHumain()) {
+              ((IA)(j)).forceMove();
+            }
           }
           i--;
         }
@@ -928,7 +931,7 @@ public class Partie {
         ret.add(new Humain(j.getNom(),j.getNumero(),j.getCouleur(),listeBarriere,p,plateau));
       }
       else {
-        ret.add(new IA(j.getNom(),j.getNumero(),j.getCouleur(),listeBarriere,p,plateau,((IA)j).getDifficulte()));
+        ret.add(new IA(j.getNom(),j.getNumero(),j.getCouleur(),listeBarriere,p,plateau,((IA)j).getDifficulte(), this.joueurs));
       }
     }
     return ret;
