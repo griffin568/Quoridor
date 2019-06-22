@@ -147,13 +147,7 @@ public class IA extends Joueur {
         System.out.println("L'IA est en train de jouer");
         Thread.sleep(500);
         if (this.DIFFICULTE == Difficulte.FACILE) {
-          int[][] deplacementPossibles = this.pion.getDeplacementPossibles(this.plateau.getDamier());
-          ArrayList<int[]> d = new ArrayList<int[]>();
-          for (int[] tab : deplacementPossibles) {
-            d.add(tab);
-          }
-          Collections.shuffle(d);
-          deplacerPion(new Coordonnee(d.get(0)[0],d.get(0)[1],-1,-1),this.plateau.getDamier());
+          this.randomMove();
         }
         else if (this.DIFFICULTE == Difficulte.DIFFICILE) {
           ArrayList<ArrayList<Noeud>> chemins = new ArrayList<ArrayList<Noeud>>();
@@ -170,33 +164,11 @@ public class IA extends Joueur {
           }
           System.out.println(num + "   " + this.NUMERO);
           if (num == this.NUMERO || this.forceMove) {
-            if (this.forceMove) {
-              this.plannification(this);
-            }
-            if (this.plusCourtChemin.get(0).getDistance() == Integer.MAX_VALUE) {
-              int[][] deplacementPossibles = this.pion.getDeplacementPossibles(this.plateau.getDamier());
-              ArrayList<int[]> d = new ArrayList<int[]>();
-              for (int[] tab : deplacementPossibles) {
-                d.add(tab);
-              }
-              Collections.shuffle(d);
-              deplacerPion(new Coordonnee(d.get(0)[0],d.get(0)[1],-1,-1),this.plateau.getDamier());
-            }
-            Noeud next = this.plusCourtChemin.get(1);
-            System.out.println("check");
-            int nextX = Integer.parseInt(next.getNom().split(" ")[0]);
-            int nextY = Integer.parseInt(next.getNom().split(" ")[1]);
-            deplacerPion(new Coordonnee(nextX,nextY,-1,-1),this.plateau.getDamier());
+            this.smartMove();
           }
           else {
             if (this.plusCourtChemin.get(0).getDistance() == Integer.MAX_VALUE) {
-              int[][] deplacementPossibles = this.pion.getDeplacementPossibles(this.plateau.getDamier());
-              ArrayList<int[]> d = new ArrayList<int[]>();
-              for (int[] tab : deplacementPossibles) {
-                d.add(tab);
-              }
-              Collections.shuffle(d);
-              deplacerPion(new Coordonnee(d.get(0)[0],d.get(0)[1],-1,-1),this.plateau.getDamier());
+              this.randomMove();
             }
             Noeud actuel = this.plusCourtChemin.get(0);
             Noeud suivant = this.plusCourtChemin.get(1);
@@ -204,7 +176,31 @@ public class IA extends Joueur {
               int xBarriere = (int) ((Integer.parseInt(actuel.getNom().split(" ")[0])+Integer.parseInt(suivant.getNom().split(" ")[0])) / 2);
               int y1Barriere = Integer.parseInt(actuel.getNom().split(" ")[1]);
               int y2Barriere = Integer.parseInt(actuel.getNom().split(" ")[1]) + 2;
-              placerBarriere(new Coordonnee(xBarriere,y1Barriere,xBarriere,y2Barriere));
+              if (y2Barriere > 16 ) {
+                y2Barriere = y1Barriere;
+                y1Barriere -= 2;
+              }
+              else if (y1Barriere < 0) {
+                y1Barriere = y2Barriere;
+                y2Barriere += 2;
+              }
+              if (!this.plateau.getDamier()[xBarriere][y1Barriere]) {
+                y1Barriere += 2;
+                y2Barriere += 2;
+              }
+              else if (!this.plateau.getDamier()[xBarriere][y2Barriere]) {
+                y1Barriere -= 2;
+                y2Barriere -= 2;
+              }
+              if ((xBarriere < 0) || (xBarriere >= this.plateau.getDamier().length) || (y1Barriere < 0) || (y1Barriere >= this.plateau.getDamier().length) || (y2Barriere < 0) || (y2Barriere >= this.plateau.getDamier().length)) {
+                this.smartMove();
+              }
+              else if (!this.plateau.getDamier()[xBarriere][y1Barriere] || !this.plateau.getDamier()[xBarriere][y2Barriere] || !this.plateau.getDamier()[xBarriere][(int)((y1Barriere+y2Barriere)/2)]) {
+                this.smartMove();
+              }
+              else {
+                placerBarriere(new Coordonnee(xBarriere,y1Barriere,xBarriere,y2Barriere));
+              }
             }
             else if (Integer.parseInt(actuel.getNom().split(" ")[1]) != Integer.parseInt(suivant.getNom().split(" ")[1])) {
               int xBarriere = (int) ((Integer.parseInt(actuel.getNom().split(" ")[1])+Integer.parseInt(suivant.getNom().split(" ")[1])) / 2);
@@ -214,7 +210,27 @@ public class IA extends Joueur {
                 y2Barriere = y1Barriere;
                 y1Barriere -= 2;
               }
-              placerBarriere(new Coordonnee(y1Barriere,xBarriere,y2Barriere,xBarriere));
+              else if (y1Barriere < 0) {
+                y1Barriere = y2Barriere;
+                y2Barriere += 2;
+              }
+              if (!this.plateau.getDamier()[y1Barriere][xBarriere]) {
+                y1Barriere += 2;
+                y2Barriere += 2;
+              }
+              else if (!this.plateau.getDamier()[y2Barriere][xBarriere]) {
+                y1Barriere -= 2;
+                y2Barriere -= 2;
+              }
+              if ((xBarriere < 0) || (xBarriere >= this.plateau.getDamier().length) || (y1Barriere < 0) || (y1Barriere >= this.plateau.getDamier().length) || (y2Barriere < 0) || (y2Barriere >= this.plateau.getDamier().length)) {
+                this.smartMove();
+              }
+              else if (!this.plateau.getDamier()[y1Barriere][xBarriere] || !this.plateau.getDamier()[y2Barriere][xBarriere] || !this.plateau.getDamier()[(int)((y1Barriere+y2Barriere)/2)][xBarriere]) {
+                this.smartMove();
+              }
+              else {
+                placerBarriere(new Coordonnee(y1Barriere,xBarriere,y2Barriere,xBarriere));
+              }
             }
             else {
               System.err.println("Erreur dans la plannification de l'IA");
@@ -278,4 +294,34 @@ public class IA extends Joueur {
       System.err.println();
     }
   }
+
+  /**
+    * Bouge le pion de manière aléatoire
+    */
+    private void randomMove() {
+      int[][] deplacementPossibles = this.pion.getDeplacementPossibles(this.plateau.getDamier());
+      ArrayList<int[]> d = new ArrayList<int[]>();
+      for (int[] tab : deplacementPossibles) {
+        d.add(tab);
+      }
+      Collections.shuffle(d);
+      deplacerPion(new Coordonnee(d.get(0)[0],d.get(0)[1],-1,-1),this.plateau.getDamier());
+    }
+
+  /**
+    * Bouge le pion de manière réfléchie
+    */
+    private void smartMove() {
+      this.plannification(this);
+      if (this.plusCourtChemin.get(0).getDistance() == Integer.MAX_VALUE) {
+        this.randomMove();
+      }
+      System.out.println(this.plusCourtChemin.get(1).getNom());
+      Noeud next = this.plusCourtChemin.get(1);
+      int nextX = Integer.parseInt(next.getNom().split(" ")[0]);
+      int nextY = Integer.parseInt(next.getNom().split(" ")[1]);
+      deplacerPion(new Coordonnee(nextX,nextY,-1,-1),this.plateau.getDamier());
+    }
+
+
 }
