@@ -10,6 +10,7 @@ public class PartieListener extends MouseAdapter {
   private int y;
   private Controleur controleur;
   private PartieFrame frame;
+  private JLabel click;
 
   /**
     * Créé un nouvel objet PartieListener
@@ -17,10 +18,11 @@ public class PartieListener extends MouseAdapter {
     * @param y la coordonnée Y de la case
     * @param controleur le Controleur de la partie
     * @param frame la fenêtre de jeu
+    * @param click le label indiquant si l'on effectue le premier ou le second click
     */
-    public PartieListener (int x , int y, Controleur controleur , PartieFrame frame) {
+    public PartieListener (int x , int y, Controleur controleur , PartieFrame frame , JLabel click) {
       try {
-        if ((x < 0) || (x > 16) || (y < 0) || (y > 16) || controleur == null || frame == null) {
+        if ((x < 0) || (x > 16) || (y < 0) || (y > 16) || controleur == null || frame == null || click == null) {
           throw new Exception ("Erreur du constructeur PartieListener(), parametres invalides");
         }
         else {
@@ -28,6 +30,7 @@ public class PartieListener extends MouseAdapter {
           this.y = y;
           this.controleur = controleur;
           this.frame = frame;
+          this.click = click;
         }
       }
       catch (Exception e) {
@@ -40,6 +43,12 @@ public class PartieListener extends MouseAdapter {
     * @param e l'événement à écouter
     */
     public void mouseClicked (MouseEvent e) {
+      if (this.click.getText().equals("Cliquez")) {
+        this.click.setText("Placez");
+      }
+      else {
+        this.click.setText("Cliquez");
+      }
       if (this.controleur.getX1() == -1 && this.controleur.getY1() == -1) {
         this.controleur.setX1(this.x);
         this.controleur.setY1(this.y);
