@@ -12,6 +12,7 @@ import java.awt.*;
 public class SauvegarderQuitterPauseFrame extends JPanel {
 
   private MainPauseFrame mainF;
+  private MainFrame parent;
 
   private JButton save1, save2, save3, retour, corbeille;
   private JLabel titre;
@@ -21,16 +22,20 @@ public class SauvegarderQuitterPauseFrame extends JPanel {
     * @param parent La fenetre principale de jeu qui est utilisée pour changer l'écran affiché
     * @param partie l'écran où la partie est affiché
     */
-  public SauvegarderQuitterPauseFrame(MainPauseFrame parent) {
-    try {
-      if (parent == null) {
-        throw new Exception("ChargementFrame constructeur - L'écran principal doit exister pour créer l'écran de chargement de parties.");
-      }
-      else {
-        this.mainF = parent;
-        this.setBackground(Color.BLACK);
-        initComponent();
-      }
+    public SauvegarderQuitterPauseFrame(MainPauseFrame mainF, MainFrame parent) {
+      try {
+        if (parent == null) {
+          throw new Exception("SauvegarderQuitterPauseFrame constructeur - L'écran principal doit exister pour créer l'écran de chargement de parties.");
+        }
+        else if (mainF == null) {
+          throw new Exception("SauvegarderQuitterPauseFrame constructeur - L'écran principal de pause doit exister pour créer l'écran de chargement de parties.");
+        }
+        else {
+          this.mainF = mainF;
+          this.parent = parent;
+          this.setBackground(Color.BLACK);
+          initComponent();
+        }
     }
     catch(Exception e) {
       System.err.println(e.getMessage());

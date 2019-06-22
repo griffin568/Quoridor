@@ -7,6 +7,7 @@ import controller.*;
 public class ChargementPauseFrame extends JPanel {
 
   private MainPauseFrame mainF;
+  private MainFrame parent;
   private JPanel partie;
 
   private JButton save1, save2, save3, retour, corbeille;
@@ -17,17 +18,21 @@ public class ChargementPauseFrame extends JPanel {
     * @param parent La fenetre principale de jeu qui est utilisée pour changer l'écran affiché
     * @param partie l'écran où la partie est affiché
     */
-  public ChargementPauseFrame(MainPauseFrame parent, JPanel partie) {
+  public ChargementPauseFrame(MainPauseFrame mainF, JPanel partie, MainFrame parent) {
     try {
       if (parent == null) {
         throw new Exception("ChargementPauseFrame constructeur - L'écran principal doit exister pour créer l'écran de chargement de parties.");
+      }
+      else if (mainF == null) {
+        throw new Exception("ChargementPauseFrame constructeur - L'écran principal de pause doit exister pour créer l'écran de chargement de parties.");
       }
       else if (partie == null) {
         throw new Exception("ChargementPauseFrame constructeur - L'écran de jeu doit exister pour créer l'écran de chargement de parties.");
       }
       else {
-        this.mainF = parent;
+        this.mainF = mainF;
         this.partie = partie;
+        this.parent = parent;
         this.setBackground(Color.BLACK);
         initComponent();
       }

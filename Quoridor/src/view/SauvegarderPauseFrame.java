@@ -12,6 +12,8 @@ import java.awt.*;
 public class SauvegarderPauseFrame extends JPanel {
 
   private MainPauseFrame mainF;
+  private MainFrame parent;
+  private JPanel partie;
 
   private JButton save1, save2, save3, retour, corbeille;
   private JLabel titre;
@@ -21,21 +23,29 @@ public class SauvegarderPauseFrame extends JPanel {
     * @param parent La fenetre principale de jeu qui est utilisée pour changer l'écran affiché
     * @param partie l'écran où la partie est affiché
     */
-  public SauvegarderPauseFrame(MainPauseFrame parent) {
-    try {
-      if (parent == null) {
-        throw new Exception("ChargementFrame constructeur - L'écran principal doit exister pour créer l'écran de chargement de parties.");
+    public SauvegarderPauseFrame(MainPauseFrame mainF, JPanel partie, MainFrame parent) {
+      try {
+        if (parent == null) {
+          throw new Exception("SauvegarderPauseFrame constructeur - L'écran principal doit exister pour créer l'écran de chargement de parties.");
+        }
+        else if (mainF == null) {
+          throw new Exception("SauvegarderPauseFrame constructeur - L'écran principal de pause doit exister pour créer l'écran de chargement de parties.");
+        }
+        else if (partie == null) {
+          throw new Exception("SauvegarderPauseFrame constructeur - L'écran de jeu doit exister pour créer l'écran de chargement de parties.");
+        }
+        else {
+          this.mainF = mainF;
+          this.partie = partie;
+          this.parent = parent;
+          this.setBackground(Color.BLACK);
+          initComponent();
+        }
       }
-      else {
-        this.mainF = parent;
-        this.setBackground(Color.BLACK);
-        initComponent();
+      catch(Exception e) {
+        System.err.println(e.getMessage());
       }
     }
-    catch(Exception e) {
-      System.err.println(e.getMessage());
-    }
-  }
 
   /**
     *Initialise les composants graphiques de la page de chargement (principalement les boutons cliquables).
