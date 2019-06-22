@@ -52,7 +52,7 @@ public class RWFile {
         throw new Exception("RWFile writeFile() - Le dernier joueur ayant joué doit exister");
       }
       else {
-        fileName = "../data/" + fileName /*+ ".txt"*/;
+        fileName = "../data/" + fileName;
         PrintWriter out = new PrintWriter(fileName);
         for (Joueur j : joueurs) {
           out.print(j.getNom());
@@ -111,5 +111,29 @@ public class RWFile {
       System.err.println(e.getMessage());
     }
   }
+
+  /**
+    * Ecrit une ligne vide dans un fichier afin d'en supprimer les données
+    * @param fileName le nom du fichier
+    */
+    public static void writeFile (String fileName) {
+      try {
+        if (fileName == null) {
+          throw new Exception ("Erreur writeFile(), nom du fichier null");
+        }
+        else {
+          fileName = "../data/" + fileName;
+          PrintWriter out = new PrintWriter(fileName);
+          out.println("");
+          out.close();
+        }
+      }
+      catch (FileNotFoundException e) {
+        System.err.println("WriteFile - Fichier non trouvé : " + fileName);
+      }
+      catch (Exception e) {
+        System.err.println(e.getMessage());
+      }
+    }
 
 }

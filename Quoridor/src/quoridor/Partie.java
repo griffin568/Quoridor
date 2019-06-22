@@ -311,6 +311,25 @@ public class Partie {
   }
 
 /**
+  * Efface les données d'un emplacement de sauvegarde
+  * @param fileName le nom du fichier dont les données seront effacées
+  */
+  public void effacer (String fileName) {
+    try {
+      if (fileName == null) {
+        throw new Exception ("Erreur effacer(), parametre null");
+      }
+      else {
+        RWFile.writeFile(fileName);
+        System.out.println("La sauvegarde a bien ete effacee");
+      }
+    }
+    catch (Exception e) {
+      System.err.println(e.getMessage());
+    }
+  }
+
+/**
   * Initialise les différents éléments constants de la partie
   * @param mode le mode jeu de la partie à créer
   */
@@ -525,6 +544,13 @@ public class Partie {
             }
             else {
               System.err.println("Erreur lors du chargement de la partie, numero de fichier invalide");
+            }
+          }
+          else if (b.getCouleur().split(" ")[0].trim().equalsIgnoreCase("delete")) {
+            if (b.getCouleur().split(" ")[1].trim().equals("1") || b.getCouleur().split(" ")[1].trim().equals("2") || b.getCouleur().split(" ")[1].trim().equals("3")) {
+              System.out.println("effacement des donnees en cours");
+              this.effacer("sauvegarde"+b.getCouleur().split(" ")[1]);
+              i = -1;
             }
           }
           else {
