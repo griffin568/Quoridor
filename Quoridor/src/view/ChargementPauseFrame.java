@@ -81,7 +81,7 @@ public class ChargementPauseFrame extends JPanel {
     this.save1.addActionListener(new ChargementListener(this.parent, "sauvegarde1", this, true));
     this.save2.addActionListener(new ChargementListener(this.parent, "sauvegarde2", this, true));
     this.save3.addActionListener(new ChargementListener(this.parent, "sauvegarde3", this, true));
-    this.corbeille.addActionListener(new CorbeilleListener(lesBoutons, true));
+    this.corbeille.addActionListener(new CorbeilleListener(lesBoutons, true, true));
     this.retour.addActionListener(new DownButtonListener(this.mainF, "Pause"));
 
     this.corbeille.setOpaque(false);

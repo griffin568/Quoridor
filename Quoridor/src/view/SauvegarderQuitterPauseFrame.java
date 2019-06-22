@@ -136,4 +136,20 @@ public class SauvegarderQuitterPauseFrame extends JPanel {
     add(centerContainer,BorderLayout.CENTER);
     add(downContainer,BorderLayout.SOUTH);
   }
+
+  public void majBouton(JButton leBouton, char num) {
+    try {
+      if (leBouton == null) {
+        throw new Exception("ChargementPauseFrame majBouton - Le bouton doit exister pour qu'il soit mis à jour.");
+      }
+      else {
+        if (Character.isDigit(num)) {
+          leBouton.setText("EMPLACEMENT " + num);
+          }
+        }
+      }
+    catch(Exception e) {
+      System.err.println(e.getMessage());
+    }
+  }
 }

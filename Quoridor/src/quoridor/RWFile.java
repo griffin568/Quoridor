@@ -45,6 +45,9 @@ public class RWFile {
       else if (joueurs == null) {
         throw new Exception("RWFile writeFile() - La liste des joueurs doit exister");
       }
+      else if (barrieres == null) {
+        throw new Exception("RWFILE writeFile() - La liste de barrieres doit exister");
+      }
       else if (tour < 0) {
         throw new Exception("RWFile writeFile() - Le numéro d'un tour doit être positif");
       }
