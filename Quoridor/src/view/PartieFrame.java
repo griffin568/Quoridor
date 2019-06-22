@@ -141,4 +141,17 @@ public class PartieFrame extends JPanel {
         }
       }
     }
+
+
+    public ArrayList<Joueur> getJoueurs() {
+      return this.joueurs;
+    }
+
+    public ArrayList<Barriere> getBarrieres() {
+      return this.barrieres;
+    }
+
+    public Partie getPartie() {
+      return this.laPartie;
+    }
 }
