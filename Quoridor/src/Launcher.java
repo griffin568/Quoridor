@@ -18,9 +18,11 @@ public class Launcher {
         }
       });
       */
-      Partie test = new Partie(Mode.II);
-      ((IA)(test.getJoueurs().get(0))).setDifficulte(Difficulte.DIFFICILE);
-      ((IA)(test.getJoueurs().get(1))).setDifficulte(Difficulte.DIFFICILE);
+      Partie test = new Partie(Mode.IIII);
+      ((IA)(test.getJoueurs().get(0))).setDifficulte(Difficulte.MOYEN);
+      ((IA)(test.getJoueurs().get(1))).setDifficulte(Difficulte.MOYEN);
+      ((IA)(test.getJoueurs().get(2))).setDifficulte(Difficulte.MOYEN);
+      ((IA)(test.getJoueurs().get(3))).setDifficulte(Difficulte.MOYEN);
       //test.charger("sauvegarde2");
       test.start();
 

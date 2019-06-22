@@ -147,7 +147,22 @@ public class IA extends Joueur {
         System.out.println("L'IA est en train de jouer");
         Thread.sleep(500);
         if (this.DIFFICULTE == Difficulte.FACILE) {
-          this.randomMove();
+          double rand = Math.random();
+          if (rand <= 0.65 || this.barrieres.size() == 0) {
+            this.randomMove();
+          }
+          else {
+            this.randomWall();
+          }
+        }
+        else if (this.DIFFICULTE == Difficulte.MOYEN) {
+          double rand = Math.random();
+          if (rand <= 0.65 || this.barrieres.size() == 0) {
+            this.smartMove();
+          }
+          else {
+            this.randomWall();
+          }
         }
         else if (this.DIFFICULTE == Difficulte.DIFFICILE) {
           ArrayList<ArrayList<Noeud>> chemins = new ArrayList<ArrayList<Noeud>>();
@@ -326,5 +341,43 @@ public class IA extends Joueur {
       deplacerPion(new Coordonnee(nextX,nextY,-1,-1),this.plateau.getDamier());
     }
 
+  /**
+    * Place une barrière de manière aléatoire
+    */
+    private void randomWall() {
+      boolean ok = false;
+      while (!ok) {
+        int xBarriere = (int) (Math.random() * 16);
+        while (xBarriere % 2 == 0) {
+          xBarriere = (int) (Math.random() * 16);
+        }
+        int y1Barriere = (int) (Math.random() * 16);
+        while (y1Barriere % 2 == 1) {
+          y1Barriere = (int) (Math.random() * 16);
+        }
+        int y2Barriere = y1Barriere + 2;
+        if (y2Barriere >= this.plateau.getDamier().length) {
+          y2Barriere = y1Barriere;
+          y1Barriere -= 2;
+        }
+        double direction = Math.random();
+        if (direction <= 0.5) {
+          if ((xBarriere >= 0) && (xBarriere < this.plateau.getDamier().length) && (y1Barriere >= 0) && (y1Barriere < this.plateau.getDamier().length) && (y2Barriere >= 0) && (y2Barriere < this.plateau.getDamier().length)) {
+            if (this.plateau.getDamier()[y1Barriere][xBarriere] && this.plateau.getDamier()[y2Barriere][xBarriere] && this.plateau.getDamier()[(int)((y1Barriere+y2Barriere)/2)][xBarriere]) {
+              placerBarriere(new Coordonnee(y1Barriere,xBarriere,y2Barriere,xBarriere));
+              ok = true;
+            }
+          }
+        }
+        else {
+          if ((xBarriere >= 0) && (xBarriere < this.plateau.getDamier().length) && (y1Barriere >= 0) && (y1Barriere < this.plateau.getDamier().length) && (y2Barriere >= 0) && (y2Barriere < this.plateau.getDamier().length)) {
+            if (this.plateau.getDamier()[xBarriere][y1Barriere] && this.plateau.getDamier()[xBarriere][y2Barriere] && this.plateau.getDamier()[xBarriere][(int)((y1Barriere+y2Barriere)/2)]) {
+              placerBarriere(new Coordonnee(xBarriere,y1Barriere,xBarriere,y2Barriere));
+              ok = true;
+            }
+          }
+        }
+      }
+    }
 
 }
