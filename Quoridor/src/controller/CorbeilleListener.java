@@ -8,7 +8,7 @@ import view.*;
 
 public class CorbeilleListener implements ActionListener {
 
-  private boolean activer;
+  private boolean activer, pause;
   ArrayList<JButton> lesBoutons;
 
   /**
@@ -16,13 +16,14 @@ public class CorbeilleListener implements ActionListener {
   * @param mainF
   * @param suivant
   */
-  public CorbeilleListener(ArrayList<JButton> lesBoutons) {
+  public CorbeilleListener(ArrayList<JButton> lesBoutons, boolean pause) {
     try {
       if (lesBoutons == null) {
         throw new Exception("Les Boutons doivent exister pour pouvoir créer le Listener.");
       }
       else {
         this.lesBoutons = lesBoutons;
+        this.pause = pause;
         this.activer = false;
       }
     }
@@ -46,8 +47,12 @@ public class CorbeilleListener implements ActionListener {
       this.activer = false;
       corbeille = new ImageIcon("../data/img/CorbeilleBlanc.png");
     }
-
-    resizedCorbeille = new ImageIcon(corbeille.getImage().getScaledInstance(98, 142, java.awt.Image.SCALE_SMOOTH));
+    if (!this.pause) {
+      resizedCorbeille = new ImageIcon(corbeille.getImage().getScaledInstance(98, 142, java.awt.Image.SCALE_SMOOTH));
+    }
+    else {
+      resizedCorbeille = new ImageIcon(corbeille.getImage().getScaledInstance(59, 71, java.awt.Image.SCALE_SMOOTH));
+    }
     source.setIcon(resizedCorbeille);
     for (JButton j : this.lesBoutons) {
       for (ActionListener action : j.getActionListeners()) {
