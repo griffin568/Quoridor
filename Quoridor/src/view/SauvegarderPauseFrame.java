@@ -51,8 +51,8 @@ public class SauvegarderPauseFrame extends JPanel {
     *Initialise les composants graphiques de la page de chargement (principalement les boutons cliquables).
     */
   private void initComponent() {
-    ImageIcon corbeille = new ImageIcon("../data/img/Corbeille.png");
-    ImageIcon resizedCorbeille = new ImageIcon(corbeille.getImage().getScaledInstance(98, 142, java.awt.Image.SCALE_SMOOTH));
+    ImageIcon corbeille = new ImageIcon("../data/img/CorbeilleBlanc.png");
+    ImageIcon resizedCorbeille = new ImageIcon(corbeille.getImage().getScaledInstance(59, 71, java.awt.Image.SCALE_SMOOTH));
 
     this.setLayout(new BorderLayout());
     JPanel upContainer = new JPanel(new BorderLayout());
