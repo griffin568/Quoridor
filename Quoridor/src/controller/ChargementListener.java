@@ -50,7 +50,7 @@ public class ChargementListener implements ActionListener {
     JButton source = (JButton)ev.getSource();
     boolean ok = false;
     if (!activer) {
-      Partie partie = new Partie(Mode.HH);
+      Partie partie = new Partie(Mode.HH, true);
       if (source.getText().equalsIgnoreCase("Emplacement 1")) {
         partie = partie.charger("sauvegarde1");
         ok = true;

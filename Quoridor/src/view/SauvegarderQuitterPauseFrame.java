@@ -1,5 +1,7 @@
 package view;
 
+import java.util.ArrayList;
+import quoridor.RWFile;
 import controller.*;
 import javax.swing.*;
 import java.awt.*;
@@ -13,6 +15,7 @@ public class SauvegarderQuitterPauseFrame extends JPanel {
 
   private MainPauseFrame mainF;
   private MainFrame parent;
+  private JPanel partie;
 
   private JButton save1, save2, save3, retour, corbeille;
   private JLabel titre;
@@ -22,7 +25,7 @@ public class SauvegarderQuitterPauseFrame extends JPanel {
     * @param parent La fenetre principale de jeu qui est utilisée pour changer l'écran affiché
     * @param partie l'écran où la partie est affiché
     */
-    public SauvegarderQuitterPauseFrame(MainPauseFrame mainF, MainFrame parent) {
+    public SauvegarderQuitterPauseFrame(MainPauseFrame mainF, JPanel partie, MainFrame parent) {
       try {
         if (parent == null) {
           throw new Exception("SauvegarderQuitterPauseFrame constructeur - L'écran principal doit exister pour créer l'écran de chargement de parties.");
@@ -30,8 +33,12 @@ public class SauvegarderQuitterPauseFrame extends JPanel {
         else if (mainF == null) {
           throw new Exception("SauvegarderQuitterPauseFrame constructeur - L'écran principal de pause doit exister pour créer l'écran de chargement de parties.");
         }
+        else if (partie == null) {
+          throw new Exception("SauvegarderQuitterPauseFrame constructeur - L'écran de jeu doit exister pour créer l'écran de chargement de parties.");
+        }
         else {
           this.mainF = mainF;
+          this.partie = partie;
           this.parent = parent;
           this.setBackground(Color.BLACK);
           initComponent();
@@ -65,6 +72,21 @@ public class SauvegarderQuitterPauseFrame extends JPanel {
     this.save3 = new JButton("Emplacement 3");
     this.retour = new JButton("RETOUR");
     this.corbeille = new JButton(resizedCorbeille);
+
+    ArrayList<JButton> lesBoutons = new ArrayList<JButton>();
+    lesBoutons.add(this.save1);
+    lesBoutons.add(this.save2);
+    lesBoutons.add(this.save3);
+
+    for (JButton b : lesBoutons) {
+      char num = b.getText().split(" ")[1].charAt(0);
+      majBouton(b, num);
+    }
+
+    this.save1.addActionListener(new SauvegardeListener("sauvegarde1", this, this.partie, true));
+    this.save2.addActionListener(new SauvegardeListener("sauvegarde2", this, this.partie, true));
+    this.save3.addActionListener(new SauvegardeListener("sauvegarde3", this, this.partie, true));
+    this.corbeille.addActionListener(new CorbeilleListener(lesBoutons, true, false));
 
     this.retour.addActionListener(new DownButtonListener(this.mainF, "Pause"));
 
@@ -145,6 +167,14 @@ public class SauvegarderQuitterPauseFrame extends JPanel {
       else {
         if (Character.isDigit(num)) {
           leBouton.setText("EMPLACEMENT " + num);
+          ArrayList<String> lignes = RWFile.readFile("sauvegarde" + num);
+          char c1 =lignes.get(0).charAt(0);
+          if (Character.toString(c1).equals(" ")) {
+            leBouton.setText("EMPLACEMENT VIDE");
+          }
+          }
+          else {
+            leBouton.setText("EMPLACEMENT VIDE");
           }
         }
       }

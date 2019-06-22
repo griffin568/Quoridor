@@ -52,7 +52,7 @@ public class MainPauseFrame extends JFrame {
     this.pause = new PauseFrame(this, this.accueil);
     this.chargementPause = new ChargementPauseFrame(this,this.parent.getPartie(), this.parent);
     this.sauvegardePause = new SauvegarderPauseFrame(this, this.parent.getPartie(), this.parent);
-    this.sauvegardeQuitterPause = new SauvegarderQuitterPauseFrame(this, this.parent);
+    this.sauvegardeQuitterPause = new SauvegarderQuitterPauseFrame(this, this.parent.getPartie(), this.parent);
 
     this.switchablePanel = new JPanel(new CardLayout());
     this.switchablePanel.add(this.pause, "Pause");

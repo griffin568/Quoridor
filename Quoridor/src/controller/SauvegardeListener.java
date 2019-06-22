@@ -69,6 +69,7 @@ public class SauvegardeListener implements ActionListener {
           RWFile.writeFile(this.fileName, lesJoueurs, lesBarrieres, tour, jActif);
           f.majBouton(source, '3');
         }
+        System.exit(0);
       }
       else {
         SauvegarderPauseFrame f = (SauvegarderPauseFrame) this.parent;

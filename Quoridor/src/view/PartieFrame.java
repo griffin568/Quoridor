@@ -39,7 +39,7 @@ public class PartieFrame extends JPanel {
       }
       else {
         this.mainF = parent;
-        this.laPartie = new Partie(leMode);
+        this.laPartie = new Partie(leMode, true);
         this.controleur = new Controleur(this.laPartie,this.laPartie.getJoueurs().get(0));
         this.setBackground(Color.BLACK);
 
