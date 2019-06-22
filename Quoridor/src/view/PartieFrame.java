@@ -154,4 +154,8 @@ public class PartieFrame extends JPanel {
     public Partie getPartie() {
       return this.laPartie;
     }
+
+    public Controleur getControleur() {
+      return this.controleur;
+    }
 }

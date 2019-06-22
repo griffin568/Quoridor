@@ -186,4 +186,8 @@ public class Controleur {
       }
     }
 
+    public Joueur getJoueurActif() {
+      return this.actif;
+    }
+
 }
