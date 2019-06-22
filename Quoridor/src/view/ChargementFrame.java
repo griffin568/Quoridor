@@ -78,11 +78,10 @@ public class ChargementFrame extends JPanel {
       majBouton(b, num);
     }
 
-    this.save2.addActionListener(new ChargementListener(this.mainF, "sauvegarde2", this));
-    this.save1.addActionListener(new ChargementListener(this.mainF, "sauvegarde1", this));
-    this.save3.addActionListener(new ChargementListener(this.mainF, "sauvegarde3", this));
-
-    this.corbeille.addActionListener(new CorbeilleListener(lesBoutons));
+    this.save1.addActionListener(new ChargementListener(this.mainF, "sauvegarde1", this, false));
+    this.save2.addActionListener(new ChargementListener(this.mainF, "sauvegarde2", this, false));
+    this.save3.addActionListener(new ChargementListener(this.mainF, "sauvegarde3", this, false));
+    this.corbeille.addActionListener(new CorbeilleListener(lesBoutons, false));
     this.retour.addActionListener(new DownButtonListener(this.mainF, "Accueil"));
 
     this.corbeille.setOpaque(false);

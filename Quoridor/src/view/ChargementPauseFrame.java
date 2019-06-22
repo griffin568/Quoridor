@@ -1,5 +1,7 @@
 package view;
 
+import java.util.ArrayList;
+import quoridor.RWFile;
 import javax.swing.*;
 import java.awt.*;
 import controller.*;
@@ -66,6 +68,20 @@ public class ChargementPauseFrame extends JPanel {
     this.retour = new JButton("RETOUR");
     this.corbeille = new JButton(resizedCorbeille);
 
+    ArrayList<JButton> lesBoutons = new ArrayList<JButton>();
+    lesBoutons.add(this.save1);
+    lesBoutons.add(this.save2);
+    lesBoutons.add(this.save3);
+
+    for (JButton b : lesBoutons) {
+      char num = b.getText().split(" ")[1].charAt(0);
+      majBouton(b, num);
+    }
+
+    this.save1.addActionListener(new ChargementListener(this.parent, "sauvegarde1", this, true));
+    this.save2.addActionListener(new ChargementListener(this.parent, "sauvegarde2", this, true));
+    this.save3.addActionListener(new ChargementListener(this.parent, "sauvegarde3", this, true));
+    this.corbeille.addActionListener(new CorbeilleListener(lesBoutons, true));
     this.retour.addActionListener(new DownButtonListener(this.mainF, "Pause"));
 
     this.corbeille.setOpaque(false);
@@ -133,5 +149,32 @@ public class ChargementPauseFrame extends JPanel {
     add(upContainer,BorderLayout.NORTH);
     add(centerContainer,BorderLayout.CENTER);
     add(downContainer,BorderLayout.SOUTH);
+  }
+
+  public void majBouton(JButton leBouton, char num) {
+    try {
+      if (leBouton == null) {
+        throw new Exception("ChargementPauseFrame majBouton - Le bouton doit exister pour qu'il soit mis à jour.");
+      }
+      else {
+        if (Character.isDigit(num)) {
+          ArrayList<String> lignes = RWFile.readFile("sauvegarde" + num);
+          char c1 =lignes.get(0).charAt(0);
+          if (Character.toString(c1).equals(" ")) {
+            leBouton.setText("EMPLACEMENT VIDE");
+          }
+        }
+        else {
+          leBouton.setText("EMPLACEMENT " + num);
+        }
+      }
+    }
+    catch(Exception e) {
+      System.err.println(e.getMessage());
+    }
+  }
+
+  public MainPauseFrame getMainF() {
+    return this.mainF;
   }
 }

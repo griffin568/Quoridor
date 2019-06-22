@@ -10,7 +10,7 @@ public class ChargementListener implements ActionListener {
 
   private MainFrame mainF;
   private JPanel parent;
-  private boolean activer;
+  private boolean activer, pause;
   private String fileName;
 
   /**
@@ -18,7 +18,7 @@ public class ChargementListener implements ActionListener {
   * @param mainF
   * @param suivant
   */
-  public ChargementListener(MainFrame mainF, String fileName, JPanel parent) {
+  public ChargementListener(MainFrame mainF, String fileName, JPanel parent, boolean pause) {
     try {
       if (mainF == null) {
         throw new Exception("L'écran principal doit exister pour être utiliser dans le listener.");
@@ -32,6 +32,7 @@ public class ChargementListener implements ActionListener {
       else {
         this.mainF = mainF;
         this.fileName = fileName;
+        this.pause = pause;
         this.parent = parent;
         this.activer = false;
       }
@@ -68,21 +69,44 @@ public class ChargementListener implements ActionListener {
         this.mainF.getSwitchableCL().show(this.mainF.getSwitchablePanel(),"Partie");
       }
 
+      if (pause) {
+        ChargementPauseFrame cp = (ChargementPauseFrame) this.parent;
+        cp.getMainF().dispatchEvent(new WindowEvent(this.mainF, WindowEvent.WINDOW_CLOSING));
+      }
+
     }
     else {
-      ChargementFrame f = (ChargementFrame) this.parent;
-      if (source.getText().equalsIgnoreCase("Emplacement 1")) {
-        RWFile.writeFile("sauvegarde1");
-        f.majBouton(source, '1');
+      if (pause) {
+        ChargementPauseFrame f = (ChargementPauseFrame) this.parent;
+        if (source.getText().equalsIgnoreCase("Emplacement 1")) {
+          RWFile.writeFile("sauvegarde1");
+          f.majBouton(source, '1');
+        }
+        else if (source.getText().equalsIgnoreCase("Emplacement 2")) {
+          RWFile.writeFile("sauvegarde2");
+          f.majBouton(source, '2');
+        }
+        else if (source.getText().equalsIgnoreCase("Emplacement 3")) {
+          RWFile.writeFile("sauvegarde3");
+          f.majBouton(source, '3');
+        }
       }
-      else if (source.getText().equalsIgnoreCase("Emplacement 2")) {
-        RWFile.writeFile("sauvegarde2");
-        f.majBouton(source, '2');
+      else {
+        ChargementFrame f = (ChargementFrame) this.parent;
+        if (source.getText().equalsIgnoreCase("Emplacement 1")) {
+          RWFile.writeFile("sauvegarde1");
+          f.majBouton(source, '1');
+        }
+        else if (source.getText().equalsIgnoreCase("Emplacement 2")) {
+          RWFile.writeFile("sauvegarde2");
+          f.majBouton(source, '2');
+        }
+        else if (source.getText().equalsIgnoreCase("Emplacement 3")) {
+          RWFile.writeFile("sauvegarde3");
+          f.majBouton(source, '3');
+        }
       }
-      else if (source.getText().equalsIgnoreCase("Emplacement 3")) {
-        RWFile.writeFile("sauvegarde3");
-        f.majBouton(source, '3');
-      }
+
     }
   }
 
