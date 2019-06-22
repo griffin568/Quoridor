@@ -500,8 +500,10 @@ public class Partie {
 
 /**
   * Lance la partie
+  * @return vrai si le tour s'est bien déroulé, faux sinon. Cette variable est utilisé uniquement dans le mode visuel de l'application
   */
-  public void start() {
+  public boolean start() {
+    boolean ret = true;
     if (!this.visuel) {
       ArrayList<Pion> listePion = new ArrayList<Pion>();
       for (Joueur j : this.joueurs) {
@@ -645,6 +647,7 @@ public class Partie {
         this.tour++;
       }
     }
+
     else {
       ArrayList<Pion> listePion = new ArrayList<Pion>();
       for (Joueur j : this.joueurs) {
@@ -656,78 +659,67 @@ public class Partie {
       Plateau olderPlateau = this.savePlateau();
       ArrayList<Joueur> olderJoueurs = this.saveJoueurs(olderPlateau);
       ArrayList<Barriere> olderBarrieres = this.saveBarrieres();
-      while (true) {
-        for (int i = 0 ; i < this.joueurs.size() ; i++) {
-          boolean error = false;
-          olderPlateau = oldPlateau;
-          olderJoueurs = oldJoueurs;
-          olderBarrieres = oldBarrieres;
-          oldPlateau = this.savePlateau();
-          oldJoueurs = this.saveJoueurs(oldPlateau);
-          oldBarrieres = this.saveBarrieres();
-          Barriere b = this.joueurs.get(i).jeu();
-          for (Joueur j2 : this.joueurs) {
-            Graphe checkError = new Graphe(j2.getPion().getCoordonnee().getX1(),j2.getPion().getCoordonnee().getY1(),this.copieDamier());
-            Noeud depart = null;
-            for (Noeud n : checkError.getNoeuds()) {
-              if (n.getNom().equals(String.valueOf(j2.getPion().getCoordonnee().getX1()) + " " + String.valueOf(j2.getPion().getCoordonnee().getY1()))) {
-                depart = n;
+      boolean error = false;
+      for (Joueur j2 : this.joueurs) {
+        Graphe checkError = new Graphe(j2.getPion().getCoordonnee().getX1(),j2.getPion().getCoordonnee().getY1(),this.copieDamier());
+        Noeud depart = null;
+        for (Noeud n : checkError.getNoeuds()) {
+          if (n.getNom().equals(String.valueOf(j2.getPion().getCoordonnee().getX1()) + " " + String.valueOf(j2.getPion().getCoordonnee().getY1()))) {
+            depart = n;
+          }
+        }
+        if (depart == null) {
+          System.err.println("Erreur dans le déroulement de la partie");
+        }
+        else {
+          checkError = Graphe.dijkstra(checkError,depart);
+          int indice = 0;
+          error = true;
+          while (indice < checkError.getNoeuds().size() && error) {
+            if (j2.getNumero() == 1) {
+              if (checkError.getNoeuds().get(indice).getNom().split(" ")[0].equals("16") && checkError.getNoeuds().get(indice).getDistance() < Integer.MAX_VALUE) {
+                error = false;
               }
             }
-            if (depart == null) {
-              System.err.println("Erreur dans le déroulement de la partie");
-            }
-            else {
-              checkError = Graphe.dijkstra(checkError,depart);
-              int indice = 0;
-              error = true;
-              while (indice < checkError.getNoeuds().size() && error) {
-                if (j2.getNumero() == 1) {
-                  if (checkError.getNoeuds().get(indice).getNom().split(" ")[0].equals("16") && checkError.getNoeuds().get(indice).getDistance() < Integer.MAX_VALUE) {
-                    error = false;
-                  }
-                }
-                else if (j2.getNumero() == 2) {
-                  if (checkError.getNoeuds().get(indice).getNom().split(" ")[0].equals("0") && checkError.getNoeuds().get(indice).getDistance() < Integer.MAX_VALUE) {
-                    error = false;
-                  }
-                }
-                else if (j2.getNumero() == 3) {
-                  if (checkError.getNoeuds().get(indice).getNom().split(" ")[1].equals("16") && checkError.getNoeuds().get(indice).getDistance() < Integer.MAX_VALUE) {
-                    error = false;
-                  }
-                }
-                else if (j2.getNumero() == 4) {
-                  if (checkError.getNoeuds().get(indice).getNom().split(" ")[0].equals("0") && checkError.getNoeuds().get(indice).getDistance() < Integer.MAX_VALUE) {
-                    error = false;
-                  }
-                }
-                indice++;
+            else if (j2.getNumero() == 2) {
+              if (checkError.getNoeuds().get(indice).getNom().split(" ")[0].equals("0") && checkError.getNoeuds().get(indice).getDistance() < Integer.MAX_VALUE) {
+                error = false;
               }
             }
-            if (error) {
-              System.err.println("Impossible, " + j2.getNom() + " se retrouverait bloque");
-              this.plateau = oldPlateau;
-              this.joueurs = oldJoueurs;
-              this.barrieres = oldBarrieres;
-              listePion = new ArrayList<Pion>();
-              for (Joueur j : this.joueurs) {
-                listePion.add(j.getPion());
-                if (!j.isHumain()) {
-                  ((IA)(j)).forceMove();
-                }
+            else if (j2.getNumero() == 3) {
+              if (checkError.getNoeuds().get(indice).getNom().split(" ")[1].equals("16") && checkError.getNoeuds().get(indice).getDistance() < Integer.MAX_VALUE) {
+                error = false;
               }
-              i--;
-              if (i < 0) {
-                i = this.joueurs.size() + i;
+            }
+            else if (j2.getNumero() == 4) {
+              if (checkError.getNoeuds().get(indice).getNom().split(" ")[0].equals("0") && checkError.getNoeuds().get(indice).getDistance() < Integer.MAX_VALUE) {
+                error = false;
               }
+            }
+            indice++;
+          }
+        }
+        if (error) {
+          System.err.println("Impossible, " + j2.getNom() + " se retrouverait bloque");
+          this.plateau = oldPlateau;
+          this.joueurs = oldJoueurs;
+          this.barrieres = oldBarrieres;
+          ret = false;
+          listePion = new ArrayList<Pion>();
+          for (Joueur j : this.joueurs) {
+            listePion.add(j.getPion());
+            if (!j.isHumain()) {
+              ((IA)(j)).forceMove();
             }
           }
-          fin();
         }
-        this.tour++;
       }
+      fin();
+      this.tour++;
+      System.out.println(this.plateau.toString(listePion,this.joueurs.get(0).getPion()));
     }
+    System.out.println(ret);
+    return ret;
   }
 
 /**

@@ -161,7 +161,9 @@ public class Controleur {
               if (this.partie.getPlateau().getDamier()[x1][y1] && this.partie.getPlateau().getDamier()[x1][y2] && this.partie.getPlateau().getDamier()[x1][(int)((y1+y2) / 2)]) {
                 Barriere temp = this.actif.placerBarriere(new Coordonnee(this.x1,this.y1,this.x2,this.y2));
                 this.partie.addBarriere(temp);
-                ret = true;
+                if (this.partie.start()) {
+                  ret = true;
+                }
               }
             }
           }
@@ -170,7 +172,9 @@ public class Controleur {
               if (this.partie.getPlateau().getDamier()[x1][y1] && this.partie.getPlateau().getDamier()[x2][y2] && this.partie.getPlateau().getDamier()[(int)((x1+x2) / 2)][y1]) {
                 Barriere temp = this.actif.placerBarriere(new Coordonnee(this.x1,this.y1,this.x2,this.y2));
                 this.partie.addBarriere(temp);
-                ret = true;
+                if (this.partie.start()) {
+                  ret = true;
+                }
               }
             }
           }
