@@ -10,6 +10,7 @@ public class PartieFrame extends JPanel {
 
   private MainFrame mainF;
   private Partie laPartie;
+  private Controleur controleur;
 
   private Plateau plateau;
   private boolean[][] damier;
@@ -33,6 +34,7 @@ public class PartieFrame extends JPanel {
       else {
         this.mainF = parent;
         this.laPartie = new Partie(leMode);
+        this.controleur = new Controleur(this.laPartie,this.laPartie.getJoueurs().get(0));
         this.setBackground(Color.BLACK);
 
         this.plateau = this.laPartie.getPlateau();
@@ -106,6 +108,7 @@ public class PartieFrame extends JPanel {
           }
         }
         this.damierB[i][j].addKeyListener(new PartiePauseListener(this.mainF));
+        this.damierB[i][j].addMouseListener(new PartieListener(i,j,this.controleur,this));
         this.damierB[i][j].setOpaque(false);
         this.damierB[i][j].setContentAreaFilled(false);
         this.damierB[i][j].setBorderPainted(false);
@@ -113,4 +116,29 @@ public class PartieFrame extends JPanel {
       }
     }
   }
+  /**
+    * Met à jour l'affichage visuel
+    */
+    public void updateFrame() {
+      for (int i = 0 ; i < this.damierB.length ; i++) {
+        for (int j = 0 ; j < this.damierB.length ; j++) {
+          if (i % 2 == 0 && j % 2 == 0) {
+            if (!damier[i][j]) {
+              for (Joueur joueur : this.laPartie.getJoueurs()) {
+                if (joueur.getPion().getCoordonnee().getX1() == i && joueur.getPion().getCoordonnee().getY1() == j) {
+                  this.damierB[i][j].setIcon(new ImageIcon("../data/img/Pion-"+joueur.getCouleur()+".jpg"));
+                  System.out.println("../data/img/Pion-"+joueur.getCouleur()+".jpg");
+                }
+              }
+            }
+            else {
+              this.damierB[i][j].setIcon(new ImageIcon("../data/img/NonPion.jpg"));
+            }
+          }
+          else if (!damier[i][j]) {
+            this.damierB[i][j].setIcon(new ImageIcon("../data/img/Barriere.jpg"));
+          }
+        }
+      }
+    }
 }
