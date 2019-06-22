@@ -11,7 +11,7 @@ public class MainFrame extends JFrame {
   private JPanel switchablePanel;
   private CardLayout switchableCL;
 
-  private AccueilFrame acccueil;
+  private AccueilFrame accueil;
   private ChargementFrame chargement;
   private ChoixNombreFrame choixNombre;
   private PartieFrame partie;
@@ -28,7 +28,8 @@ public class MainFrame extends JFrame {
     this.getContentPane().setLayout(new BorderLayout());
     this.setDefaultCloseOperation(EXIT_ON_CLOSE);
     this.initComponents();
-    this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+    this.setSize(1920,1060);
+    //this.setExtendedState(JFrame.MAXIMIZED_BOTH);
     this.setUndecorated(true);
     this.setResizable(false);
     this.setVisible(true);
@@ -38,18 +39,18 @@ public class MainFrame extends JFrame {
     *
     */
   private void initComponents() {
-    this.acccueil = new AccueilFrame();
+    this.accueil = new AccueilFrame();
     this.partie = new PartieFrame(this, Mode.HHHH);
     this.chargement = new ChargementFrame(this, this.partie);
     this.partie2Joueurs = new Partie2JoueursFrame(this, this.partie);
     this.partie4Joueurs = new Partie4JoueursFrame(this, this.partie);
     this.choixNombre = new ChoixNombreFrame(this, this.partie2Joueurs, this.partie4Joueurs);
-    this.acccueil = new AccueilFrame(this, this.chargement, this.choixNombre);
-    //this.pause = new MainPauseFrame(this, this.acccueil);
+    this.accueil = new AccueilFrame(this, this.chargement, this.choixNombre);
+    //this.pause = new MainPauseFrame(this, this.accueil);
 
     this.switchablePanel = new JPanel(new CardLayout());
 
-    this.switchablePanel.add(this.acccueil, "Accueil");
+    this.switchablePanel.add(this.accueil, "Accueil");
     this.switchablePanel.add(this.chargement, "Chargement");
     this.switchablePanel.add(this.choixNombre, "choixNombre");
     this.switchablePanel.add(this.partie, "Partie");
@@ -57,7 +58,7 @@ public class MainFrame extends JFrame {
     this.switchablePanel.add(this.partie4Joueurs, "Partie 4 Joueurs");
 
     this.switchableCL = (CardLayout)(this.switchablePanel.getLayout());
-    this.switchableCL.show(this.switchablePanel, "Partie");
+    this.switchableCL.show(this.switchablePanel, "Accueil");
 
     this.add(this.switchablePanel, BorderLayout.CENTER);
   }
@@ -111,7 +112,7 @@ public class MainFrame extends JFrame {
     */
   public void activerPause(boolean b) {
     if (b) {
-      this.pause = new MainPauseFrame(this, this.acccueil);
+      this.pause = new MainPauseFrame(this, this.accueil);
     }
     else {
       this.pause.dispatchEvent(new WindowEvent(this.pause, WindowEvent.WINDOW_CLOSING));

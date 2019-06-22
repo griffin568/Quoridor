@@ -10,7 +10,8 @@ public class Partie2JoueursFrame extends JPanel {
   private JPanel partie;
 
   private JButton texteBton, visuelBton, retour;
-  private JLabel titre, j1Label, j2Label;
+  private JLabel titre;
+  private JTextField j1TextField, j2TextField;
   private JComboBox j1CB, j2CB;
 
   /**
@@ -42,10 +43,15 @@ public class Partie2JoueursFrame extends JPanel {
   private void initComponent() {
     this.setLayout(new BorderLayout());
     JPanel upContainer = new JPanel(new BorderLayout());
-    JPanel leftCenterContainer = new JPanel(new GridLayout(2,1));
+    JPanel leftCenterContainer = new JPanel(new GridLayout(7,3));
     JPanel rightCenterContainer = new JPanel(new GridLayout(2,2));
     JPanel centerContainer = new JPanel(new GridLayout(1,2));
     JPanel downContainer = new JPanel(new BorderLayout());
+    JPanel playerTextFieldPanel;
+    JPanel playerComboBoxPanel;
+    JPanel newPanel;
+    JPanel playerPanel;
+
 
     upContainer.setBackground(Color.BLACK);
     leftCenterContainer.setBackground(Color.BLACK);
@@ -56,8 +62,8 @@ public class Partie2JoueursFrame extends JPanel {
     String[] lesChoix = {"HUMAIN","IA - FACILE","IA - MOYENNE","IA - DIFFICILE","IA - IMPOSSIBLE"};
 
     this.titre = new JLabel("CREER UNE PARTIE - 2 JOUEURS");
-    this.j1Label = new JLabel("JOUEUR 1");
-    this.j2Label = new JLabel("JOUEUR 2");
+    this.j1TextField = new JTextField("\t    JOUEUR 1");
+    this.j2TextField = new JTextField("\t    JOUEUR 2");
     this.texteBton = new JButton("JOUER EN MODE TEXTE");
     this.visuelBton = new JButton("JOUER EN MODE GRAPHIQUE");
     this.retour = new JButton("RETOUR");
@@ -69,17 +75,170 @@ public class Partie2JoueursFrame extends JPanel {
     this.texteBton.setPreferredSize(new Dimension(500, 100));
     this.visuelBton.setPreferredSize(new Dimension(500, 100));
     this.retour.setPreferredSize(new Dimension(200, 50));
+    this.j1TextField.setPreferredSize(new Dimension(100,100));
+    this.j2TextField.setPreferredSize(new Dimension(100,100));
+    this.j1CB.setPreferredSize(new Dimension(100,100));
+    this.j2CB.setPreferredSize(new Dimension(100,100));
     this.titre.setForeground(Color.WHITE);
-    this.j1Label.setForeground(Color.WHITE);
-    this.j2Label.setForeground(Color.WHITE);
+    this.j1TextField.setBackground(Color.BLACK);
+    this.j2TextField.setBackground(Color.BLACK);
+    this.j1TextField.setForeground(Color.WHITE);
+    this.j2TextField.setForeground(Color.WHITE);
 
-    upContainer.add(this.titre,BorderLayout.CENTER);
+
+    JButton titreContainer = new JButton(this.titre.getText());
+    titreContainer.setOpaque(false);
+    titreContainer.setContentAreaFilled(false);
+    titreContainer.setBorderPainted(false);
+    titreContainer.setFocusable(false);
+    titreContainer.setForeground(Color.WHITE);
+    upContainer.add(titreContainer,BorderLayout.CENTER);
+
+
+
+    newPanel = new JPanel();
+    newPanel.setBackground(Color.BLACK);
+    leftCenterContainer.add(newPanel);
+    newPanel = new JPanel();
+    newPanel.setBackground(Color.BLACK);
+    leftCenterContainer.add(newPanel);
+    newPanel = new JPanel();
+    newPanel.setBackground(Color.BLACK);
+    leftCenterContainer.add(newPanel);
+    newPanel = new JPanel();
+    newPanel.setBackground(Color.BLACK);
+    leftCenterContainer.add(newPanel);
+    newPanel = new JPanel();
+    newPanel.setBackground(Color.BLACK);
+    leftCenterContainer.add(newPanel);
+    newPanel = new JPanel();
+    newPanel.setBackground(Color.BLACK);
+    leftCenterContainer.add(newPanel);
+    newPanel = new JPanel();
+    newPanel.setBackground(Color.BLACK);
+    leftCenterContainer.add(newPanel);
     leftCenterContainer.add(this.texteBton);
+    newPanel = new JPanel();
+    newPanel.setBackground(Color.BLACK);
+    leftCenterContainer.add(newPanel);
+    newPanel = new JPanel();
+    newPanel.setBackground(Color.BLACK);
+    leftCenterContainer.add(newPanel);
+    newPanel = new JPanel();
+    newPanel.setBackground(Color.BLACK);
+    leftCenterContainer.add(newPanel);
+    newPanel = new JPanel();
+    newPanel.setBackground(Color.BLACK);
+    leftCenterContainer.add(newPanel);
+    newPanel = new JPanel();
+    newPanel.setBackground(Color.BLACK);
+    leftCenterContainer.add(newPanel);
     leftCenterContainer.add(this.visuelBton);
-    rightCenterContainer.add(this.j1Label);
-    rightCenterContainer.add(this.j2Label);
-    rightCenterContainer.add(this.j1CB);
-    rightCenterContainer.add(this.j2CB);
+    newPanel = new JPanel();
+    newPanel.setBackground(Color.BLACK);
+    leftCenterContainer.add(newPanel);
+    newPanel = new JPanel();
+    newPanel.setBackground(Color.BLACK);
+    leftCenterContainer.add(newPanel);
+    newPanel = new JPanel();
+    newPanel.setBackground(Color.BLACK);
+    leftCenterContainer.add(newPanel);
+    newPanel = new JPanel();
+    newPanel.setBackground(Color.BLACK);
+    leftCenterContainer.add(newPanel);
+    newPanel = new JPanel();
+    newPanel.setBackground(Color.BLACK);
+    leftCenterContainer.add(newPanel);
+    newPanel = new JPanel();
+    newPanel.setBackground(Color.BLACK);
+    leftCenterContainer.add(newPanel);
+    newPanel = new JPanel();
+    newPanel.setBackground(Color.BLACK);
+    leftCenterContainer.add(newPanel);
+
+
+    playerTextFieldPanel = new JPanel(new GridLayout(2,1));
+    playerComboBoxPanel = new JPanel(new GridLayout(2,1));
+
+    newPanel = new JPanel();
+    newPanel.setBackground(Color.BLACK);
+    playerTextFieldPanel.add(newPanel);
+    playerTextFieldPanel.add(j1TextField);
+
+    playerComboBoxPanel.add(j1CB);
+    newPanel = new JPanel();
+    newPanel.setBackground(Color.BLACK);
+    playerComboBoxPanel.add(newPanel);
+
+
+    playerPanel = new JPanel(new GridLayout(3,3));
+    newPanel = new JPanel();
+    newPanel.setBackground(Color.BLACK);
+    playerPanel.add(newPanel);
+    newPanel = new JPanel();
+    newPanel.setBackground(Color.BLACK);
+    playerPanel.add(newPanel);
+    newPanel = new JPanel();
+    newPanel.setBackground(Color.BLACK);
+    playerPanel.add(newPanel);
+    newPanel = new JPanel();
+    newPanel.setBackground(Color.BLACK);
+    playerPanel.add(newPanel);
+    playerPanel.add(playerTextFieldPanel);
+    newPanel = new JPanel();
+    newPanel.setBackground(Color.BLACK);
+    playerPanel.add(newPanel);
+    newPanel = new JPanel();
+    newPanel.setBackground(Color.BLACK);
+    playerPanel.add(newPanel);
+    playerPanel.add(playerComboBoxPanel);
+    newPanel = new JPanel();
+    newPanel.setBackground(Color.BLACK);
+    playerPanel.add(newPanel);
+
+    rightCenterContainer.add(playerPanel);
+
+
+    playerTextFieldPanel = new JPanel(new GridLayout(2,1));
+    playerComboBoxPanel = new JPanel(new GridLayout(2,1));
+
+    newPanel = new JPanel();
+    newPanel.setBackground(Color.BLACK);
+    playerTextFieldPanel.add(newPanel);
+    playerTextFieldPanel.add(j2TextField);
+
+    playerComboBoxPanel.add(j2CB);
+    newPanel = new JPanel();
+    newPanel.setBackground(Color.BLACK);
+    playerComboBoxPanel.add(newPanel);
+
+    playerPanel = new JPanel(new GridLayout(3,3));
+    newPanel = new JPanel();
+    newPanel.setBackground(Color.BLACK);
+    playerPanel.add(newPanel);
+    newPanel = new JPanel();
+    newPanel.setBackground(Color.BLACK);
+    playerPanel.add(newPanel);
+    newPanel = new JPanel();
+    newPanel.setBackground(Color.BLACK);
+    playerPanel.add(newPanel);
+    newPanel = new JPanel();
+    newPanel.setBackground(Color.BLACK);
+    playerPanel.add(newPanel);
+    playerPanel.add(playerTextFieldPanel);
+    newPanel = new JPanel();
+    newPanel.setBackground(Color.BLACK);
+    playerPanel.add(newPanel);
+    newPanel = new JPanel();
+    newPanel.setBackground(Color.BLACK);
+    playerPanel.add(newPanel);
+    playerPanel.add(playerComboBoxPanel);
+    newPanel = new JPanel();
+    newPanel.setBackground(Color.BLACK);
+    playerPanel.add(newPanel);
+
+    rightCenterContainer.add(playerPanel);
+
     centerContainer.add(leftCenterContainer);
     centerContainer.add(rightCenterContainer);
     downContainer.add(this.retour, BorderLayout.EAST);

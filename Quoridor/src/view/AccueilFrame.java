@@ -57,14 +57,18 @@ public class AccueilFrame extends JPanel {
   private void initComponent() {
     this.setLayout(new BorderLayout());
     JPanel leftContainer = new JPanel(new BorderLayout());
-    JPanel rightContainer = new JPanel(new BorderLayout());
+    JPanel rightContainer = new JPanel(new GridLayout(7,2));
     JPanel downContainer = new JPanel(new BorderLayout());
-    JPanel upContainer = new JPanel(new BorderLayout());
+    JPanel upContainer = new JPanel(new GridLayout(1,5));
+    JPanel centerContainer = new JPanel(new GridLayout(1,2));
+    JPanel rightSecondContainer = new JPanel(new BorderLayout());
+    JPanel newPanel;
 
     upContainer.setBackground(Color.BLACK);
     rightContainer.setBackground(Color.BLACK);
     downContainer.setBackground(Color.BLACK);
     leftContainer.setBackground(Color.BLACK);
+    centerContainer.setBackground(Color.BLACK);
 
     this.titre = new JLabel("QUORIDOR");
     this.LancerBton = new JButton("Lancer une nouvelle partie");
@@ -76,8 +80,8 @@ public class AccueilFrame extends JPanel {
     this.LancerBton.addActionListener(new AccueilListener(this.parent, this.choixNombre));
     this.ChargerBton.addActionListener(new AccueilListener(this.parent, this.chargement));
 
-    this.LancerBton.setPreferredSize(new Dimension(500, 100));
-    this.ChargerBton.setPreferredSize(new Dimension(500, 100));
+    this.LancerBton.setPreferredSize(new Dimension(500, 50));
+    this.ChargerBton.setPreferredSize(new Dimension(500, 50));
     this.QuitterBton.setPreferredSize(new Dimension(200, 50));
     this.titre.setForeground(Color.WHITE);
 
@@ -86,15 +90,59 @@ public class AccueilFrame extends JPanel {
     this.PhotoButton.setBorderPainted(false);
     this.PhotoButton.setFocusable(false);
 
-    upContainer.add(this.titre,BorderLayout.CENTER);
+    JButton titreContainer = new JButton(this.titre.getText());
+    titreContainer.setOpaque(false);
+    titreContainer.setContentAreaFilled(false);
+    titreContainer.setBorderPainted(false);
+    titreContainer.setFocusable(false);
+    titreContainer.setForeground(Color.WHITE);
+
+    upContainer.add(titreContainer,BorderLayout.CENTER);
+
     leftContainer.add(this.PhotoButton,BorderLayout.CENTER);
-    rightContainer.add(this.LancerBton,BorderLayout.NORTH);
-    rightContainer.add(this.ChargerBton,BorderLayout.SOUTH);
+
+    newPanel = new JPanel();
+    newPanel.setBackground(Color.BLACK);
+    rightContainer.add(newPanel);
+    newPanel = new JPanel();
+    newPanel.setBackground(Color.BLACK);
+    rightContainer.add(newPanel);
+    newPanel = new JPanel();
+    newPanel.setBackground(Color.BLACK);
+    rightContainer.add(newPanel);
+    newPanel = new JPanel();
+    newPanel.setBackground(Color.BLACK);
+    rightContainer.add(newPanel);
+    rightContainer.add(this.LancerBton);
+    newPanel = new JPanel();
+    newPanel.setBackground(Color.BLACK);
+    rightContainer.add(newPanel);
+    newPanel = new JPanel();
+    newPanel.setBackground(Color.BLACK);
+    rightContainer.add(newPanel);
+    newPanel = new JPanel();
+    newPanel.setBackground(Color.BLACK);
+    rightContainer.add(newPanel);
+    rightContainer.add(this.ChargerBton);
+    newPanel = new JPanel();
+    newPanel.setBackground(Color.BLACK);
+    rightContainer.add(newPanel);
+    newPanel = new JPanel();
+    newPanel.setBackground(Color.BLACK);
+    rightContainer.add(newPanel);
+    newPanel = new JPanel();
+    newPanel.setBackground(Color.BLACK);
+    rightContainer.add(newPanel);
+    newPanel = new JPanel();
+    newPanel.setBackground(Color.BLACK);
+    rightContainer.add(newPanel);
+    rightSecondContainer.add(rightContainer,BorderLayout.CENTER);
+    centerContainer.add(leftContainer);
+    centerContainer.add(rightContainer);
     downContainer.add(this.QuitterBton,BorderLayout.EAST);
 
     add(upContainer,BorderLayout.NORTH);
-    add(leftContainer,BorderLayout.WEST);
-    add(rightContainer,BorderLayout.EAST);
+    add(centerContainer,BorderLayout.CENTER);
     add(downContainer,BorderLayout.SOUTH);
   }
 }
