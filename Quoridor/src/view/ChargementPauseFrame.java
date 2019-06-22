@@ -52,7 +52,8 @@ public class ChargementPauseFrame extends JPanel {
     this.setLayout(new BorderLayout());
     JPanel upContainer = new JPanel(new BorderLayout());
     JPanel downContainer = new JPanel(new BorderLayout());
-    JPanel centerContainer = new JPanel(new GridLayout(3,1));
+    JPanel centerContainer = new JPanel(new GridLayout(5,3));
+    JPanel newPanel;
 
     upContainer.setBackground(Color.BLACK);
     centerContainer.setBackground(Color.BLACK);
@@ -77,11 +78,56 @@ public class ChargementPauseFrame extends JPanel {
     this.retour.setPreferredSize(new Dimension(200, 50));
     this.titre.setForeground(Color.WHITE);
 
-    upContainer.add(this.titre, BorderLayout.CENTER);
+    JButton titreContainer = new JButton(this.titre.getText());
+    titreContainer.setOpaque(false);
+    titreContainer.setContentAreaFilled(false);
+    titreContainer.setBorderPainted(false);
+    titreContainer.setFocusable(false);
+    titreContainer.setForeground(Color.WHITE);
+    upContainer.add(titreContainer, BorderLayout.CENTER);
     upContainer.add(this.corbeille, BorderLayout.EAST);
+
+    newPanel = new JPanel();
+    newPanel.setBackground(Color.BLACK);
+    centerContainer.add(newPanel);
     centerContainer.add(this.save1);
+    newPanel = new JPanel();
+    newPanel.setBackground(Color.BLACK);
+    centerContainer.add(newPanel);
+    newPanel = new JPanel();
+    newPanel.setBackground(Color.BLACK);
+    centerContainer.add(newPanel);
+    newPanel = new JPanel();
+    newPanel.setBackground(Color.BLACK);
+    centerContainer.add(newPanel);
+    newPanel = new JPanel();
+    newPanel.setBackground(Color.BLACK);
+    centerContainer.add(newPanel);
+    newPanel = new JPanel();
+    newPanel.setBackground(Color.BLACK);
+    centerContainer.add(newPanel);
     centerContainer.add(this.save2);
+    newPanel = new JPanel();
+    newPanel.setBackground(Color.BLACK);
+    centerContainer.add(newPanel);
+    newPanel = new JPanel();
+    newPanel.setBackground(Color.BLACK);
+    centerContainer.add(newPanel);
+    newPanel = new JPanel();
+    newPanel.setBackground(Color.BLACK);
+    centerContainer.add(newPanel);
+    newPanel = new JPanel();
+    newPanel.setBackground(Color.BLACK);
+    centerContainer.add(newPanel);
+    newPanel = new JPanel();
+    newPanel.setBackground(Color.BLACK);
+    centerContainer.add(newPanel);
     centerContainer.add(this.save3);
+    newPanel = new JPanel();
+    newPanel.setBackground(Color.BLACK);
+    centerContainer.add(newPanel);
+
+
     downContainer.add(this.retour, BorderLayout.EAST);
 
     add(upContainer,BorderLayout.NORTH);
