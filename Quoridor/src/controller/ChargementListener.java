@@ -9,6 +9,7 @@ import view.*;
 public class ChargementListener implements ActionListener {
 
   private MainFrame mainF;
+  private JPanel parent;
   private boolean activer;
   private String fileName;
 
@@ -17,7 +18,7 @@ public class ChargementListener implements ActionListener {
   * @param mainF
   * @param suivant
   */
-  public ChargementListener(MainFrame mainF, String fileName) {
+  public ChargementListener(MainFrame mainF, String fileName, JPanel parent) {
     try {
       if (mainF == null) {
         throw new Exception("L'écran principal doit exister pour être utiliser dans le listener.");
@@ -25,9 +26,13 @@ public class ChargementListener implements ActionListener {
       else if (fileName == null) {
         throw new Exception("Le nom du fichier doit être valide pour pouvoir être lu.");
       }
+      else if (parent == null) {
+        throw new Exception("L'écran parent doit exister pour créer le listener.");
+      }
       else {
         this.mainF = mainF;
         this.fileName = fileName;
+        this.parent = parent;
         this.activer = false;
       }
     }
@@ -42,31 +47,41 @@ public class ChargementListener implements ActionListener {
   */
   public void actionPerformed(ActionEvent ev) {
     JButton source = (JButton)ev.getSource();
+    boolean ok = false;
     if (!activer) {
       Partie partie = new Partie(Mode.HH);
       if (source.getText().equalsIgnoreCase("Emplacement 1")) {
         partie = partie.charger("sauvegarde1");
+        ok = true;
       }
       else if (source.getText().equalsIgnoreCase("Emplacement 2")) {
         partie = partie.charger("sauvegarde2");
+        ok = true;
       }
       else if (source.getText().equalsIgnoreCase("Emplacement 3")) {
         partie = partie.charger("sauvegarde3");
+        ok = true;
       }
 
-      this.mainF.setPartie(new PartieFrame(this.mainF, partie));
-      this.mainF.getSwitchableCL().show(this.mainF.getSwitchablePanel(),"Partie");
+      if (ok) {
+        this.mainF.setPartie(new PartieFrame(this.mainF, partie));
+        this.mainF.getSwitchableCL().show(this.mainF.getSwitchablePanel(),"Partie");
+      }
 
     }
     else {
+      ChargementFrame f = (ChargementFrame) this.parent;
       if (source.getText().equalsIgnoreCase("Emplacement 1")) {
         RWFile.writeFile("sauvegarde1");
+        f.majBouton(source, '1');
       }
       else if (source.getText().equalsIgnoreCase("Emplacement 2")) {
         RWFile.writeFile("sauvegarde2");
+        f.majBouton(source, '2');
       }
       else if (source.getText().equalsIgnoreCase("Emplacement 3")) {
         RWFile.writeFile("sauvegarde3");
+        f.majBouton(source, '3');
       }
     }
   }

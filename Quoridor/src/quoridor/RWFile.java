@@ -124,7 +124,7 @@ public class RWFile {
         else {
           fileName = "../data/" + fileName;
           PrintWriter out = new PrintWriter(fileName);
-          out.println("");
+          out.println(" ");
           out.close();
         }
       }

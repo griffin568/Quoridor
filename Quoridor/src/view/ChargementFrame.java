@@ -1,6 +1,7 @@
 package view;
 
 import java.util.ArrayList;
+import quoridor.RWFile;
 import javax.swing.*;
 import controller.*;
 import java.awt.*;
@@ -61,9 +62,9 @@ public class ChargementFrame extends JPanel {
     downContainer.setBackground(Color.BLACK);
 
     this.titre = new JLabel("CHARGER UNE PARTIE");
-    this.save1 = new JButton("Emplacement 1");
-    this.save2 = new JButton("Emplacement 2");
-    this.save3 = new JButton("Emplacement 3");
+    this.save1 = new JButton("EMPLACEMENT 1");
+    this.save2 = new JButton("EMPLACEMENT 2");
+    this.save3 = new JButton("EMPLACEMENT 3");
     this.retour = new JButton("RETOUR");
     this.corbeille = new JButton(resizedCorbeille);
 
@@ -72,9 +73,14 @@ public class ChargementFrame extends JPanel {
     lesBoutons.add(this.save2);
     lesBoutons.add(this.save3);
 
-    this.save2.addActionListener(new ChargementListener(this.mainF, "sauvegarde2"));
-    this.save1.addActionListener(new ChargementListener(this.mainF, "sauvegarde1"));
-    this.save3.addActionListener(new ChargementListener(this.mainF, "sauvegarde3"));
+    for (JButton b : lesBoutons) {
+      char num = b.getText().split(" ")[1].charAt(0);
+      majBouton(b, num);
+    }
+
+    this.save2.addActionListener(new ChargementListener(this.mainF, "sauvegarde2", this));
+    this.save1.addActionListener(new ChargementListener(this.mainF, "sauvegarde1", this));
+    this.save3.addActionListener(new ChargementListener(this.mainF, "sauvegarde3", this));
 
     this.corbeille.addActionListener(new CorbeilleListener(lesBoutons));
     this.retour.addActionListener(new DownButtonListener(this.mainF, "Accueil"));
@@ -144,5 +150,29 @@ public class ChargementFrame extends JPanel {
     add(upContainer,BorderLayout.NORTH);
     add(centerContainer,BorderLayout.CENTER);
     add(downContainer,BorderLayout.SOUTH);
+  }
+
+
+  public void majBouton(JButton leBouton, char num) {
+    try {
+      if (leBouton == null) {
+        throw new Exception("ChargementFrame majBouton - Le bouton doit exister pour qu'il soit mis à jour.");
+      }
+      else {
+        if (Character.isDigit(num)) {
+          ArrayList<String> lignes = RWFile.readFile("sauvegarde" + num);
+          char c1 =lignes.get(0).charAt(0);
+          if (Character.toString(c1).equals(" ")) {
+            leBouton.setText("EMPLACEMENT VIDE");
+          }
+        }
+        else {
+          leBouton.setText("EMPLACEMENT " + num);
+        }
+      }
+    }
+    catch(Exception e) {
+      System.err.println(e.getMessage());
+    }
   }
 }
