@@ -1,7 +1,8 @@
 package view;
 
-import controller.*;
+import java.util.ArrayList;
 import javax.swing.*;
+import controller.*;
 import java.awt.*;
 
 /**
@@ -46,7 +47,7 @@ public class ChargementFrame extends JPanel {
     *Initialise les composants graphiques de la page de chargement (principalement les boutons cliquables).
     */
   private void initComponent() {
-    ImageIcon corbeille = new ImageIcon("../data/img/Corbeille.png");
+    ImageIcon corbeille = new ImageIcon("../data/img/CorbeilleBlanc.png");
     ImageIcon resizedCorbeille = new ImageIcon(corbeille.getImage().getScaledInstance(98, 142, java.awt.Image.SCALE_SMOOTH));
 
     this.setLayout(new BorderLayout());
@@ -65,6 +66,16 @@ public class ChargementFrame extends JPanel {
     this.retour = new JButton("RETOUR");
     this.corbeille = new JButton(resizedCorbeille);
 
+    ArrayList<JButton> lesBoutons = new ArrayList<JButton>();
+    lesBoutons.add(this.save1);
+    lesBoutons.add(this.save2);
+    lesBoutons.add(this.save3);
+
+    this.save2.addActionListener(new ChargementListener(this.mainF, "sauvegarde2"));
+    this.save1.addActionListener(new ChargementListener(this.mainF, "sauvegarde1"));
+    this.save3.addActionListener(new ChargementListener(this.mainF, "sauvegarde3"));
+
+    this.corbeille.addActionListener(new CorbeilleListener(lesBoutons));
     this.retour.addActionListener(new DownButtonListener(this.mainF, "Accueil"));
 
     this.corbeille.setOpaque(false);

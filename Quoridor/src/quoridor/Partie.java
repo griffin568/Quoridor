@@ -65,7 +65,7 @@ public class Partie {
   * Charge les données de sauvegarde contenues dans le fichier sélectionné
   * @param filename le fichier contenant les données à charger
   */
-  public void charger(String filename) {
+  public Partie charger(String filename) {
     try {
       if (filename == null) {
         throw new Exception("Partie constructeur - Le nom du fichier doit être valide pour pouvoir être utilisé.");
@@ -307,6 +307,9 @@ public class Partie {
     }
     catch(Exception e) {
       System.err.println(e.getMessage());
+    }
+    finally {
+      return this;
     }
   }
 

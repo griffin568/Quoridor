@@ -98,7 +98,9 @@ public class MainFrame extends JFrame {
           throw new Exception("MainFrame setPartie - La partie doit exister pour pouvoir être changée");
         }
         else {
+          this.switchablePanel.remove(this.partie);
           this.partie = partie;
+          this.switchablePanel.add(this.partie, "Partie");
         }
       }
       catch(Exception e) {
