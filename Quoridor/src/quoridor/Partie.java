@@ -548,41 +548,45 @@ public class Partie {
             error = true;
             while (indice < checkError.getNoeuds().size() && error) {
               if (j2.getNumero() == 1) {
-                if (checkError.getNoeuds().get(i).getNom().split(" ")[0].equals("16") && checkError.getNoeuds().get(i).getDistance() < Integer.MAX_VALUE) {
+                if (checkError.getNoeuds().get(indice).getNom().split(" ")[0].equals("16") && checkError.getNoeuds().get(indice).getDistance() < Integer.MAX_VALUE) {
                   error = false;
                 }
               }
               else if (j2.getNumero() == 2) {
-                if (checkError.getNoeuds().get(i).getNom().split(" ")[0].equals("0") && checkError.getNoeuds().get(i).getDistance() < Integer.MAX_VALUE) {
+                if (checkError.getNoeuds().get(indice).getNom().split(" ")[0].equals("0") && checkError.getNoeuds().get(indice).getDistance() < Integer.MAX_VALUE) {
                   error = false;
                 }
               }
               else if (j2.getNumero() == 3) {
-                if (checkError.getNoeuds().get(i).getNom().split(" ")[1].equals("16") && checkError.getNoeuds().get(i).getDistance() < Integer.MAX_VALUE) {
+                if (checkError.getNoeuds().get(indice).getNom().split(" ")[1].equals("16") && checkError.getNoeuds().get(indice).getDistance() < Integer.MAX_VALUE) {
                   error = false;
                 }
               }
               else if (j2.getNumero() == 4) {
-                if (checkError.getNoeuds().get(i).getNom().split(" ")[0].equals("0") && checkError.getNoeuds().get(i).getDistance() < Integer.MAX_VALUE) {
+                if (checkError.getNoeuds().get(indice).getNom().split(" ")[0].equals("0") && checkError.getNoeuds().get(indice).getDistance() < Integer.MAX_VALUE) {
                   error = false;
                 }
               }
               indice++;
             }
           }
-        }
-        if (error) {
-          this.plateau = oldPlateau;
-          this.joueurs = oldJoueurs;
-          this.barrieres = oldBarrieres;
-          listePion = new ArrayList<Pion>();
-          for (Joueur j : this.joueurs) {
-            listePion.add(j.getPion());
-            if (!j.isHumain()) {
-              ((IA)(j)).forceMove();
+          if (error) {
+            System.err.println("Impossible, " + j2.getNom() + " se retrouverait bloque");
+            this.plateau = oldPlateau;
+            this.joueurs = oldJoueurs;
+            this.barrieres = oldBarrieres;
+            listePion = new ArrayList<Pion>();
+            for (Joueur j : this.joueurs) {
+              listePion.add(j.getPion());
+              if (!j.isHumain()) {
+                ((IA)(j)).forceMove();
+              }
+            }
+            i--;
+            if (i < 0) {
+              i = this.joueurs.size() + i;
             }
           }
-          i--;
         }
         fin();
       }

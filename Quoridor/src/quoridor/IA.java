@@ -59,7 +59,7 @@ public class IA extends Joueur {
         }
       }
       catch (Exception e) {
-        System.out.println(e.getMessage());
+        System.err.println(e.getMessage());
       }
     }
 
@@ -162,7 +162,6 @@ public class IA extends Joueur {
               num = chemins.indexOf(c) + 1;
             }
           }
-          System.out.println(num + "   " + this.NUMERO);
           if (num == this.NUMERO || this.forceMove) {
             this.smartMove();
           }
@@ -170,70 +169,75 @@ public class IA extends Joueur {
             if (this.plusCourtChemin.get(0).getDistance() == Integer.MAX_VALUE) {
               this.randomMove();
             }
-            Noeud actuel = this.plusCourtChemin.get(0);
-            Noeud suivant = this.plusCourtChemin.get(1);
-            if (Integer.parseInt(actuel.getNom().split(" ")[0]) != Integer.parseInt(suivant.getNom().split(" ")[0])) {
-              int xBarriere = (int) ((Integer.parseInt(actuel.getNom().split(" ")[0])+Integer.parseInt(suivant.getNom().split(" ")[0])) / 2);
-              int y1Barriere = Integer.parseInt(actuel.getNom().split(" ")[1]);
-              int y2Barriere = Integer.parseInt(actuel.getNom().split(" ")[1]) + 2;
-              if (y2Barriere > 16 ) {
-                y2Barriere = y1Barriere;
-                y1Barriere -= 2;
-              }
-              else if (y1Barriere < 0) {
-                y1Barriere = y2Barriere;
-                y2Barriere += 2;
-              }
-              if (!this.plateau.getDamier()[xBarriere][y1Barriere]) {
-                y1Barriere += 2;
-                y2Barriere += 2;
-              }
-              else if (!this.plateau.getDamier()[xBarriere][y2Barriere]) {
-                y1Barriere -= 2;
-                y2Barriere -= 2;
-              }
-              if ((xBarriere < 0) || (xBarriere >= this.plateau.getDamier().length) || (y1Barriere < 0) || (y1Barriere >= this.plateau.getDamier().length) || (y2Barriere < 0) || (y2Barriere >= this.plateau.getDamier().length)) {
-                this.smartMove();
-              }
-              else if (!this.plateau.getDamier()[xBarriere][y1Barriere] || !this.plateau.getDamier()[xBarriere][y2Barriere] || !this.plateau.getDamier()[xBarriere][(int)((y1Barriere+y2Barriere)/2)]) {
-                this.smartMove();
-              }
-              else {
-                placerBarriere(new Coordonnee(xBarriere,y1Barriere,xBarriere,y2Barriere));
-              }
-            }
-            else if (Integer.parseInt(actuel.getNom().split(" ")[1]) != Integer.parseInt(suivant.getNom().split(" ")[1])) {
-              int xBarriere = (int) ((Integer.parseInt(actuel.getNom().split(" ")[1])+Integer.parseInt(suivant.getNom().split(" ")[1])) / 2);
-              int y1Barriere = Integer.parseInt(actuel.getNom().split(" ")[0]);
-              int y2Barriere = Integer.parseInt(actuel.getNom().split(" ")[0]) + 2;
-              if (y2Barriere > 16 ) {
-                y2Barriere = y1Barriere;
-                y1Barriere -= 2;
-              }
-              else if (y1Barriere < 0) {
-                y1Barriere = y2Barriere;
-                y2Barriere += 2;
-              }
-              if (!this.plateau.getDamier()[y1Barriere][xBarriere]) {
-                y1Barriere += 2;
-                y2Barriere += 2;
-              }
-              else if (!this.plateau.getDamier()[y2Barriere][xBarriere]) {
-                y1Barriere -= 2;
-                y2Barriere -= 2;
-              }
-              if ((xBarriere < 0) || (xBarriere >= this.plateau.getDamier().length) || (y1Barriere < 0) || (y1Barriere >= this.plateau.getDamier().length) || (y2Barriere < 0) || (y2Barriere >= this.plateau.getDamier().length)) {
-                this.smartMove();
-              }
-              else if (!this.plateau.getDamier()[y1Barriere][xBarriere] || !this.plateau.getDamier()[y2Barriere][xBarriere] || !this.plateau.getDamier()[(int)((y1Barriere+y2Barriere)/2)][xBarriere]) {
-                this.smartMove();
-              }
-              else {
-                placerBarriere(new Coordonnee(y1Barriere,xBarriere,y2Barriere,xBarriere));
-              }
+            else if (this.forceMove) {
+              this.smartMove();
             }
             else {
-              System.err.println("Erreur dans la plannification de l'IA");
+              Noeud actuel = this.plusCourtChemin.get(0);
+              Noeud suivant = this.plusCourtChemin.get(1);
+              if (Integer.parseInt(actuel.getNom().split(" ")[0]) != Integer.parseInt(suivant.getNom().split(" ")[0])) {
+                int xBarriere = (int) ((Integer.parseInt(actuel.getNom().split(" ")[0])+Integer.parseInt(suivant.getNom().split(" ")[0])) / 2);
+                int y1Barriere = Integer.parseInt(actuel.getNom().split(" ")[1]);
+                int y2Barriere = Integer.parseInt(actuel.getNom().split(" ")[1]) + 2;
+                if (y2Barriere > 16 ) {
+                  y2Barriere = y1Barriere;
+                  y1Barriere -= 2;
+                }
+                else if (y1Barriere < 0) {
+                  y1Barriere = y2Barriere;
+                  y2Barriere += 2;
+                }
+                if (!this.plateau.getDamier()[xBarriere][y1Barriere]) {
+                  y1Barriere += 2;
+                  y2Barriere += 2;
+                }
+                else if (!this.plateau.getDamier()[xBarriere][y2Barriere]) {
+                  y1Barriere -= 2;
+                  y2Barriere -= 2;
+                }
+                if ((xBarriere < 0) || (xBarriere >= this.plateau.getDamier().length) || (y1Barriere < 0) || (y1Barriere >= this.plateau.getDamier().length) || (y2Barriere < 0) || (y2Barriere >= this.plateau.getDamier().length)) {
+                  this.smartMove();
+                }
+                else if (!this.plateau.getDamier()[xBarriere][y1Barriere] || !this.plateau.getDamier()[xBarriere][y2Barriere] || !this.plateau.getDamier()[xBarriere][(int)((y1Barriere+y2Barriere)/2)]) {
+                  this.smartMove();
+                }
+                else {
+                  placerBarriere(new Coordonnee(xBarriere,y1Barriere,xBarriere,y2Barriere));
+                }
+              }
+              else if (Integer.parseInt(actuel.getNom().split(" ")[1]) != Integer.parseInt(suivant.getNom().split(" ")[1])) {
+                int xBarriere = (int) ((Integer.parseInt(actuel.getNom().split(" ")[1])+Integer.parseInt(suivant.getNom().split(" ")[1])) / 2);
+                int y1Barriere = Integer.parseInt(actuel.getNom().split(" ")[0]);
+                int y2Barriere = Integer.parseInt(actuel.getNom().split(" ")[0]) + 2;
+                if (y2Barriere > 16 ) {
+                  y2Barriere = y1Barriere;
+                  y1Barriere -= 2;
+                }
+                else if (y1Barriere < 0) {
+                  y1Barriere = y2Barriere;
+                  y2Barriere += 2;
+                }
+                if (!this.plateau.getDamier()[y1Barriere][xBarriere]) {
+                  y1Barriere += 2;
+                  y2Barriere += 2;
+                }
+                else if (!this.plateau.getDamier()[y2Barriere][xBarriere]) {
+                  y1Barriere -= 2;
+                  y2Barriere -= 2;
+                }
+                if ((xBarriere < 0) || (xBarriere >= this.plateau.getDamier().length) || (y1Barriere < 0) || (y1Barriere >= this.plateau.getDamier().length) || (y2Barriere < 0) || (y2Barriere >= this.plateau.getDamier().length)) {
+                  this.smartMove();
+                }
+                else if (!this.plateau.getDamier()[y1Barriere][xBarriere] || !this.plateau.getDamier()[y2Barriere][xBarriere] || !this.plateau.getDamier()[(int)((y1Barriere+y2Barriere)/2)][xBarriere]) {
+                  this.smartMove();
+                }
+                else {
+                  placerBarriere(new Coordonnee(y1Barriere,xBarriere,y2Barriere,xBarriere));
+                }
+              }
+              else {
+                System.err.println("Erreur dans la plannification de l'IA");
+              }
             }
           }
         }
@@ -316,7 +320,6 @@ public class IA extends Joueur {
       if (this.plusCourtChemin.get(0).getDistance() == Integer.MAX_VALUE) {
         this.randomMove();
       }
-      System.out.println(this.plusCourtChemin.get(1).getNom());
       Noeud next = this.plusCourtChemin.get(1);
       int nextX = Integer.parseInt(next.getNom().split(" ")[0]);
       int nextY = Integer.parseInt(next.getNom().split(" ")[1]);
