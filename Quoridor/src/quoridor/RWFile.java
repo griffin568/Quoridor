@@ -36,8 +36,9 @@ public class RWFile {
     * @param barrieres la liste des barrières déjà jouées sur le plateau
     * @param tour le numéro du dernier tour joué
     * @param dernierJoueur le joueur ayant sauvegardé (Donc celui qui jouera lors de la reprise de la partie)
+    * @param visuel vrai si la partie a été lancée en mode visuel, faux sinon
     */
-  public static void writeFile(String fileName, ArrayList<Joueur> joueurs, ArrayList<Barriere> barrieres, int tour, Joueur dernierJoueur) {
+  public static void writeFile(String fileName, ArrayList<Joueur> joueurs, ArrayList<Barriere> barrieres, int tour, Joueur dernierJoueur, boolean visuel) {
     try {
       if (fileName == null) {
         throw new Exception("RWFile writeFile() - Le nom du fichier doit exister");
@@ -103,7 +104,13 @@ public class RWFile {
         }
         out.println();
 
-        out.print(tour + ";" + String.valueOf(dernierJoueur.getNumero()));
+        out.print(tour + ";" + String.valueOf(dernierJoueur.getNumero()) + ";");
+        if (visuel) {
+          out.print("1");
+        }
+        else {
+          out.print("0");
+        }
         out.close();
       }
     }

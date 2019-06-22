@@ -20,29 +20,42 @@ public class Partie {
   private long endRec;
   private boolean visuel;
 
+
+  /**
+    * Créé une partie vide. Ce constructeur peut être utilisé si l'on souhaite charger une partie.
+    */
+  public Partie() {
+    ArrayList<String> lignes = RWFile.readFile("config2");
+    this.plateau = new Plateau(Integer.parseInt(lignes.get(0)));
+  }
+
 /**
   * Créé un nouvel objet Partie
   * @param fileName le nom du fichier de configuration
+  * @param lesJoueurs la liste des noms des diférents joueurs
   */
-  public Partie(Mode mode , boolean visuel) {
+  public Partie(Mode mode , boolean visuel, ArrayList<String> lesJoueurs) {
     try {
       if (mode == null) {
         throw new Exception("Partie constructeur - Le mode de jeu doit être valide pour pouvoir être utilisé.");
       }
+      else if (lesJoueurs == null) {
+        throw new Exception("Partie constructeur - Les noms des joueurs doivent être valides pour créer la partie.");
+      }
       else {
         this.visuel = visuel;
-        initialisation(mode);
+        initialisation(mode, lesJoueurs);
       }
     }
     catch(Exception e) {
       System.err.println(e.getMessage());
     }
-
   }
-
 
 /**
   * Sauvegarde la partie
+  * @param le nom du fichier où nous souhaitons sauvegarder la partie
+  * @param leJoueur le joueur qui a lancé la sauvegarde (Donc celui qui commencera à jouer lors de la reprise de la partie)
   */
   public void sauvegarder(String fileName, Joueur leJoueur) {
     try {
@@ -53,7 +66,7 @@ public class Partie {
         throw new Exception("Partie sauvegarder() - Le dernier joueur ayant joué doit exister");
       }
       else {
-        RWFile.writeFile(fileName, this.joueurs, this.barrieres, this.tour, leJoueur);
+        RWFile.writeFile(fileName, this.joueurs, this.barrieres, this.tour, leJoueur, this.visuel);
         System.out.println("La partie a bien été sauvegardé !");
       }
     }
@@ -75,6 +88,7 @@ public class Partie {
       else {
         this.plateau = new Plateau(this.plateau.getDamier().length);
         this.joueurs = new ArrayList<Joueur>();
+        this.barrieres = new ArrayList<Barriere>();
         ArrayList<String> lignes = RWFile.readFile(filename);
         String[] lesJoueurs = lignes.get(0).split(";"); // La liste des joueurs sous forme de String
         String[] lesPions = lignes.get(1).split(";"); // La liste des joueurs sous forme de String
@@ -82,6 +96,12 @@ public class Partie {
         String[] leReste = lignes.get(3).split(";"); // Le reste des informations (n° de tour & tour du premier joueur) sous forme de String
         ArrayList<String[]> desJoueurs = new ArrayList<String[]>(); // Liste de toutes les informations de chaque joueur
         int i = 0;
+        if (leReste[2].equals("1")) {
+          this.visuel = true;
+        }
+        else {
+          this.visuel = false;
+        }
 
         for (String j: lesJoueurs) {
           desJoueurs.add(j.split(" "));
@@ -338,19 +358,19 @@ public class Partie {
   * Initialise les différents éléments constants de la partie
   * @param mode le mode jeu de la partie à créer
   */
-  private void initialisation(Mode mode) {
+  private void initialisation(Mode mode, ArrayList<String> lesJoueurs) {
     this.barrieres = new ArrayList<Barriere>();
     this.joueurs = new ArrayList<Joueur>();
     this.tour = 0;
     this.mode = mode;
-    configuration(mode);
+    configuration(mode, lesJoueurs);
   }
 
 /**
   * Configure les éléments non constants de la partie à l'aide du fichier de configuration
   * @param mode le mode de jeu de la partie à créer
   */
-  private void configuration(Mode mode) {
+  private void configuration(Mode mode, ArrayList<String> lesJoueurs) {
 
     // Créer les joueurs
     if ((mode.equals(Mode.HH)) || (mode.equals(Mode.HI)) || (mode.equals(Mode.II))) {
@@ -373,16 +393,16 @@ public class Partie {
 
       Joueur J1, J2;
       if (mode.equals(Mode.HH)) {
-        J1 = new Humain("Joueur1",1,"O",BarriereJ1,new Pion("O",c1), this.plateau);
-        J2 = new Humain("Joueur2",2,"W",BarriereJ2,new Pion("W",c2), this.plateau);
+        J1 = new Humain(lesJoueurs.get(0),1,"O",BarriereJ1,new Pion("O",c1), this.plateau);
+        J2 = new Humain(lesJoueurs.get(1),2,"W",BarriereJ2,new Pion("W",c2), this.plateau);
       }
       else if (mode.equals(Mode.HI)) {
-        J1 = new Humain("Joueur1",1,"O",BarriereJ1,new Pion("O",c1), this.plateau);
-        J2 = new IA("IA1",2,"W",BarriereJ2,new Pion("W",c2), this.plateau,Difficulte.FACILE,this.joueurs);
+        J1 = new Humain(lesJoueurs.get(0),1,"O",BarriereJ1,new Pion("O",c1), this.plateau);
+        J2 = new IA(lesJoueurs.get(1),2,"W",BarriereJ2,new Pion("W",c2), this.plateau,Difficulte.FACILE,this.joueurs);
       }
       else {
-        J1 = new IA("Joueur1",1,"O",BarriereJ1,new Pion("O",c1), this.plateau,Difficulte.FACILE,this.joueurs);
-        J2 = new IA("IA1",2,"W",BarriereJ2,new Pion("W",c2), this.plateau,Difficulte.FACILE,this.joueurs);
+        J1 = new IA(lesJoueurs.get(0),1,"O",BarriereJ1,new Pion("O",c1), this.plateau,Difficulte.FACILE,this.joueurs);
+        J2 = new IA(lesJoueurs.get(1),2,"W",BarriereJ2,new Pion("W",c2), this.plateau,Difficulte.FACILE,this.joueurs);
       }
 
       ArrayList<int[]> aChanger = new ArrayList<int[]>();
@@ -429,34 +449,34 @@ public class Partie {
       Joueur J1,J2,J3,J4;
 
       if (this.mode.equals(Mode.HHHH)) {
-        J1 = new Humain("Joueur1",1,"O",BarriereJ1,new Pion("O",c1), this.plateau);
-        J2 = new Humain("Joueur2",2,"W",BarriereJ2,new Pion("W",c2), this.plateau);
-        J3 = new Humain("Joueur3",3,"Z",BarriereJ3,new Pion("Z",c3), this.plateau);
-        J4 = new Humain("Joueur4",4,"A",BarriereJ4,new Pion("A",c4), this.plateau);
+        J1 = new Humain(lesJoueurs.get(0),1,"O",BarriereJ1,new Pion("O",c1), this.plateau);
+        J2 = new Humain(lesJoueurs.get(1),2,"W",BarriereJ2,new Pion("W",c2), this.plateau);
+        J3 = new Humain(lesJoueurs.get(2),3,"Z",BarriereJ3,new Pion("Z",c3), this.plateau);
+        J4 = new Humain(lesJoueurs.get(3),4,"A",BarriereJ4,new Pion("A",c4), this.plateau);
       }
       else if (this.mode.equals(Mode.HHHI)) {
-        J1 = new Humain("Joueur1",1,"O",BarriereJ1,new Pion("O",c1), this.plateau);
-        J2 = new Humain("Joueur2",2,"W",BarriereJ2,new Pion("W",c2), this.plateau);
-        J3 = new Humain("Joueur3",3,"Z",BarriereJ3,new Pion("Z",c3), this.plateau);
-        J4 = new IA("Joueur4",4,"A",BarriereJ4,new Pion("A",c4), this.plateau,Difficulte.FACILE,this.joueurs);
+        J1 = new Humain(lesJoueurs.get(0),1,"O",BarriereJ1,new Pion("O",c1), this.plateau);
+        J2 = new Humain(lesJoueurs.get(1),2,"W",BarriereJ2,new Pion("W",c2), this.plateau);
+        J3 = new Humain(lesJoueurs.get(2),3,"Z",BarriereJ3,new Pion("Z",c3), this.plateau);
+        J4 = new IA(lesJoueurs.get(3),4,"A",BarriereJ4,new Pion("A",c4), this.plateau,Difficulte.FACILE,this.joueurs);
       }
       else if (this.mode.equals(Mode.HHII)) {
-        J1 = new Humain("Joueur1",1,"O",BarriereJ1,new Pion("O",c1), this.plateau);
-        J2 = new Humain("Joueur2",2,"W",BarriereJ2,new Pion("W",c2), this.plateau);
-        J3 = new IA("Joueur3",3,"Z",BarriereJ3,new Pion("Z",c3), this.plateau,Difficulte.FACILE,this.joueurs);
-        J4 = new IA("Joueur4",4,"A",BarriereJ4,new Pion("A",c4), this.plateau,Difficulte.FACILE,this.joueurs);
+        J1 = new Humain(lesJoueurs.get(0),1,"O",BarriereJ1,new Pion("O",c1), this.plateau);
+        J2 = new Humain(lesJoueurs.get(1),2,"W",BarriereJ2,new Pion("W",c2), this.plateau);
+        J3 = new IA(lesJoueurs.get(2),3,"Z",BarriereJ3,new Pion("Z",c3), this.plateau,Difficulte.FACILE,this.joueurs);
+        J4 = new IA(lesJoueurs.get(3),4,"A",BarriereJ4,new Pion("A",c4), this.plateau,Difficulte.FACILE,this.joueurs);
       }
       else if (this.mode.equals(Mode.HIII)) {
-        J1 = new Humain("Joueur1",1,"O",BarriereJ1,new Pion("O",c1), this.plateau);
-        J2 = new IA("Joueur2",2,"W",BarriereJ2,new Pion("W",c2), this.plateau,Difficulte.FACILE,this.joueurs);
-        J3 = new IA("Joueur3",3,"Z",BarriereJ3,new Pion("Z",c3), this.plateau,Difficulte.FACILE,this.joueurs);
-        J4 = new IA("Joueur4",4,"A",BarriereJ4,new Pion("A",c4), this.plateau,Difficulte.FACILE,this.joueurs);
+        J1 = new Humain(lesJoueurs.get(0),1,"O",BarriereJ1,new Pion("O",c1), this.plateau);
+        J2 = new IA(lesJoueurs.get(1),2,"W",BarriereJ2,new Pion("W",c2), this.plateau,Difficulte.FACILE,this.joueurs);
+        J3 = new IA(lesJoueurs.get(2),3,"Z",BarriereJ3,new Pion("Z",c3), this.plateau,Difficulte.FACILE,this.joueurs);
+        J4 = new IA(lesJoueurs.get(3),4,"A",BarriereJ4,new Pion("A",c4), this.plateau,Difficulte.FACILE,this.joueurs);
       }
       else {
-        J1 = new IA("Joueur1",1,"O",BarriereJ1,new Pion("O",c1), this.plateau,Difficulte.FACILE,this.joueurs);
-        J2 = new IA("Joueur2",2,"W",BarriereJ2,new Pion("W",c2), this.plateau,Difficulte.FACILE,this.joueurs);
-        J3 = new IA("Joueur3",3,"Z",BarriereJ3,new Pion("Z",c3), this.plateau,Difficulte.FACILE,this.joueurs);
-        J4 = new IA("Joueur4",4,"A",BarriereJ4,new Pion("A",c4), this.plateau,Difficulte.FACILE,this.joueurs);
+        J1 = new IA(lesJoueurs.get(0),1,"O",BarriereJ1,new Pion("O",c1), this.plateau,Difficulte.FACILE,this.joueurs);
+        J2 = new IA(lesJoueurs.get(1),2,"W",BarriereJ2,new Pion("W",c2), this.plateau,Difficulte.FACILE,this.joueurs);
+        J3 = new IA(lesJoueurs.get(2),3,"Z",BarriereJ3,new Pion("Z",c3), this.plateau,Difficulte.FACILE,this.joueurs);
+        J4 = new IA(lesJoueurs.get(3),4,"A",BarriereJ4,new Pion("A",c4), this.plateau,Difficulte.FACILE,this.joueurs);
       }
 
       ArrayList<int[]> aChanger = new ArrayList<int[]>();

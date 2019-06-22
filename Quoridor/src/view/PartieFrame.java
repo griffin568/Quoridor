@@ -29,34 +29,6 @@ public class PartieFrame extends JPanel {
     */
   public PartieFrame() {}
 
-  public PartieFrame(MainFrame parent, Mode leMode) {
-    try {
-      if (parent == null) {
-        throw new Exception("L'écran principal doit exister pour créer l'écran de de jeu");
-      }
-      else if (leMode == null) {
-        throw new Exception("La difficulté doit être valide pour pouvoir créer l'écran de jeu.");
-      }
-      else {
-        this.mainF = parent;
-        this.laPartie = new Partie(leMode, true);
-        this.controleur = new Controleur(this.laPartie,this.laPartie.getJoueurs().get(0));
-        this.setBackground(Color.BLACK);
-
-        this.plateau = this.laPartie.getPlateau();
-        this.damier = this.plateau.getDamier();
-        this.damierB = new JButton[17][17];
-        this.lesJoueurs = this.laPartie.getJoueurs();
-        this.lesBarrieres = this.laPartie.getBarrieres();
-
-
-        initComponent();
-      }
-    }
-    catch(Exception e) {
-      System.err.println(e.getMessage());
-    }
-  }
 
   public PartieFrame(MainFrame parent, Partie laPartie) {
     try {
@@ -77,7 +49,6 @@ public class PartieFrame extends JPanel {
         this.damierB = new JButton[17][17];
         this.lesJoueurs = this.laPartie.getJoueurs();
         this.lesBarrieres = this.laPartie.getBarrieres();
-
         initComponent();
       }
     }

@@ -40,7 +40,7 @@ public class MainFrame extends JFrame {
     */
   private void initComponents() {
     this.accueil = new AccueilFrame();
-    this.partie = new PartieFrame(this, Mode.HHHH);
+    this.partie = new PartieFrame();
     this.chargement = new ChargementFrame(this, this.partie);
     this.partie2Joueurs = new Partie2JoueursFrame(this, this.partie);
     this.partie4Joueurs = new Partie4JoueursFrame(this, this.partie);
@@ -58,7 +58,7 @@ public class MainFrame extends JFrame {
     this.switchablePanel.add(this.partie4Joueurs, "Partie 4 Joueurs");
 
     this.switchableCL = (CardLayout)(this.switchablePanel.getLayout());
-    this.switchableCL.show(this.switchablePanel, "Partie");
+    this.switchableCL.show(this.switchablePanel, "Accueil");
 
     this.add(this.switchablePanel, BorderLayout.CENTER);
   }

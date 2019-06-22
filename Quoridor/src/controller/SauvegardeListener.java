@@ -58,15 +58,15 @@ public class SauvegardeListener implements ActionListener {
         Joueur jActif = pf.getControleur().getJoueurActif();
 
         if (this.fileName.equalsIgnoreCase("sauvegarde1")) {
-          RWFile.writeFile(this.fileName, lesJoueurs, lesBarrieres, tour, jActif);
+          RWFile.writeFile(this.fileName, lesJoueurs, lesBarrieres, tour, jActif, true);
           f.majBouton(source, '1');
         }
         else if (this.fileName.equalsIgnoreCase("sauvegarde2")) {
-          RWFile.writeFile(this.fileName, lesJoueurs, lesBarrieres, tour, jActif);
+          RWFile.writeFile(this.fileName, lesJoueurs, lesBarrieres, tour, jActif, true);
           f.majBouton(source, '2');
         }
         else if (this.fileName.equalsIgnoreCase("sauvegarde3")) {
-          RWFile.writeFile(this.fileName, lesJoueurs, lesBarrieres, tour, jActif);
+          RWFile.writeFile(this.fileName, lesJoueurs, lesBarrieres, tour, jActif, true);
           f.majBouton(source, '3');
         }
         System.exit(0);
@@ -80,15 +80,15 @@ public class SauvegardeListener implements ActionListener {
         Joueur jActif = pf.getControleur().getJoueurActif();
 
         if (this.fileName.equalsIgnoreCase("sauvegarde1")) {
-          RWFile.writeFile(this.fileName, lesJoueurs, lesBarrieres, tour, jActif);
+          RWFile.writeFile(this.fileName, lesJoueurs, lesBarrieres, tour, jActif, true);
           f.majBouton(source, '1');
         }
         else if (this.fileName.equalsIgnoreCase("sauvegarde2")) {
-          RWFile.writeFile(this.fileName, lesJoueurs, lesBarrieres, tour, jActif);
+          RWFile.writeFile(this.fileName, lesJoueurs, lesBarrieres, tour, jActif, true);
           f.majBouton(source, '2');
         }
         else if (this.fileName.equalsIgnoreCase("sauvegarde3")) {
-          RWFile.writeFile(this.fileName, lesJoueurs, lesBarrieres, tour, jActif);
+          RWFile.writeFile(this.fileName, lesJoueurs, lesBarrieres, tour, jActif, true);
           f.majBouton(source, '3');
         }
       }
