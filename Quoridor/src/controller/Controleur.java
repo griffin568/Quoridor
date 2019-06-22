@@ -159,7 +159,8 @@ public class Controleur {
           if (this.x1 == this.x2) {
             if (this.y1 % 2 == 0 && this.y2 % 2 == 0 && Math.abs(this.y1 - this.y2) == 2) {
               if (this.partie.getPlateau().getDamier()[x1][y1] && this.partie.getPlateau().getDamier()[x1][y2] && this.partie.getPlateau().getDamier()[x1][(int)((y1+y2) / 2)]) {
-                this.actif.placerBarriere(new Coordonnee(this.x1,this.y1,this.x2,this.y2));
+                Barriere temp = this.actif.placerBarriere(new Coordonnee(this.x1,this.y1,this.x2,this.y2));
+                this.partie.addBarriere(temp);
                 ret = true;
               }
             }
@@ -167,7 +168,8 @@ public class Controleur {
           else if (this.y1 == this.y2) {
             if (this.x1 % 2 == 0 && this.x2 % 2 == 0 && Math.abs(this.x1 - this.x2) == 2) {
               if (this.partie.getPlateau().getDamier()[x1][y1] && this.partie.getPlateau().getDamier()[x2][y2] && this.partie.getPlateau().getDamier()[(int)((x1+x2) / 2)][y1]) {
-                this.actif.placerBarriere(new Coordonnee(this.x1,this.y1,this.x2,this.y2));
+                Barriere temp = this.actif.placerBarriere(new Coordonnee(this.x1,this.y1,this.x2,this.y2));
+                this.partie.addBarriere(temp);
                 ret = true;
               }
             }

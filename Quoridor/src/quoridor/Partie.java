@@ -18,17 +18,19 @@ public class Partie {
   private ArrayList<Barriere> barrieres;
   private long startRec;
   private long endRec;
+  private boolean visuel;
 
 /**
   * Créé un nouvel objet Partie
   * @param fileName le nom du fichier de configuration
   */
-  public Partie(Mode mode) {
+  public Partie(Mode mode , boolean visuel) {
     try {
       if (mode == null) {
         throw new Exception("Partie constructeur - Le mode de jeu doit être valide pour pouvoir être utilisé.");
       }
       else {
+        this.visuel = visuel;
         initialisation(mode);
       }
     }
@@ -480,146 +482,231 @@ public class Partie {
   * Lance la partie
   */
   public void start() {
-    ArrayList<Pion> listePion = new ArrayList<Pion>();
-    for (Joueur j : this.joueurs) {
-      listePion.add(j.getPion());
-    }
-    Plateau oldPlateau = this.savePlateau();
-    ArrayList<Joueur> oldJoueurs = this.saveJoueurs(oldPlateau);
-    ArrayList<Barriere> oldBarrieres = this.saveBarrieres();
-    Plateau olderPlateau = this.savePlateau();
-    ArrayList<Joueur> olderJoueurs = this.saveJoueurs(olderPlateau);
-    ArrayList<Barriere> olderBarrieres = this.saveBarrieres();
-    while (true) {
-      for (int i = 0 ; i < this.joueurs.size() ; i++) {
-        boolean error = false;
-        olderPlateau = oldPlateau;
-        olderJoueurs = oldJoueurs;
-        olderBarrieres = oldBarrieres;
-        oldPlateau = this.savePlateau();
-        oldJoueurs = this.saveJoueurs(oldPlateau);
-        oldBarrieres = this.saveBarrieres();
-        System.out.println(this.plateau.toString(listePion,this.joueurs.get(i).getPion()));
-        Barriere b = this.joueurs.get(i).jeu();
-        if (b != null) {
-          if (b.getCouleur().equalsIgnoreCase("back")) {
-            this.plateau = olderPlateau;
-            this.joueurs = olderJoueurs;
-            this.barrieres = olderBarrieres;
-            listePion = new ArrayList<Pion>();
-            for (Joueur j : this.joueurs) {
-              listePion.add(j.getPion());
-            }
-            i -= 2;
-            if (i < 0) {
-              i = this.joueurs.size() + i;
-            }
-          }
-          else if (b.getCouleur().equalsIgnoreCase("error")) {
-            this.plateau = oldPlateau;
-            this.joueurs = oldJoueurs;
-            this.barrieres = oldBarrieres;
-            listePion = new ArrayList<Pion>();
-            for (Joueur j : this.joueurs) {
-              listePion.add(j.getPion());
-            }
-            i--;
-          }
-          else if (b.getCouleur().split(" ")[0].trim().equalsIgnoreCase("save")) {
-            if (b.getCouleur().split(" ")[1].trim().equals("1") || b.getCouleur().split(" ")[1].trim().equals("2") || b.getCouleur().split(" ")[1].trim().equals("3")) {
-              System.out.println("sauvegarde en cours");
-              this.sauvegarder("sauvegarde" + b.getCouleur().split(" ")[1] , this.joueurs.get(i));
-              i--;
-            }
-            else {
-              System.err.println("Erreur lors de la sauvegarde de la partie, numero de fichier invalide");
-            }
-          }
-          else if (b.getCouleur().split(" ")[0].trim().equalsIgnoreCase("load")) {
-            if (b.getCouleur().split(" ")[1].trim().equals("1") || b.getCouleur().split(" ")[1].trim().equals("2") || b.getCouleur().split(" ")[1].trim().equals("3")) {
-              System.out.println("chargement en cours");
-              this.charger("sauvegarde" + b.getCouleur().split(" ")[1]);
+    if (!this.visuel) {
+      ArrayList<Pion> listePion = new ArrayList<Pion>();
+      for (Joueur j : this.joueurs) {
+        listePion.add(j.getPion());
+      }
+      Plateau oldPlateau = this.savePlateau();
+      ArrayList<Joueur> oldJoueurs = this.saveJoueurs(oldPlateau);
+      ArrayList<Barriere> oldBarrieres = this.saveBarrieres();
+      Plateau olderPlateau = this.savePlateau();
+      ArrayList<Joueur> olderJoueurs = this.saveJoueurs(olderPlateau);
+      ArrayList<Barriere> olderBarrieres = this.saveBarrieres();
+      while (true) {
+        for (int i = 0 ; i < this.joueurs.size() ; i++) {
+          boolean error = false;
+          olderPlateau = oldPlateau;
+          olderJoueurs = oldJoueurs;
+          olderBarrieres = oldBarrieres;
+          oldPlateau = this.savePlateau();
+          oldJoueurs = this.saveJoueurs(oldPlateau);
+          oldBarrieres = this.saveBarrieres();
+          System.out.println(this.plateau.toString(listePion,this.joueurs.get(i).getPion()));
+          Barriere b = this.joueurs.get(i).jeu();
+          if (b != null) {
+            if (b.getCouleur().equalsIgnoreCase("back")) {
+              this.plateau = olderPlateau;
+              this.joueurs = olderJoueurs;
+              this.barrieres = olderBarrieres;
               listePion = new ArrayList<Pion>();
               for (Joueur j : this.joueurs) {
                 listePion.add(j.getPion());
               }
-              i = -1;
+              i -= 2;
+              if (i < 0) {
+                i = this.joueurs.size() + i;
+              }
+            }
+            else if (b.getCouleur().equalsIgnoreCase("error")) {
+              this.plateau = oldPlateau;
+              this.joueurs = oldJoueurs;
+              this.barrieres = oldBarrieres;
+              listePion = new ArrayList<Pion>();
+              for (Joueur j : this.joueurs) {
+                listePion.add(j.getPion());
+              }
+              i--;
+            }
+            else if (b.getCouleur().split(" ")[0].trim().equalsIgnoreCase("save")) {
+              if (b.getCouleur().split(" ")[1].trim().equals("1") || b.getCouleur().split(" ")[1].trim().equals("2") || b.getCouleur().split(" ")[1].trim().equals("3")) {
+                System.out.println("sauvegarde en cours");
+                this.sauvegarder("sauvegarde" + b.getCouleur().split(" ")[1] , this.joueurs.get(i));
+                i--;
+              }
+              else {
+                System.err.println("Erreur lors de la sauvegarde de la partie, numero de fichier invalide");
+              }
+            }
+            else if (b.getCouleur().split(" ")[0].trim().equalsIgnoreCase("load")) {
+              if (b.getCouleur().split(" ")[1].trim().equals("1") || b.getCouleur().split(" ")[1].trim().equals("2") || b.getCouleur().split(" ")[1].trim().equals("3")) {
+                System.out.println("chargement en cours");
+                this.charger("sauvegarde" + b.getCouleur().split(" ")[1]);
+                listePion = new ArrayList<Pion>();
+                for (Joueur j : this.joueurs) {
+                  listePion.add(j.getPion());
+                }
+                i = -1;
+              }
+              else {
+                System.err.println("Erreur lors du chargement de la partie, numero de fichier invalide");
+              }
+            }
+            else if (b.getCouleur().split(" ")[0].trim().equalsIgnoreCase("delete")) {
+              if (b.getCouleur().split(" ")[1].trim().equals("1") || b.getCouleur().split(" ")[1].trim().equals("2") || b.getCouleur().split(" ")[1].trim().equals("3")) {
+                System.out.println("effacement des donnees en cours");
+                this.effacer("sauvegarde"+b.getCouleur().split(" ")[1]);
+                i = -1;
+              }
             }
             else {
-              System.err.println("Erreur lors du chargement de la partie, numero de fichier invalide");
+              addBarriere(b);
             }
           }
-          else if (b.getCouleur().split(" ")[0].trim().equalsIgnoreCase("delete")) {
-            if (b.getCouleur().split(" ")[1].trim().equals("1") || b.getCouleur().split(" ")[1].trim().equals("2") || b.getCouleur().split(" ")[1].trim().equals("3")) {
-              System.out.println("effacement des donnees en cours");
-              this.effacer("sauvegarde"+b.getCouleur().split(" ")[1]);
-              i = -1;
+          for (Joueur j2 : this.joueurs) {
+            Graphe checkError = new Graphe(j2.getPion().getCoordonnee().getX1(),j2.getPion().getCoordonnee().getY1(),this.copieDamier());
+            Noeud depart = null;
+            for (Noeud n : checkError.getNoeuds()) {
+              if (n.getNom().equals(String.valueOf(j2.getPion().getCoordonnee().getX1()) + " " + String.valueOf(j2.getPion().getCoordonnee().getY1()))) {
+                depart = n;
+              }
+            }
+            if (depart == null) {
+              System.err.println("Erreur dans le déroulement de la partie");
+            }
+            else {
+              checkError = Graphe.dijkstra(checkError,depart);
+              int indice = 0;
+              error = true;
+              while (indice < checkError.getNoeuds().size() && error) {
+                if (j2.getNumero() == 1) {
+                  if (checkError.getNoeuds().get(indice).getNom().split(" ")[0].equals("16") && checkError.getNoeuds().get(indice).getDistance() < Integer.MAX_VALUE) {
+                    error = false;
+                  }
+                }
+                else if (j2.getNumero() == 2) {
+                  if (checkError.getNoeuds().get(indice).getNom().split(" ")[0].equals("0") && checkError.getNoeuds().get(indice).getDistance() < Integer.MAX_VALUE) {
+                    error = false;
+                  }
+                }
+                else if (j2.getNumero() == 3) {
+                  if (checkError.getNoeuds().get(indice).getNom().split(" ")[1].equals("16") && checkError.getNoeuds().get(indice).getDistance() < Integer.MAX_VALUE) {
+                    error = false;
+                  }
+                }
+                else if (j2.getNumero() == 4) {
+                  if (checkError.getNoeuds().get(indice).getNom().split(" ")[0].equals("0") && checkError.getNoeuds().get(indice).getDistance() < Integer.MAX_VALUE) {
+                    error = false;
+                  }
+                }
+                indice++;
+              }
+            }
+            if (error) {
+              System.err.println("Impossible, " + j2.getNom() + " se retrouverait bloque");
+              this.plateau = oldPlateau;
+              this.joueurs = oldJoueurs;
+              this.barrieres = oldBarrieres;
+              listePion = new ArrayList<Pion>();
+              for (Joueur j : this.joueurs) {
+                listePion.add(j.getPion());
+                if (!j.isHumain()) {
+                  ((IA)(j)).forceMove();
+                }
+              }
+              i--;
+              if (i < 0) {
+                i = this.joueurs.size() + i;
+              }
             }
           }
-          else {
-            addBarriere(b);
-          }
+          fin();
         }
-        for (Joueur j2 : this.joueurs) {
-          Graphe checkError = new Graphe(j2.getPion().getCoordonnee().getX1(),j2.getPion().getCoordonnee().getY1(),this.copieDamier());
-          Noeud depart = null;
-          for (Noeud n : checkError.getNoeuds()) {
-            if (n.getNom().equals(String.valueOf(j2.getPion().getCoordonnee().getX1()) + " " + String.valueOf(j2.getPion().getCoordonnee().getY1()))) {
-              depart = n;
-            }
-          }
-          if (depart == null) {
-            System.err.println("Erreur dans le déroulement de la partie");
-          }
-          else {
-            checkError = Graphe.dijkstra(checkError,depart);
-            int indice = 0;
-            error = true;
-            while (indice < checkError.getNoeuds().size() && error) {
-              if (j2.getNumero() == 1) {
-                if (checkError.getNoeuds().get(indice).getNom().split(" ")[0].equals("16") && checkError.getNoeuds().get(indice).getDistance() < Integer.MAX_VALUE) {
-                  error = false;
-                }
-              }
-              else if (j2.getNumero() == 2) {
-                if (checkError.getNoeuds().get(indice).getNom().split(" ")[0].equals("0") && checkError.getNoeuds().get(indice).getDistance() < Integer.MAX_VALUE) {
-                  error = false;
-                }
-              }
-              else if (j2.getNumero() == 3) {
-                if (checkError.getNoeuds().get(indice).getNom().split(" ")[1].equals("16") && checkError.getNoeuds().get(indice).getDistance() < Integer.MAX_VALUE) {
-                  error = false;
-                }
-              }
-              else if (j2.getNumero() == 4) {
-                if (checkError.getNoeuds().get(indice).getNom().split(" ")[0].equals("0") && checkError.getNoeuds().get(indice).getDistance() < Integer.MAX_VALUE) {
-                  error = false;
-                }
-              }
-              indice++;
-            }
-          }
-          if (error) {
-            System.err.println("Impossible, " + j2.getNom() + " se retrouverait bloque");
-            this.plateau = oldPlateau;
-            this.joueurs = oldJoueurs;
-            this.barrieres = oldBarrieres;
-            listePion = new ArrayList<Pion>();
-            for (Joueur j : this.joueurs) {
-              listePion.add(j.getPion());
-              if (!j.isHumain()) {
-                ((IA)(j)).forceMove();
-              }
-            }
-            i--;
-            if (i < 0) {
-              i = this.joueurs.size() + i;
-            }
-          }
-        }
-        fin();
+        this.tour++;
       }
-      this.tour++;
+    }
+    else {
+      ArrayList<Pion> listePion = new ArrayList<Pion>();
+      for (Joueur j : this.joueurs) {
+        listePion.add(j.getPion());
+      }
+      Plateau oldPlateau = this.savePlateau();
+      ArrayList<Joueur> oldJoueurs = this.saveJoueurs(oldPlateau);
+      ArrayList<Barriere> oldBarrieres = this.saveBarrieres();
+      Plateau olderPlateau = this.savePlateau();
+      ArrayList<Joueur> olderJoueurs = this.saveJoueurs(olderPlateau);
+      ArrayList<Barriere> olderBarrieres = this.saveBarrieres();
+      while (true) {
+        for (int i = 0 ; i < this.joueurs.size() ; i++) {
+          boolean error = false;
+          olderPlateau = oldPlateau;
+          olderJoueurs = oldJoueurs;
+          olderBarrieres = oldBarrieres;
+          oldPlateau = this.savePlateau();
+          oldJoueurs = this.saveJoueurs(oldPlateau);
+          oldBarrieres = this.saveBarrieres();
+          Barriere b = this.joueurs.get(i).jeu();
+          for (Joueur j2 : this.joueurs) {
+            Graphe checkError = new Graphe(j2.getPion().getCoordonnee().getX1(),j2.getPion().getCoordonnee().getY1(),this.copieDamier());
+            Noeud depart = null;
+            for (Noeud n : checkError.getNoeuds()) {
+              if (n.getNom().equals(String.valueOf(j2.getPion().getCoordonnee().getX1()) + " " + String.valueOf(j2.getPion().getCoordonnee().getY1()))) {
+                depart = n;
+              }
+            }
+            if (depart == null) {
+              System.err.println("Erreur dans le déroulement de la partie");
+            }
+            else {
+              checkError = Graphe.dijkstra(checkError,depart);
+              int indice = 0;
+              error = true;
+              while (indice < checkError.getNoeuds().size() && error) {
+                if (j2.getNumero() == 1) {
+                  if (checkError.getNoeuds().get(indice).getNom().split(" ")[0].equals("16") && checkError.getNoeuds().get(indice).getDistance() < Integer.MAX_VALUE) {
+                    error = false;
+                  }
+                }
+                else if (j2.getNumero() == 2) {
+                  if (checkError.getNoeuds().get(indice).getNom().split(" ")[0].equals("0") && checkError.getNoeuds().get(indice).getDistance() < Integer.MAX_VALUE) {
+                    error = false;
+                  }
+                }
+                else if (j2.getNumero() == 3) {
+                  if (checkError.getNoeuds().get(indice).getNom().split(" ")[1].equals("16") && checkError.getNoeuds().get(indice).getDistance() < Integer.MAX_VALUE) {
+                    error = false;
+                  }
+                }
+                else if (j2.getNumero() == 4) {
+                  if (checkError.getNoeuds().get(indice).getNom().split(" ")[0].equals("0") && checkError.getNoeuds().get(indice).getDistance() < Integer.MAX_VALUE) {
+                    error = false;
+                  }
+                }
+                indice++;
+              }
+            }
+            if (error) {
+              System.err.println("Impossible, " + j2.getNom() + " se retrouverait bloque");
+              this.plateau = oldPlateau;
+              this.joueurs = oldJoueurs;
+              this.barrieres = oldBarrieres;
+              listePion = new ArrayList<Pion>();
+              for (Joueur j : this.joueurs) {
+                listePion.add(j.getPion());
+                if (!j.isHumain()) {
+                  ((IA)(j)).forceMove();
+                }
+              }
+              i--;
+              if (i < 0) {
+                i = this.joueurs.size() + i;
+              }
+            }
+          }
+          fin();
+        }
+        this.tour++;
+      }
     }
   }
 
