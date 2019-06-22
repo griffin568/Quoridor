@@ -58,7 +58,7 @@ public class MainFrame extends JFrame {
     this.switchablePanel.add(this.partie4Joueurs, "Partie 4 Joueurs");
 
     this.switchableCL = (CardLayout)(this.switchablePanel.getLayout());
-    this.switchableCL.show(this.switchablePanel, "Accueil");
+    this.switchableCL.show(this.switchablePanel, "Partie");
 
     this.add(this.switchablePanel, BorderLayout.CENTER);
   }
