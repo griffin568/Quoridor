@@ -10,24 +10,24 @@ public class MainPauseFrame extends JFrame {
   private CardLayout switchableCL;
 
   private MainFrame parent;
-  private AccueilFrame acccueil;
+  private AccueilFrame accueil;
 
   private PauseFrame pause;
   private ChargementPauseFrame chargementPause;
   private SauvegarderPauseFrame sauvegardePause;
   private SauvegarderQuitterPauseFrame sauvegardeQuitterPause;
 
-  public MainPauseFrame(MainFrame parent, AccueilFrame acccueil) {
+  public MainPauseFrame(MainFrame parent, AccueilFrame accueil) {
     try {
       if (parent == null) {
         throw new Exception("La Frame parent doit exister pour créer l'écran de Pause.");
       }
-      else if (acccueil == null) {
-        throw new Exception("La page d'acccueil doit exister pour pouvoir être référencée par l'écran de pause.");
+      else if (accueil == null) {
+        throw new Exception("La page d'accueil doit exister pour pouvoir être référencée par l'écran de pause.");
       }
       else {
         this.parent = parent;
-        this.acccueil = acccueil;
+        this.accueil = accueil;
 
         initComponent();
 
@@ -35,7 +35,7 @@ public class MainPauseFrame extends JFrame {
         this.setTitle("Quoridor - Pause");
         this.setBackground(Color.BLACK);
 
-        this.setSize(1300, 650);
+        this.setSize(900, 650);
         this.setResizable(false);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setVisible(true);
@@ -49,7 +49,7 @@ public class MainPauseFrame extends JFrame {
 
 
   private void initComponent() {
-    this.pause = new PauseFrame(this, this.acccueil);
+    this.pause = new PauseFrame(this, this.accueil);
     this.chargementPause = new ChargementPauseFrame(this,this.parent.getPartie());
     this.sauvegardePause = new SauvegarderPauseFrame(this);
     this.sauvegardeQuitterPause = new SauvegarderQuitterPauseFrame(this);

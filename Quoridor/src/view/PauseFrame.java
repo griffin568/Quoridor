@@ -7,22 +7,22 @@ import controller.*;
 public class PauseFrame extends JPanel {
 
   private MainPauseFrame mainF;
-  private JPanel acccueil;
+  private JPanel accueil;
 
   private JButton reprendre,sauvegarder,charger,sauvegarderQuitter,menu;
   private JLabel titre;
 
-  public PauseFrame(MainPauseFrame parent, JPanel acccueil) {
+  public PauseFrame(MainPauseFrame parent, JPanel accueil) {
     try {
       if (parent == null) {
         throw new Exception("PauseFrame constructeur - La fenêtre de pause doit exister pour créer l'écran de pause.");
       }
-      else if (acccueil == null) {
-        throw new Exception("PauseFrame constructeur - L'écran d'acccueil doit exister pour créer l'écran de pause.");
+      else if (accueil == null) {
+        throw new Exception("PauseFrame constructeur - L'écran d'accueil doit exister pour créer l'écran de pause.");
       }
       else {
         this.mainF = parent;
-        this.acccueil = acccueil;
+        this.accueil = accueil;
         this.setBackground(Color.BLACK);
         initComponent();
       }
@@ -33,9 +33,12 @@ public class PauseFrame extends JPanel {
   }
 
   private void initComponent() {
-    this.setLayout(new GridLayout(2,1));
+    this.setLayout(new BorderLayout());
     JPanel upContainer = new JPanel(new BorderLayout());
-    JPanel centerContainer = new JPanel(new GridLayout(5,1));
+    JPanel centerContainer = new JPanel(new GridLayout(9,1));
+    JPanel newPanel;
+    JPanel buttonContainer;
+    JLabel newLabel;
 
     upContainer.setBackground(Color.BLACK);
     centerContainer.setBackground(Color.BLACK);
@@ -61,14 +64,97 @@ public class PauseFrame extends JPanel {
     this.menu.setPreferredSize(new Dimension(500, 100));
     this.titre.setForeground(Color.WHITE);
 
-    upContainer.add(this.titre,BorderLayout.CENTER);
-    centerContainer.add(this.reprendre);
-    centerContainer.add(this.sauvegarder);
-    centerContainer.add(this.charger);
-    centerContainer.add(this.sauvegarderQuitter);
-    centerContainer.add(this.menu);
+    JButton titreContainer = new JButton(this.titre.getText());
+    titreContainer.setOpaque(false);
+    titreContainer.setContentAreaFilled(false);
+    titreContainer.setBorderPainted(false);
+    titreContainer.setFocusable(false);
+    titreContainer.setForeground(Color.WHITE);
+    upContainer.add(titreContainer,BorderLayout.CENTER);
 
-    this.add(upContainer);
-    this.add(centerContainer);
+    buttonContainer = new JPanel(new BorderLayout());
+    newLabel = new JLabel("                    ");
+    newLabel.setBackground(Color.BLACK);
+    newLabel.setForeground(Color.BLACK);
+    buttonContainer.add(newLabel,BorderLayout.WEST);
+    newLabel = new JLabel("                    ");
+    newLabel.setBackground(Color.BLACK);
+    newLabel.setForeground(Color.BLACK);
+    buttonContainer.add(newLabel,BorderLayout.EAST);
+    buttonContainer.add(this.reprendre);
+    buttonContainer.setBackground(Color.BLACK);
+    centerContainer.add(buttonContainer);
+
+    newPanel = new JPanel();
+    newPanel.setBackground(Color.BLACK);
+    centerContainer.add(newPanel);
+
+    buttonContainer = new JPanel(new BorderLayout());
+    newLabel = new JLabel("                    ");
+    newLabel.setBackground(Color.BLACK);
+    newLabel.setForeground(Color.BLACK);
+    buttonContainer.add(newLabel,BorderLayout.WEST);
+    newLabel = new JLabel("                    ");
+    newLabel.setBackground(Color.BLACK);
+    newLabel.setForeground(Color.BLACK);
+    buttonContainer.add(newLabel,BorderLayout.EAST);
+    buttonContainer.add(this.sauvegarder);
+    buttonContainer.setBackground(Color.BLACK);
+    centerContainer.add(buttonContainer);
+
+    newPanel = new JPanel();
+    newPanel.setBackground(Color.BLACK);
+    centerContainer.add(newPanel);
+
+    buttonContainer = new JPanel(new BorderLayout());
+    newLabel = new JLabel("                    ");
+    newLabel.setBackground(Color.BLACK);
+    newLabel.setForeground(Color.BLACK);
+    buttonContainer.add(newLabel,BorderLayout.WEST);
+    newLabel = new JLabel("                    ");
+    newLabel.setBackground(Color.BLACK);
+    newLabel.setForeground(Color.BLACK);
+    buttonContainer.add(newLabel,BorderLayout.EAST);
+    buttonContainer.add(this.charger);
+    buttonContainer.setBackground(Color.BLACK);
+    centerContainer.add(buttonContainer);
+
+    newPanel = new JPanel();
+    newPanel.setBackground(Color.BLACK);
+    centerContainer.add(newPanel);
+
+    buttonContainer = new JPanel(new BorderLayout());
+    newLabel = new JLabel("                    ");
+    newLabel.setBackground(Color.BLACK);
+    newLabel.setForeground(Color.BLACK);
+    buttonContainer.add(newLabel,BorderLayout.WEST);
+    newLabel = new JLabel("                    ");
+    newLabel.setBackground(Color.BLACK);
+    newLabel.setForeground(Color.BLACK);
+    buttonContainer.add(newLabel,BorderLayout.EAST);
+    buttonContainer.add(this.sauvegarderQuitter);
+    buttonContainer.setBackground(Color.BLACK);
+    centerContainer.add(buttonContainer);
+
+    newPanel = new JPanel();
+    newPanel.setBackground(Color.BLACK);
+    centerContainer.add(newPanel);
+
+    buttonContainer = new JPanel(new BorderLayout());
+    newLabel = new JLabel("                    ");
+    newLabel.setBackground(Color.BLACK);
+    newLabel.setForeground(Color.BLACK);
+    buttonContainer.add(newLabel,BorderLayout.WEST);
+    newLabel = new JLabel("                    ");
+    newLabel.setBackground(Color.BLACK);
+    newLabel.setForeground(Color.BLACK);
+    buttonContainer.add(newLabel,BorderLayout.EAST);
+    buttonContainer.add(this.menu);
+    buttonContainer.setBackground(Color.BLACK);
+    centerContainer.add(buttonContainer);
+
+
+    this.add(upContainer,BorderLayout.NORTH);
+    this.add(centerContainer,BorderLayout.CENTER);
   }
 }
