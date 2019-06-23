@@ -4,6 +4,11 @@ import javax.swing.*;
 import java.awt.*;
 import controller.*;
 
+/**
+  * L'écran de configuration d'une partie à 4 joueurs
+  * @author Drmarsupial35 , griffin568
+  * @version 1.0.0
+  */
 public class Partie4JoueursFrame extends JPanel {
 
   private MainFrame mainF;
@@ -15,9 +20,9 @@ public class Partie4JoueursFrame extends JPanel {
   private JComboBox j1CB, j2CB, j3CB, j4CB;
 
   /**
-    *
-    * @param parent
-    * @param partie
+    * Créé un nouvel objet Partie4JoueursFrame
+    * @param parent la fenêtre principale de l'application
+    * @param partie l'écran de partie
     */
   public Partie4JoueursFrame(MainFrame parent, JPanel partie) {
     try {
@@ -40,6 +45,9 @@ public class Partie4JoueursFrame extends JPanel {
   }
 
 
+  /**
+    * Initialise les différents composants
+    */
   private void initComponent() {
     this.setLayout(new BorderLayout());
     JPanel upContainer = new JPanel(new BorderLayout());

@@ -4,6 +4,11 @@ import javax.swing.*;
 import java.awt.*;
 import controller.*;
 
+/**
+  * La fenêtre principale de l'écran de pause
+  * @author Drmarsupial35 , griffin568
+  * @version 1.0.0
+  */
 public class MainPauseFrame extends JFrame {
 
   private JPanel switchablePanel;
@@ -17,6 +22,11 @@ public class MainPauseFrame extends JFrame {
   private SauvegarderPauseFrame sauvegardePause;
   private SauvegarderQuitterPauseFrame sauvegardeQuitterPause;
 
+  /**
+    * Créé un nouvel objet MainPauseFrame
+    * @param parent la fenêtre principale de l'application
+    * @param accueil l'écran d'accueil
+    */
   public MainPauseFrame(MainFrame parent, AccueilFrame accueil) {
     try {
       if (parent == null) {
@@ -47,7 +57,9 @@ public class MainPauseFrame extends JFrame {
   }
 
 
-
+  /**
+    * Initialise les différents composants
+    */
   private void initComponent() {
     this.pause = new PauseFrame(this, this.accueil);
     this.chargementPause = new ChargementPauseFrame(this,this.parent.getPartie(), this.parent);
@@ -66,6 +78,10 @@ public class MainPauseFrame extends JFrame {
     this.add(this.switchablePanel, BorderLayout.CENTER);
   }
 
+  /**
+    * Retourne la fenêtre principale
+    * @return la fenêtre principale
+    */
   public MainFrame getMainFrame() {
     return this.parent;
   }

@@ -6,6 +6,11 @@ import java.awt.event.WindowEvent;
 import quoridor.*;
 import java.util.ArrayList;
 
+/**
+  * La fenêtre principale de l'application
+  * @author Drmarsupial35 , griffin568
+  * @version 0.9.0
+  */
 public class MainFrame extends JFrame {
 
 
@@ -22,7 +27,7 @@ public class MainFrame extends JFrame {
   private InstructionFrame inst;
 
   /**
-    *
+    * Créé un nouvel objet MainFrame
     */
   public MainFrame() {
     try {
@@ -41,12 +46,12 @@ public class MainFrame extends JFrame {
       this.setVisible(true);
     }
     catch (Exception e) {
-      
+
     }
   }
 
   /**
-    *
+    * Initialise les différents composants
     */
   private void initComponents() {
     ArrayList<String> noms = new ArrayList<String>();

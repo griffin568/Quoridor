@@ -4,6 +4,11 @@ import javax.swing.*;
 import java.awt.*;
 import controller.*;
 
+/**
+  * L'écran affichant les boutons permettant de choisir le nombre de joueurs dans la partie
+  * @author Drmarsupial35 , griffin568
+  * @version 1.0.0
+  */
 public class ChoixNombreFrame extends JPanel {
 
   private MainFrame mainF;
@@ -12,10 +17,10 @@ public class ChoixNombreFrame extends JPanel {
   private JLabel titre;
 
   /**
-    *
-    * @param parent
-    * @param partie2
-    * @param partie4
+    * Créé un nouvel objet ChoixNombreFrame
+    * @param parent l'écran parent
+    * @param partie2 l'écran permettant de configurer une partie à 2 joueurs
+    * @param partie4 l'écran permettant de configurer une partie à 4 joueurs
     */
   public ChoixNombreFrame(MainFrame parent, JPanel partie2, JPanel partie4) {
     try {
@@ -42,7 +47,7 @@ public class ChoixNombreFrame extends JPanel {
   }
 
   /**
-    *
+    * Initialise les différents composants
     */
   private void initComponent() {
     this.setLayout(new BorderLayout());

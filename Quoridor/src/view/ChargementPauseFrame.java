@@ -6,6 +6,11 @@ import javax.swing.*;
 import java.awt.*;
 import controller.*;
 
+/**
+  * L'écran de chargement de la fenêtre de pause
+  * @author Drmarsupial35 , griffin568
+  * @version 1.0.0
+  */
 public class ChargementPauseFrame extends JPanel {
 
   private MainPauseFrame mainF;
@@ -17,6 +22,7 @@ public class ChargementPauseFrame extends JPanel {
 
   /**
     * Créer la page de chargement de partie (Dans la fenêtre de pause). Cette méthode appele la méthode privée initComponent()
+    * @param mainF la fenêtre principale de l'application
     * @param parent La fenetre principale de jeu qui est utilisée pour changer l'écran affiché
     * @param partie l'écran où la partie est affiché
     */
@@ -151,6 +157,11 @@ public class ChargementPauseFrame extends JPanel {
     add(downContainer,BorderLayout.SOUTH);
   }
 
+  /**
+    * Met à jour le texte d'un bouton afin d'indiquer si son emplacement de sauvegarde est vide ou pas
+    * @param leBouton le bouton à mettre à jour
+    * @param num le numéro de l'emplacement de sauvegarde désigné par le bouton
+    */
   public void majBouton(JButton leBouton, char num) {
     try {
       if (leBouton == null) {

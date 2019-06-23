@@ -6,6 +6,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+  * L'écran affichant la partie en mode graphique
+  * @author Drmarsupial35 , griffin568
+  * @version 0.9.0
+  */
 public class PartieFrame extends JPanel {
 
   private MainFrame mainF;
@@ -31,6 +36,11 @@ public class PartieFrame extends JPanel {
   public PartieFrame() {}
 
 
+  /**
+    * Créé un nouvel objet PartieFrame
+    * @param parent la fenêtre principale de l'application
+    * @param laPartie la partie à afficher à l'écran
+    */
   public PartieFrame(MainFrame parent, Partie laPartie) {
     try {
       if (parent == null) {
@@ -66,6 +76,9 @@ public class PartieFrame extends JPanel {
     }
   }
 
+  /**
+    * Initialise les différents composants
+    */
   public void initComponent() {
 
     JPanel up = new JPanel(new BorderLayout());
@@ -252,19 +265,34 @@ public class PartieFrame extends JPanel {
         }
       }
 
-
+    /**
+      * Retourne la liste des joueurs de la partie
+      * @return la liste des joueurs
+      */
     public ArrayList<Joueur> getJoueurs() {
       return this.lesJoueurs;
     }
 
+    /**
+      * Retourne la liste des barrières posées durant la partie
+      * @return la liste des barrières posées
+      */
     public ArrayList<Barriere> getBarrieres() {
       return this.lesBarrieres;
     }
 
+    /**
+      * Retourne la partie affichée à l'écran
+      * @return la partie en cours
+      */
     public Partie getPartie() {
       return this.laPartie;
     }
 
+    /**
+      * Retourne le controleur utilisé pour la partie
+      * @return le controleur de la partie
+      */
     public Controleur getControleur() {
       return this.controleur;
     }

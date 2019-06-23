@@ -5,6 +5,11 @@ import java.awt.event.WindowEvent;
 import quoridor.*;
 import java.util.ArrayList;
 
+/**
+  * L'écran affichant les instructions pour redémarrer en mode texte
+  * @author Drmarsupial35 , griffin568
+  * @version 1.0.0
+  */
 public class InstructionFrame extends JPanel {
 
   private JTextArea instructions;

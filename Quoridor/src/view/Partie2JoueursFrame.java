@@ -4,6 +4,11 @@ import javax.swing.*;
 import java.awt.*;
 import controller.*;
 
+/**
+  * L'écran de configuration d'une partie à 2 joueurs
+  * @author Drmarsupial35 , griffin568
+  * @version 1.0.0
+  */
 public class Partie2JoueursFrame extends JPanel {
 
   private MainFrame mainF;
@@ -15,9 +20,9 @@ public class Partie2JoueursFrame extends JPanel {
   private JComboBox j1CB, j2CB;
 
   /**
-    *
-    * @param parent
-    * @param partie
+    * Créé un nouvel objet Partie2JoueursFrame
+    * @param parent la fenêtre principale de l'application
+    * @param partie l'écran de partie
     */
   public Partie2JoueursFrame(MainFrame parent, JPanel partie) {
     try {
@@ -39,7 +44,9 @@ public class Partie2JoueursFrame extends JPanel {
     }
   }
 
-
+  /**
+    * Initialise les différents composants
+    */
   private void initComponent() {
     this.setLayout(new BorderLayout());
     JPanel upContainer = new JPanel(new BorderLayout());

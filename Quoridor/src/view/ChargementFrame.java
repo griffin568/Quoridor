@@ -9,7 +9,7 @@ import java.awt.*;
 /**
   * Cette classe gère la création de la page de chargement de parties, ainsi que ses composants graphiques.
   * @author Drmarsupial35, griffin568
-  * @version 0.1.0
+  * @version 1.0.0
   */
 public class ChargementFrame extends JPanel {
 
@@ -152,6 +152,11 @@ public class ChargementFrame extends JPanel {
   }
 
 
+  /**
+    * Met à jour le texte d'un bouton afin d'indiquer si son emplacement de sauvegarde est vide ou pas
+    * @param leBouton le bouton à mettre à jour
+    * @param num le numéro de l'emplacement de sauvegarde désigné par le bouton
+    */
   public void majBouton(JButton leBouton, char num) {
     try {
       if (leBouton == null) {

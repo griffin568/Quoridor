@@ -7,7 +7,7 @@ import java.awt.*;
 /**
   * Cette classe gère la création de la page d'acccueil du jeu et de ses composants graphiques.
   * @author Drmarsupial35, griffin568
-  * @version 0.1.0
+  * @version 1.0.0
   */
 public class AccueilFrame extends JPanel {
 

@@ -4,6 +4,11 @@ import javax.swing.*;
 import java.awt.*;
 import controller.*;
 
+/**
+  * L'écran de pause
+  * @author Drmarsupial35 , griffin568
+  * @version 1.0.0
+  */
 public class PauseFrame extends JPanel {
 
   private MainPauseFrame mainF;
@@ -12,6 +17,11 @@ public class PauseFrame extends JPanel {
   private JButton reprendre,sauvegarder,charger,sauvegarderQuitter,menu;
   private JLabel titre;
 
+  /**
+    * Créé un nouvel objet PauseFrame
+    * @param parent la fenêtre de pause
+    * @param accueil l'écran d'accueil
+    */
   public PauseFrame(MainPauseFrame parent, JPanel accueil) {
     try {
       if (parent == null) {
@@ -32,6 +42,9 @@ public class PauseFrame extends JPanel {
     }
   }
 
+  /**
+    * Initialise les différents composants
+    */
   private void initComponent() {
     this.setLayout(new BorderLayout());
     JPanel upContainer = new JPanel(new BorderLayout());
