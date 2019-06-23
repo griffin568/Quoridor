@@ -4,6 +4,7 @@
     </description>
 
     <property name="srcQuori" location="src"/>
+    <property name="data" location="data"/>
     <property name="build" location="class"/>
     <property name="dist" location="dist"/>
     <property name="doc" location="doc"/>
@@ -26,8 +27,10 @@
 
     <target name="dist" depends="compile"
             description="generate the distribution" >
-        <mkdir dir="${dist}/lib"/>
-        <jar jarfile="${dist}/lib/Quoridor.jar" basedir="${build}">
+        <mkdir dir="${dist}"/>
+        <jar jarfile="${dist}/Quoridor.jar">
+        <fileset dir="${build}" excludes="**/test/*.class"/>
+        <fileset dir="${data}"/>
             <manifest>
                 <attribute name="Main-Class" value="Launcher"/>
             </manifest>
