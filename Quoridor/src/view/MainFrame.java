@@ -29,9 +29,10 @@ public class MainFrame extends JFrame {
     this.getContentPane().setLayout(new BorderLayout());
     this.setDefaultCloseOperation(EXIT_ON_CLOSE);
     this.initComponents();
-    this.setSize(1920,1060);
+    //  this.setSize(1920,1060);
+    java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().setFullScreenWindow(this);
     //this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-    this.setUndecorated(true);
+    //this.setUndecorated(true);
     this.setResizable(false);
     this.setVisible(true);
   }
