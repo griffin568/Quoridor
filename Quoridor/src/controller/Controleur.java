@@ -6,6 +6,11 @@ import view.*;
 import quoridor.*;
 import java.util.ArrayList;
 
+/**
+  * Cette classe permet de contrôler le fonctionnement d'une partie en mode graphique
+  * @author griffin568 , Drmarsupial35
+  * @version 1.0.0
+  */
 public class Controleur {
 
   private int x1;

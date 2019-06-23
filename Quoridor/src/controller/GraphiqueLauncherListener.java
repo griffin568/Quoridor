@@ -9,6 +9,12 @@ import quoridor.*;
 import java.util.ArrayList;
 import java.lang.Runtime;
 
+/**
+  * Listener permettant de lancer une partie en mode graphique
+  * ou bien de préparer une partie en mode texte
+  * @author Drmarsupial35 , griffin568
+  * @version 1.0.0
+  */
 public class GraphiqueLauncherListener implements ActionListener {
 
   private JTextField j1TextField , j2TextField , j3TextField , j4TextField;
@@ -354,6 +360,10 @@ public class GraphiqueLauncherListener implements ActionListener {
         return ret;
       }
 
+    /**
+      * Prépare une partie en mode texte
+      * @param laPartie la partie à préparer
+      */
     public void modeTexte(Partie laPartie) {
       try {
         RWFile.writeFile("sauvegardeTMP", laPartie.getJoueurs(), laPartie.getBarrieres(), 1, laPartie.getJoueurs().get(0), false);

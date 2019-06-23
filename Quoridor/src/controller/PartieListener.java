@@ -4,6 +4,11 @@ import javax.swing.*;
 import java.awt.event.*;
 import view.*;
 
+/**
+  * Listener gérant les déplacements sur le plateau lors d'une partie en mode graphique
+  * @author Drmarsupial35 , griffin568
+  * @version 1.0.0
+  */
 public class PartieListener extends MouseAdapter {
 
   private int x;

@@ -8,6 +8,11 @@ import view.*;
 import quoridor.*;
 import java.util.ArrayList;
 
+/**
+  * Listener gérant le bouton permettant à l'IA de jouer en mode graphique
+  * @author Drmarsupial35 , griffin568
+  * @version 1.0.0
+  */
 public class JeuIAListener implements ActionListener {
 
   private Controleur controleur;

@@ -5,6 +5,11 @@ import java.awt.event.*;
 import javax.swing.*;
 import view.*;
 
+/**
+  * Listener gérant les boutons 'QUITTER' et 'RETOUR' du GUI
+  * @author Drmarsupial35 , griffin568
+  * @version 1.0.0
+  */
 public class DownButtonListener implements ActionListener {
 
   private JFrame mainF;

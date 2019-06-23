@@ -5,15 +5,20 @@ import java.awt.event.*;
 import javax.swing.*;
 import view.*;
 
+/**
+  * Listener gérant le passage vers les écrans de choix du nombre de joueurs
+  * @author Drmarsupial35 , griffin568
+  * @version 1.0.0
+  */
 public class ChoixNombreListener implements ActionListener {
 
   private MainFrame mainF;
   private JPanel suivant;
 
   /**
-  *
-  * @param mainF
-  * @param suivant
+  * Créé un nouvel objet ChoixNombreListener
+  * @param mainF la fenêtre principale de l'application
+  * @param suivant l'écran suivant
   */
   public ChoixNombreListener(MainFrame mainF, JPanel suivant) {
     try {
@@ -34,8 +39,8 @@ public class ChoixNombreListener implements ActionListener {
   }
 
   /**
-  *
-  * @param mainF
+  * Change d'écran quand on appuie sur le bouton
+  * @param ev l'ActionEvent à écouter 
   */
   public void actionPerformed(ActionEvent ev) {
     JButton source = (JButton)ev.getSource();

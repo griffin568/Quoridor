@@ -6,15 +6,22 @@ import java.awt.event.*;
 import javax.swing.*;
 import view.*;
 
+/**
+  * Listener permettant de chager la couleur de la barrière sur les écrans de sauvegarde et de chargement
+  * ainsi que d'activer les listeners d'effacement de sauvegarde
+  * @author Drmarsupial35 , griffin568
+  * @version 1.0.0
+  */
 public class CorbeilleListener implements ActionListener {
 
   private boolean activer, pause, chargement;
   ArrayList<JButton> lesBoutons;
 
   /**
-  *
-  * @param mainF
-  * @param suivant
+  * Créé un nouvel objet CorbeilleListener
+  * @param lesBoutons la liste des boutons
+  * @param pause true si on est sur l'écran de pause
+  * @param chargement true si on est sur un écran de chargement
   */
   public CorbeilleListener(ArrayList<JButton> lesBoutons, boolean pause, boolean chargement) {
     try {
@@ -34,8 +41,8 @@ public class CorbeilleListener implements ActionListener {
   }
 
   /**
-  *
-  * @param mainF
+  * Active les listeners d'effacment de sauvegarde et change la couleur de la corbeille
+  * @param ev l'ActionEvent à écouter
   */
   public void actionPerformed(ActionEvent ev) {
     JButton source = (JButton)ev.getSource();

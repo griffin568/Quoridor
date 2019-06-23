@@ -5,14 +5,18 @@ import java.awt.event.*;
 import javax.swing.*;
 import view.*;
 
+/**
+  * Listener gérant l'écrant de pause
+  * @author Drmarsupial35 , griffin568
+  * @version 1.0.0
+  */
 public class PauseListener implements ActionListener {
 
   private MainPauseFrame mainF;
 
   /**
-  *
-  * @param mainF
-  * @param suivant
+  * Créé un nouvel objet PauseListener
+  * @param mainF la fenêtre principale de l'application
   */
   public PauseListener(MainPauseFrame mainF) {
     try {
@@ -29,8 +33,8 @@ public class PauseListener implements ActionListener {
   }
 
   /**
-  *
-  * @param mainF
+  * Gère les différentes actions possibles après qu'un des boutons ai été selectionné
+  * @param ev l'ActionEvent à écouter
   */
   public void actionPerformed(ActionEvent ev) {
     JButton source = (JButton)ev.getSource();

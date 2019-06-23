@@ -7,6 +7,11 @@ import javax.swing.*;
 import quoridor.*;
 import view.*;
 
+/**
+  * Listener gérant l'éran de sauvegarde
+  * @author Drmarsupial35 , griffin568
+  * @version 1.0.0
+  */
 public class SauvegardeListener implements ActionListener {
 
   private JPanel parent, partie;
@@ -14,9 +19,11 @@ public class SauvegardeListener implements ActionListener {
   private String fileName;
 
   /**
-  *
-  * @param mainF
-  * @param parent
+  * Créé un nouvel objet SauvegardeListener
+  * @param fileName le nom du fichier de sauvegarde à utiliser
+  * @param parent l'écran parent
+  * @param partie l'écran de partie
+  * @param quitter true si l'on souhaite quitter après la sauvegarde
   */
   public SauvegardeListener(String fileName, JPanel parent, JPanel partie, boolean quitter) {
     try {
@@ -43,8 +50,8 @@ public class SauvegardeListener implements ActionListener {
   }
 
   /**
-  *
-  * @param mainF
+  * Gère les événements de sauvegarde après selection d'un bouton
+  * @param ev l'ActionEvent à écouter
   */
   public void actionPerformed(ActionEvent ev) {
     JButton source = (JButton)ev.getSource();
@@ -129,8 +136,8 @@ public class SauvegardeListener implements ActionListener {
 
 
 /**
-  *
-  * @param activerPause
+  * Change l'état de l'attribut activer
+  * @param activer le nouvel de l'attribut
   */
   public void changeActiver(boolean activer) {
     this.activer = activer;

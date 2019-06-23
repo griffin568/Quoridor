@@ -5,15 +5,20 @@ import java.awt.event.*;
 import javax.swing.*;
 import view.*;
 
+/**
+  * Listener gérant les possiblilités de déplacement depuis la page d'accueil
+  * @author Drmarsupial35 , griffin568
+  * @version 1.0.0
+  */
 public class AccueilListener implements ActionListener {
 
   private MainFrame mainF;
   private JPanel suivant;
 
   /**
-  *
-  * @param mainF
-  * @param suivant
+  * Créé un nouvel objet AccueilListener
+  * @param mainF la fenêtre principale de l'application
+  * @param suivant l'écran suivant
   */
   public AccueilListener(MainFrame mainF, JPanel suivant) {
     try {
@@ -34,8 +39,8 @@ public class AccueilListener implements ActionListener {
   }
 
   /**
-  *
-  * @param mainF
+  * Permet de changer d'écran après un clic sur le bouton
+  * @param ev l'ActionEvent à écouter
   */
   public void actionPerformed(ActionEvent ev) {
     JButton source = (JButton)ev.getSource();

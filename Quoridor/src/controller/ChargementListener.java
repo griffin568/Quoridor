@@ -6,6 +6,12 @@ import quoridor.*;
 import javax.swing.*;
 import view.*;
 
+
+/**
+  * Cette classe permet de gérer les actions de chargement de la partie du GUI
+  * @author Drmarsupial35 , griffin568
+  * @version 1.0.0
+  */
 public class ChargementListener implements ActionListener {
 
   private MainFrame mainF;
@@ -14,9 +20,11 @@ public class ChargementListener implements ActionListener {
   private String fileName;
 
   /**
-  *
-  * @param mainF
-  * @param suivant
+  * Créé un nouvel objet ChargementListener
+  * @param mainF la fenêtre principale de l'application
+  * @param fileName le nom du fichier à charger
+  * @param parent l'écran parent
+  * @param pause booléen permettant de vérifier si l'on est sur l'écran de pause ou non
   */
   public ChargementListener(MainFrame mainF, String fileName, JPanel parent, boolean pause) {
     try {
@@ -43,8 +51,8 @@ public class ChargementListener implements ActionListener {
   }
 
   /**
-  *
-  * @param mainF
+  * Charge la partie indiquée sur le bouton
+  * @param ev l'ActionEvent à écouter
   */
   public void actionPerformed(ActionEvent ev) {
     JButton source = (JButton)ev.getSource();
