@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowEvent;
 import quoridor.*;
+import java.util.ArrayList;
 
 public class MainFrame extends JFrame {
 
@@ -39,8 +40,11 @@ public class MainFrame extends JFrame {
     *
     */
   private void initComponents() {
+    ArrayList<String> noms = new ArrayList<String>();
+    noms.add("Billy");
+    noms.add("Jean-Billy");
     this.accueil = new AccueilFrame();
-    this.partie = new PartieFrame();
+    this.partie = new PartieFrame(this,new Partie(Mode.HH,true,noms));
     this.chargement = new ChargementFrame(this, this.partie);
     this.partie2Joueurs = new Partie2JoueursFrame(this, this.partie);
     this.partie4Joueurs = new Partie4JoueursFrame(this, this.partie);
@@ -58,7 +62,7 @@ public class MainFrame extends JFrame {
     this.switchablePanel.add(this.partie4Joueurs, "Partie 4 Joueurs");
 
     this.switchableCL = (CardLayout)(this.switchablePanel.getLayout());
-    this.switchableCL.show(this.switchablePanel, "Accueil");
+    this.switchableCL.show(this.switchablePanel, "Partie");
 
     this.add(this.switchablePanel, BorderLayout.CENTER);
   }

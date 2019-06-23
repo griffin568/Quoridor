@@ -53,6 +53,60 @@ public class Partie {
   }
 
 /**
+  * Change le plateau utilisé
+  * @param plateau le nouveau plateau
+  */
+  public void setPlateau (Plateau plateau) {
+    try {
+      if (plateau == null) {
+        throw new Exception ("Erreur setPlateau(), parametre null");
+      }
+      else {
+        this.plateau = plateau;
+      }
+    }
+    catch (Exception e) {
+      System.err.println(e.getMessage());
+    }
+  }
+
+/**
+  * Change la liste des joueurs
+  * @param joueurs la nouvelle liste
+  */
+  public void setJoueurs (ArrayList<Joueur> joueurs) {
+    try {
+      if (joueurs == null) {
+        throw new Exception ("Erreur setJoueurs(), parametre null");
+      }
+      else {
+        this.joueurs = joueurs;
+      }
+    }
+    catch (Exception e) {
+      System.err.println(e.getMessage());
+    }
+  }
+
+/**
+  * Change la liste des barrières posées
+  * @param barrieres la nouvelle liste
+  */
+  public void setBarrieres (ArrayList<Barriere> barrieres) {
+    try {
+      if (barrieres == null) {
+        throw new Exception ("Erreur setBarrieres(), parametre null");
+      }
+      else {
+        this.barrieres = barrieres;
+      }
+    }
+    catch (Exception e) {
+      System.err.println(e.getMessage());
+    }
+  }
+
+/**
   * Sauvegarde la partie
   * @param le nom du fichier où nous souhaitons sauvegarder la partie
   * @param leJoueur le joueur qui a lancé la sauvegarde (Donc celui qui commencera à jouer lors de la reprise de la partie)
@@ -653,12 +707,6 @@ public class Partie {
       for (Joueur j : this.joueurs) {
         listePion.add(j.getPion());
       }
-      Plateau oldPlateau = this.savePlateau();
-      ArrayList<Joueur> oldJoueurs = this.saveJoueurs(oldPlateau);
-      ArrayList<Barriere> oldBarrieres = this.saveBarrieres();
-      Plateau olderPlateau = this.savePlateau();
-      ArrayList<Joueur> olderJoueurs = this.saveJoueurs(olderPlateau);
-      ArrayList<Barriere> olderBarrieres = this.saveBarrieres();
       boolean error = false;
       for (Joueur j2 : this.joueurs) {
         Graphe checkError = new Graphe(j2.getPion().getCoordonnee().getX1(),j2.getPion().getCoordonnee().getY1(),this.copieDamier());
@@ -701,9 +749,6 @@ public class Partie {
         }
         if (error) {
           System.err.println("Impossible, " + j2.getNom() + " se retrouverait bloque");
-          this.plateau = oldPlateau;
-          this.joueurs = oldJoueurs;
-          this.barrieres = oldBarrieres;
           ret = false;
           listePion = new ArrayList<Pion>();
           for (Joueur j : this.joueurs) {
@@ -716,9 +761,7 @@ public class Partie {
       }
       fin();
       this.tour++;
-      System.out.println(this.plateau.toString(listePion,this.joueurs.get(0).getPion()));
     }
-    System.out.println(ret);
     return ret;
   }
 
@@ -1033,7 +1076,7 @@ public class Partie {
   * Sauvegarde l'état du plateau
   * @return le plateau sauvegardé
   */
-  private Plateau savePlateau() {
+  public Plateau savePlateau() {
     boolean[][] retDamier = new boolean[this.plateau.getDamier().length][this.plateau.getDamier().length];
     for (int i = 0 ; i < retDamier.length ; i++) {
       for (int j = 0 ; j < retDamier.length ; j++) {
@@ -1048,7 +1091,7 @@ public class Partie {
   * Sauvegarde l'état des joueurs
   * @return une ArrayList contenant les joueurs sauvegardés
   */
-  private ArrayList<Joueur> saveJoueurs(Plateau plateau) {
+  public ArrayList<Joueur> saveJoueurs(Plateau plateau) {
     ArrayList<Joueur> ret = new ArrayList<Joueur>();
     Pion p;
     ArrayList<Barriere> listeBarriere;
@@ -1073,7 +1116,7 @@ public class Partie {
   * Sauvegarde l'état de l'attribut barrieres
   * @return une sauvegarde de cette attribut
   */
-  private ArrayList<Barriere> saveBarrieres() {
+  public ArrayList<Barriere> saveBarrieres() {
     ArrayList<Barriere> ret = new ArrayList<Barriere>();
     for (Barriere b : this.barrieres) {
       ret.add(b);

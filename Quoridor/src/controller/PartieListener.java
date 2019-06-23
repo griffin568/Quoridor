@@ -57,7 +57,7 @@ public class PartieListener extends MouseAdapter {
         this.controleur.setX2(this.x);
         this.controleur.setY2(this.y);
         if (this.controleur.controle()) {
-          this.controleur.changeActif();
+          this.controleur.changeActif();        
         }
         this.frame.updateFrame();
       }

@@ -180,6 +180,10 @@ public class PartieFrame extends JPanel {
     * Met à jour l'affichage visuel
     */
     public void updateFrame() {
+      this.plateau = this.laPartie.getPlateau();
+      this.damier = this.plateau.getDamier();
+      this.lesJoueurs = this.laPartie.getJoueurs();
+      this.lesBarrieres = this.laPartie.getBarrieres();
       for (int i = 0 ; i < this.damierB.length ; i++) {
         for (int j = 0 ; j < this.damierB.length ; j++) {
           if (i % 2 == 0 && j % 2 == 0) {
@@ -196,6 +200,9 @@ public class PartieFrame extends JPanel {
           }
           else if (!damier[i][j]) {
             this.damierB[i][j].setIcon(new ImageIcon("../data/img/Barriere.jpg"));
+          }
+          else if (damier[i][j]) {
+            this.damierB[i][j].setIcon(new ImageIcon("../data/img/NonBarriere.jpg"));
           }
         }
       }

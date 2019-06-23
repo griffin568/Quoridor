@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.event.*;
 import view.*;
 import quoridor.*;
+import java.util.ArrayList;
 
 public class Controleur {
 
@@ -140,7 +141,14 @@ public class Controleur {
     */
     public boolean controle() {
       boolean ret = false;
+      ArrayList<Pion> listePion = new ArrayList<Pion>();
+      for (Joueur j : this.partie.getJoueurs()) {
+        listePion.add(j.getPion());
+      }
       try {
+        Plateau oldPlateau = this.partie.savePlateau();
+        ArrayList<Joueur> oldJoueurs = this.partie.saveJoueurs(oldPlateau);
+        ArrayList<Barriere> oldBarrieres = this.partie.saveBarrieres();
         boolean check = false;
         if (this.x1 % 2 == 0 && this.y1 % 2 == 0) {
           if (this.actif.getPion().getCoordonnee().getX1() == this.x1 && this.actif.getPion().getCoordonnee().getY1() == this.y1) {
@@ -164,6 +172,15 @@ public class Controleur {
                 if (this.partie.start()) {
                   ret = true;
                 }
+                else {
+                  this.partie.setPlateau(oldPlateau);
+                  this.partie.setJoueurs(oldJoueurs);
+                  this.partie.setBarrieres(oldBarrieres);
+                  listePion = new ArrayList<Pion>();
+                  for (Joueur j : this.partie.getJoueurs()) {
+                    listePion.add(j.getPion());
+                  }
+                }
               }
             }
           }
@@ -174,6 +191,15 @@ public class Controleur {
                 this.partie.addBarriere(temp);
                 if (this.partie.start()) {
                   ret = true;
+                }
+                else {
+                  this.partie.setPlateau(oldPlateau);
+                  this.partie.setJoueurs(oldJoueurs);
+                  this.partie.setBarrieres(oldBarrieres);
+                  listePion = new ArrayList<Pion>();
+                  for (Joueur j : this.partie.getJoueurs()) {
+                    listePion.add(j.getPion());
+                  }
                 }
               }
             }
