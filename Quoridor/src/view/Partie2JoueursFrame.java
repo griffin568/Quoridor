@@ -85,8 +85,8 @@ public class Partie2JoueursFrame extends JPanel {
     this.j1TextField.setForeground(Color.WHITE);
     this.j2TextField.setForeground(Color.WHITE);
 
-    this.visuelBton.addActionListener(new GraphiqueLauncherListener(this.j1TextField,this.j2TextField,this.j1CB,this.j2CB,this.mainF));
-
+    this.visuelBton.addActionListener(new GraphiqueLauncherListener(this.j1TextField,this.j2TextField,this.j1CB,this.j2CB,this.mainF, true));
+    this.texteBton.addActionListener(new GraphiqueLauncherListener(this.j1TextField,this.j2TextField,this.j1CB,this.j2CB,this.mainF, false));
 
     JButton titreContainer = new JButton(this.titre.getText());
     titreContainer.setOpaque(false);

@@ -7,6 +7,7 @@ import javax.swing.*;
 import view.*;
 import quoridor.*;
 import java.util.ArrayList;
+import java.lang.Runtime;
 
 public class GraphiqueLauncherListener implements ActionListener {
 
@@ -14,6 +15,7 @@ public class GraphiqueLauncherListener implements ActionListener {
   private JComboBox j1CB , j2CB , j3CB , j4CB;
   private MainFrame main;
   private boolean ok2; // Je savais pas comment l'appeler mais son rôle est d'identifier si la partie possède 2 joueurs ou non
+  private boolean visuel;
 
   /**
     * Créé un nouvel objet GraphiqueLauncherListener
@@ -23,8 +25,9 @@ public class GraphiqueLauncherListener implements ActionListener {
     * @param j1CB la JComboBox contenant la nature du joueur 1
     * @param j2CB la JComboBox contenant la nature du joueur 2
     * @param main la MainFrame de l'application
+    * @param visuel vrai si la partie doit être chargée en mode visuel, faux si elle c'est en mode texte
     */
-    public GraphiqueLauncherListener (JTextField j1TextField , JTextField j2TextField , JComboBox j1CB , JComboBox j2CB , MainFrame main) {
+    public GraphiqueLauncherListener (JTextField j1TextField , JTextField j2TextField , JComboBox j1CB , JComboBox j2CB , MainFrame main, boolean visuel) {
       try {
         if (j1TextField == null || j2TextField == null || j1CB == null || j2CB == null || main == null) {
           throw new Exception ("Erreur du constructeur GraphiqueLauncherListener(), parametre null");
@@ -35,6 +38,7 @@ public class GraphiqueLauncherListener implements ActionListener {
           this.j1CB = j1CB;
           this.j2CB = j2CB;
           this.main = main;
+          this.visuel = visuel;
           this.ok2 = true;
         }
       }
@@ -55,8 +59,9 @@ public class GraphiqueLauncherListener implements ActionListener {
     * @param j3CB la JComboBox contenant la nature du joueur 3
     * @param j4CB la JComboBox contenant la nature du joueur 4
     * @param main la MainFrame de l'application
+    * @param visuel vrai si la partie doit être chargée en mode visuel, faux si elle c'est en mode texte
     */
-    public GraphiqueLauncherListener (JTextField j1TextField , JTextField j2TextField , JTextField j3TextField , JTextField j4TextField , JComboBox j1CB , JComboBox j2CB , JComboBox j3CB , JComboBox j4CB , MainFrame main) {
+    public GraphiqueLauncherListener (JTextField j1TextField , JTextField j2TextField , JTextField j3TextField , JTextField j4TextField , JComboBox j1CB , JComboBox j2CB , JComboBox j3CB , JComboBox j4CB , MainFrame main, boolean visuel) {
       try {
         if (j1TextField == null || j2TextField == null || j3TextField == null || j4TextField == null || j1CB == null || j2CB == null || j3CB == null || j4CB == null || main == null) {
           throw new Exception ("Erreur du constructeur GraphiqueLauncherListener(), parametre null");
@@ -71,6 +76,7 @@ public class GraphiqueLauncherListener implements ActionListener {
           this.j3CB = j3CB;
           this.j4CB = j4CB;
           this.main = main;
+          this.visuel = visuel;
           this.ok2 = false;
         }
       }
@@ -112,8 +118,13 @@ public class GraphiqueLauncherListener implements ActionListener {
         ArrayList<String> noms = new ArrayList<String>();
         noms.add(j1Nom);
         noms.add(j2Nom);
-        this.main.setPartie(new PartieFrame(this.main,new Partie(m,true,noms)));
-        this.main.getSwitchableCL().show(this.main.getSwitchablePanel(), "Partie");
+        if (visuel) {
+          this.main.setPartie(new PartieFrame(this.main,new Partie(m,true,noms)));
+          this.main.getSwitchableCL().show(this.main.getSwitchablePanel(), "Partie");
+        }
+        else {
+          modeTexte(new Partie(m,false,noms));
+        }
       }
       else {
         Mode m;
@@ -232,10 +243,26 @@ public class GraphiqueLauncherListener implements ActionListener {
         noms.add(j2Nom);
         noms.add(j3Nom);
         noms.add(j4Nom);
-        this.main.setPartie(new PartieFrame(this.main,new Partie(m,true,noms)));
-        this.main.getSwitchableCL().show(this.main.getSwitchablePanel(), "Partie");
+        if (visuel) {
+          this.main.setPartie(new PartieFrame(this.main,new Partie(m,true,noms)));
+          this.main.getSwitchableCL().show(this.main.getSwitchablePanel(), "Partie");
+        }
+        else {
+          modeTexte(new Partie(m,false,noms));
+        }
       }
     }
 
-
+    public void modeTexte(Partie laPartie) {
+      try {
+        System.out.println("TEST");
+        RWFile.writeFile("sauvegardeTMP", laPartie.getJoueurs(), laPartie.getBarrieres(), 1, laPartie.getJoueurs().get(0), false);
+        Runtime runtime = Runtime.getRuntime();
+        Runtime.getRuntime().exec("cmd /c start Quoridor");
+        runtime.exec("java Launcher sauvegardeTMP");
+      }
+      catch(Exception e) {
+        System.out.println(e.getMessage());
+      }
+    }
 }

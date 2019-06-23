@@ -33,6 +33,7 @@ public class Partie {
   * Créé un nouvel objet Partie
   * @param fileName le nom du fichier de configuration
   * @param lesJoueurs la liste des noms des diférents joueurs
+  * @param visuel vrai si la partie se déroule en mode graphique, faux sinon
   */
   public Partie(Mode mode , boolean visuel, ArrayList<String> lesJoueurs) {
     try {

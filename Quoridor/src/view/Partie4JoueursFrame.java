@@ -75,7 +75,8 @@ public class Partie4JoueursFrame extends JPanel {
 
     this.retour.addActionListener(new DownButtonListener(this.mainF, "choixNombre"));
 
-    this.visuelBton.addActionListener(new GraphiqueLauncherListener(this.j1TextField,this.j2TextField,this.j3TextField,this.j4TextField,this.j1CB,this.j2CB,this.j3CB,this.j4CB,this.mainF));
+    this.visuelBton.addActionListener(new GraphiqueLauncherListener(this.j1TextField,this.j2TextField,this.j3TextField,this.j4TextField,this.j1CB,this.j2CB,this.j3CB,this.j4CB,this.mainF,true));
+    this.texteBton.addActionListener(new GraphiqueLauncherListener(this.j1TextField,this.j2TextField,this.j3TextField,this.j4TextField,this.j1CB,this.j2CB,this.j3CB,this.j4CB,this.mainF,false));
 
     this.texteBton.setPreferredSize(new Dimension(500, 100));
     this.visuelBton.setPreferredSize(new Dimension(500, 100));

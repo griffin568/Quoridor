@@ -11,24 +11,25 @@ import java.util.ArrayList;
 public class Launcher {
 
     public static void main(String[] args) {
-      java.awt.EventQueue.invokeLater(new Runnable() {
-        public void run() {
-          MainFrame gui = new MainFrame();
-          gui.setVisible(true);
-        }
-      });
-      /**
-      ArrayList<String> noms = new ArrayList<String>();
-      noms.add("moi");
-      noms.add("billy");
-      Partie test = new Partie(Mode.HH,false,noms);
-      //((IA)(test.getJoueurs().get(0))).setDifficulte(Difficulte.DIFFICILE);
-      //((IA)(test.getJoueurs().get(1))).setDifficulte(Difficulte.DIFFICILE);
-      //((IA)(test.getJoueurs().get(2))).setDifficulte(Difficulte.MOYEN);
-      //((IA)(test.getJoueurs().get(3))).setDifficulte(Difficulte.MOYEN);
-      //test.charger("sauvegarde2");
-      test.start();
-      */
+      if (args.length > 0) {
+        String fileName = args[0];
+        System.out.println(fileName);
 
+        ArrayList<String> noms = new ArrayList<String>();
+        noms.add("moi");
+        noms.add("billy");
+
+        Partie partie = new Partie(Mode.HH,false,noms);
+        partie.charger("sauvegarde1");
+        partie.start();
+      }
+      else {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+          public void run() {
+            MainFrame gui = new MainFrame();
+            gui.setVisible(true);
+          }
+        });
+      }
     }
 }
