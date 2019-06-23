@@ -19,6 +19,7 @@ public class MainFrame extends JFrame {
   private Partie2JoueursFrame partie2Joueurs;
   private Partie4JoueursFrame partie4Joueurs;
   private MainPauseFrame pause;
+  private InstructionFrame inst;
 
   /**
     *
@@ -53,6 +54,7 @@ public class MainFrame extends JFrame {
     this.partie4Joueurs = new Partie4JoueursFrame(this, this.partie);
     this.choixNombre = new ChoixNombreFrame(this, this.partie2Joueurs, this.partie4Joueurs);
     this.accueil = new AccueilFrame(this, this.chargement, this.choixNombre);
+    this.inst = new InstructionFrame();
     //this.pause = new MainPauseFrame(this, this.accueil);
 
     this.switchablePanel = new JPanel(new CardLayout());
@@ -63,6 +65,7 @@ public class MainFrame extends JFrame {
     this.switchablePanel.add(this.partie, "Partie");
     this.switchablePanel.add(this.partie2Joueurs, "Partie 2 Joueurs");
     this.switchablePanel.add(this.partie4Joueurs, "Partie 4 Joueurs");
+    this.switchablePanel.add(this.inst,"Instructions");
 
     this.switchableCL = (CardLayout)(this.switchablePanel.getLayout());
     this.switchableCL.show(this.switchablePanel, "Accueil");

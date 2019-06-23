@@ -1,0 +1,23 @@
+NB : les couleurs du plateau sous Linux sont plus lisibles en Dark Theme
+
+Regles du jeu :
+
+- Le joueur 1 possede le pion "O"
+- Le joueur 2 possede le pion "W"
+- Le joueur 3 possede le pion ""
+- Le joueur 4 possede le pion ""
+
+- La commande 'showme' permet de savoir la couleur du joueur qui est en train de jouer
+- La commande 'move(<Coord1>,<Coord2>)' permet de d�placer son pion aux coordon�es souhait�es.
+    - Exemple : move(2,B) permet de d�placer le pion en 2 B
+    /!\ la lettre est toujours en seconde position
+- La commande 'wall(<Coord1>,<Coord2>)(<Coord3>,<Coord4>)' permet de creer un mur commencant aux coordon�es (Coord1,Coord2) et finnisant en (Coord3,Coord4)
+    - Exemple : wall(1,2)(A,B) permet de creer un mur vertical
+                wall(A,B)(1,2) permet de creer un mur horizontal
+
+- La commande 'save {1,2,3}' permet de sauvegarder la partie a l'emplacement 1 , 2 ou 3
+- La commande 'load {1,2,3}' permet de charger la partie a l'emplacement 1 , 2 ou 3
+- La commande 'delete {1,2,3}' permet d'effacer les donnees a l'emplacement 1 , 2 ou 3
+
+- La commande 'back' permet d'annuler la derniere action (une fois seulement, elle s'annulera elle-meme si elle est utilisee 2 fois)
+ 

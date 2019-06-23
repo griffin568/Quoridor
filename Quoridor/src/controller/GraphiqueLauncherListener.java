@@ -356,11 +356,8 @@ public class GraphiqueLauncherListener implements ActionListener {
 
     public void modeTexte(Partie laPartie) {
       try {
-        System.out.println("TEST");
         RWFile.writeFile("sauvegardeTMP", laPartie.getJoueurs(), laPartie.getBarrieres(), 1, laPartie.getJoueurs().get(0), false);
-        Runtime runtime = Runtime.getRuntime();
-        Runtime.getRuntime().exec("cmd /c start Quoridor");
-        runtime.exec("java Launcher sauvegardeTMP");
+        this.main.getSwitchableCL().show(this.main.getSwitchablePanel(), "Instructions");
       }
       catch(Exception e) {
         System.out.println(e.getMessage());

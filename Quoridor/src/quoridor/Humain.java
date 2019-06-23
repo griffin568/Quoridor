@@ -49,7 +49,7 @@ public class Humain extends Joueur {
         letters.add("I");
         while (!ok) {
           if (nPosition.trim().equalsIgnoreCase("help")) {
-            ArrayList<String> help = RWFile.readFile("README");
+            ArrayList<String> help = RWFile.readFile("rules");
             for (String line : help) {
               System.out.println(line);
             }
