@@ -42,7 +42,7 @@ public class PartieFrame extends JPanel {
       else {
         this.mainF = parent;
         this.laPartie = laPartie;
-        this.controleur = new Controleur(this.laPartie,this.laPartie.getJoueurs().get(0));
+        this.controleur = new Controleur(this.laPartie,this.laPartie.getJoueurs().get(0),this);
         this.setBackground(Color.BLACK);
 
         this.plateau = this.laPartie.getPlateau();
@@ -57,6 +57,8 @@ public class PartieFrame extends JPanel {
         }
 
         initComponent();
+
+        this.autoJeu();
       }
     }
     catch(Exception e) {
@@ -139,7 +141,11 @@ public class PartieFrame extends JPanel {
     this.titreContainer.setForeground(Color.WHITE);
     up.add(titreContainer, BorderLayout.CENTER);
 
-    this.backButton = new JButton("ANNULER");
+    this.backButton = new JButton("        ");
+    this.backButton.setOpaque(false);
+    this.backButton.setContentAreaFilled(false);
+    this.backButton.setBorderPainted(false);
+    this.backButton.setFocusable(false);
     down.add (this.backButton,BorderLayout.EAST);
 
 
@@ -229,7 +235,7 @@ public class PartieFrame extends JPanel {
         this.j3Wall.setText(this.lesJoueurs.get(2).getNom() + " : " +this.lesJoueurs.get(2).getBarrieres().size());
         this.j4Wall.setText(this.lesJoueurs.get(3).getNom() + " : " +this.lesJoueurs.get(3).getBarrieres().size());
       }
-      this.autoJeu();
+
     }
 
     /**
@@ -239,7 +245,6 @@ public class PartieFrame extends JPanel {
       public void autoJeu() {
         if (!this.controleur.getJoueurActif().isHumain()) {
           this.controleur.jeuAuto();
-          this.updateFrame();
         }
       }
 

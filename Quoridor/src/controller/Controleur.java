@@ -14,15 +14,17 @@ public class Controleur {
   private int y2;
   private Partie partie;
   private Joueur actif;
+  private PartieFrame frame;
 
   /**
     * Créé un nouvel objet Controleur
     * @param partie la Partie à controler
     * @param actif le joueur actif
+    * @param frame la fenêtre de jeu
     */
-    public Controleur (Partie partie , Joueur actif) {
+    public Controleur (Partie partie , Joueur actif , PartieFrame frame) {
       try {
-        if (partie == null || actif == null) {
+        if (partie == null || actif == null || frame == null) {
           throw new Exception ("Erreur du constructeur Controleur(), parametre null");
         }
         else {
@@ -32,6 +34,7 @@ public class Controleur {
           this.y2 = -1;
           this.partie = partie;
           this.actif = actif;
+          this.frame = frame;
         }
       }
       catch (Exception e) {
@@ -216,6 +219,8 @@ public class Controleur {
         System.err.println(e.getMessage());
       }
       finally {
+        System.out.println("update humain");
+        this.frame.updateFrame();
         this.x1 = -1;
         this.y1 = -1;
         this.x2 = -1;
@@ -253,6 +258,8 @@ public class Controleur {
           this.partie.addBarriere(temp);
         }
         this.changeActif();
+        System.out.println("update IA");
+        this.frame.updateFrame();
       }
     }
 
