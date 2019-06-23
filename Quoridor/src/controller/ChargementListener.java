@@ -119,10 +119,10 @@ public class ChargementListener implements ActionListener {
   }
 
 
-/**
-  *
-  * @param activerPause
-  */
+  /**
+    * Change l'état de l'attribut activer
+    * @param activer le nouvel de l'attribut
+    */
   public void changeActiver(boolean activer) {
     this.activer = activer;
   }

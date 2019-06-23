@@ -104,6 +104,7 @@ public abstract class Joueur {
       * Déplace le pion vers de nouvelles coordonnées
       * si celles-ci sont atteignables
       * @param coordonnee les coordonnées à atteindre
+      * @param damier le damier sur lequel se déplacer
       */
     public void deplacerPion(Coordonnee coordonnee, boolean[][] damier) {
       try {
@@ -125,6 +126,7 @@ public abstract class Joueur {
     /**
       * Place une barrière aux coordonnées sélectionnées s'il en reste une au joueur
       * @param coordonnee les coordonnées où placer la barrière
+      * @return la barriere qui a été posée
       */
     public Barriere placerBarriere(Coordonnee coordonnee) {
       Barriere ret = null;

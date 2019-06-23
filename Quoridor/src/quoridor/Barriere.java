@@ -15,7 +15,7 @@ public class Barriere {
     /**
       * Créé un nouvel objet Barriere
       * @param couleur la couleur du joueur
-      * @param coordonnee les coordonnées de la barrière sur le plateau (null si non posée)
+      * @param plateau le plateau sur lequel se trouve la barrière
       */
     public Barriere(String couleur, Plateau plateau) {
       try {
@@ -56,6 +56,7 @@ public class Barriere {
     /**
       * Modifie les coordonnées de la barrière
       * @param coordonnee les nouvelles coordonnées de la barrière
+      * @return la barrière qui a été posée
       */
     public Barriere setCoordonnee(Coordonnee coordonnee) {
       Barriere ret = null;

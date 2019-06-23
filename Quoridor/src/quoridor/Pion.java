@@ -70,6 +70,7 @@ public class Pion {
 
     /**
       * Retourne les différents déplacements possibles du pion
+      * @param damier le damier sur lequel se déplacer
       * @return les différents déplacements possibles du pion sous la forme d'un tableau à deux dimensions
       */
     public int[][] getDeplacementPossibles(boolean[][] damier) {
@@ -79,6 +80,7 @@ public class Pion {
 
     /**
       * Identifie les nouveaux déplacements possibles du pion avant ou après un déplacement
+      * @param damier le damier sur lequel se déplacer
       */
     public void nextCoup(boolean[][] damier) {
       int x = this.coordonnee.getX1();

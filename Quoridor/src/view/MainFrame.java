@@ -109,8 +109,8 @@ public class MainFrame extends JFrame {
     }
 
   /**
-    *
-    * @return
+    * Change la partie
+    * @param partie la nouvelle partie
     */
     public void setPartie(PartieFrame partie) {
       try {

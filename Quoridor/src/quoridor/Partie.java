@@ -31,7 +31,7 @@ public class Partie {
 
 /**
   * Créé un nouvel objet Partie
-  * @param fileName le nom du fichier de configuration
+  * @param mode le mode de jeu
   * @param lesJoueurs la liste des noms des diférents joueurs
   * @param visuel vrai si la partie se déroule en mode graphique, faux sinon
   */
@@ -109,7 +109,7 @@ public class Partie {
 
 /**
   * Sauvegarde la partie
-  * @param le nom du fichier où nous souhaitons sauvegarder la partie
+  * @param fileName nom du fichier où nous souhaitons sauvegarder la partie
   * @param leJoueur le joueur qui a lancé la sauvegarde (Donc celui qui commencera à jouer lors de la reprise de la partie)
   */
   public void sauvegarder(String fileName, Joueur leJoueur) {
@@ -134,6 +134,7 @@ public class Partie {
 /**
   * Charge les données de sauvegarde contenues dans le fichier sélectionné
   * @param filename le fichier contenant les données à charger
+  * @return la partie chargée
   */
   public Partie charger(String filename) {
     try {
@@ -412,6 +413,7 @@ public class Partie {
 /**
   * Initialise les différents éléments constants de la partie
   * @param mode le mode jeu de la partie à créer
+  * @param lesJoueurs la liste des joueurs
   */
   private void initialisation(Mode mode, ArrayList<String> lesJoueurs) {
     this.barrieres = new ArrayList<Barriere>();
@@ -424,6 +426,7 @@ public class Partie {
 /**
   * Configure les éléments non constants de la partie à l'aide du fichier de configuration
   * @param mode le mode de jeu de la partie à créer
+  * @param lesJoueurs la liste des joueurs
   */
   private void configuration(Mode mode, ArrayList<String> lesJoueurs) {
 
@@ -919,6 +922,7 @@ public class Partie {
   * Donne les cases atteignables depuis la position actuelle
   * @param x la coordonnée X de la position actuelle
   * @param y la coordonnée Y de la position actuelle
+  * @param damier le plateau sur lequel se déplacer
   * @return un tableau à deux dimensions contenant les différents déplacements possibles
   */
   private int[][] deplacementsSuivants (int x , int y , int[][] damier) {
@@ -984,6 +988,7 @@ public class Partie {
 
 /**
   * Sauvegarde l'état des joueurs
+  * @param plateau le plateau sur lequel se trouvent les joueurs
   * @return une ArrayList contenant les joueurs sauvegardés
   */
   public ArrayList<Joueur> saveJoueurs(Plateau plateau) {

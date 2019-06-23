@@ -143,6 +143,7 @@ public class Graphe {
     * Donne les cases atteignables depuis la position actuelle
     * @param x la coordonnée X de la position actuelle
     * @param y la coordonnée Y de la position actuelle
+    * @param damier le damier sur lequel se déplacer
     * @return un tableau à deux dimensions contenant les différents déplacements possibles
     */
     private int[][] deplacementsSuivants (int x , int y , int[][] damier) {
@@ -238,6 +239,7 @@ public class Graphe {
     * en utilisant l'algorithme de Dijkstra
     * @param graphe le Graphe à utiliser
     * @param source le noeud source
+    * @return le graphe avec les différents chemins mis à jour
     */
     public static Graphe dijkstra (Graphe graphe , Noeud source) {
       source.setDistance(0);
@@ -263,6 +265,7 @@ public class Graphe {
   /**
     * Donne le noeud le plus proche parmi les noeuds non marqués
     * @param nonMarque la liste des noeuds non marqués
+    * @return le noeud le plus proche
     */
     private static Noeud getPlusProche (ArrayList<Noeud> nonMarque) {
       Noeud ret = null;

@@ -25,6 +25,7 @@ public class IA extends Joueur {
       * @param pion le pion utilisé par le joueur
       * @param plateau le plateau de jeu
       * @param difficulte le niveau de difficulté de cette IA
+      * @param joueurs la liste des joueurs de la partie
       */
     public IA(String nom, int numero, String couleur, ArrayList<Barriere> barrieres, Pion pion, Plateau plateau, Difficulte difficulte , ArrayList<Joueur> joueurs) {
       super(nom, numero, couleur, barrieres, pion, plateau);
