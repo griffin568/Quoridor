@@ -4,14 +4,14 @@ Regles du jeu :
 
 - Le joueur 1 possede le pion "O"
 - Le joueur 2 possede le pion "W"
-- Le joueur 3 possede le pion ""
-- Le joueur 4 possede le pion ""
+- Le joueur 3 possede le pion "Z"
+- Le joueur 4 possede le pion "A"
 
 - La commande 'showme' permet de savoir la couleur du joueur qui est en train de jouer
-- La commande 'move(<Coord1>,<Coord2>)' permet de d�placer son pion aux coordon�es souhait�es.
-    - Exemple : move(2,B) permet de d�placer le pion en 2 B
+- La commande 'move(<Coord1>,<Coord2>)' permet de deplacer son pion aux coordonnees souhaitees.
+    - Exemple : move(2,B) permet de deplacer le pion en 2 B
     /!\ la lettre est toujours en seconde position
-- La commande 'wall(<Coord1>,<Coord2>)(<Coord3>,<Coord4>)' permet de creer un mur commencant aux coordon�es (Coord1,Coord2) et finnisant en (Coord3,Coord4)
+- La commande 'wall(<Coord1>,<Coord2>)(<Coord3>,<Coord4>)' permet de creer un mur commencant aux coordonees (Coord1,Coord2) et finissant en (Coord3,Coord4)
     - Exemple : wall(1,2)(A,B) permet de creer un mur vertical
                 wall(A,B)(1,2) permet de creer un mur horizontal
 
@@ -20,4 +20,3 @@ Regles du jeu :
 - La commande 'delete {1,2,3}' permet d'effacer les donnees a l'emplacement 1 , 2 ou 3
 
 - La commande 'back' permet d'annuler la derniere action (une fois seulement, elle s'annulera elle-meme si elle est utilisee 2 fois)
- 
