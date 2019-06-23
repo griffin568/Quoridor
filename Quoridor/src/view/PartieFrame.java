@@ -141,11 +141,8 @@ public class PartieFrame extends JPanel {
     this.titreContainer.setForeground(Color.WHITE);
     up.add(titreContainer, BorderLayout.CENTER);
 
-    this.backButton = new JButton("        ");
-    this.backButton.setOpaque(false);
-    this.backButton.setContentAreaFilled(false);
-    this.backButton.setBorderPainted(false);
-    this.backButton.setFocusable(false);
+    this.backButton = new JButton("Jeu humain");
+    this.backButton.addActionListener(new JeuIAListener(this.controleur,this));
     down.add (this.backButton,BorderLayout.EAST);
 
 
@@ -234,6 +231,13 @@ public class PartieFrame extends JPanel {
         this.j2Wall.setText(this.lesJoueurs.get(1).getNom() + " : " +this.lesJoueurs.get(1).getBarrieres().size());
         this.j3Wall.setText(this.lesJoueurs.get(2).getNom() + " : " +this.lesJoueurs.get(2).getBarrieres().size());
         this.j4Wall.setText(this.lesJoueurs.get(3).getNom() + " : " +this.lesJoueurs.get(3).getBarrieres().size());
+      }
+
+      if (!this.controleur.getJoueurActif().isHumain()) {
+        this.backButton.setText("Jeu IA");
+      }
+      else {
+        this.backButton.setText("Jeu humain");
       }
 
     }

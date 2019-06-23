@@ -145,7 +145,7 @@ public class IA extends Joueur {
       Barriere ret = null;
       try {
         System.out.println("L'IA est en train de jouer");
-        Thread.sleep(500);
+        Thread.sleep(200);
         if (this.DIFFICULTE == Difficulte.FACILE) {
           double rand = Math.random();
           if (rand <= 0.65 || this.barrieres.size() == 0) {

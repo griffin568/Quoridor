@@ -219,8 +219,6 @@ public class Controleur {
         System.err.println(e.getMessage());
       }
       finally {
-        System.out.println("update humain");
-        this.frame.updateFrame();
         this.x1 = -1;
         this.y1 = -1;
         this.x2 = -1;
@@ -258,8 +256,6 @@ public class Controleur {
           this.partie.addBarriere(temp);
         }
         this.changeActif();
-        System.out.println("update IA");
-        this.frame.updateFrame();
       }
     }
 

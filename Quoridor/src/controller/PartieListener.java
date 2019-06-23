@@ -59,9 +59,7 @@ public class PartieListener extends MouseAdapter {
         if (this.controleur.controle()) {
           this.controleur.changeActif();
         }
-        while (!this.controleur.getJoueurActif().isHumain()) {
-          this.frame.autoJeu();
-        }
+        this.frame.updateFrame();
       }
     }
 }
