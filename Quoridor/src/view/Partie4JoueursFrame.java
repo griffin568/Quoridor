@@ -58,7 +58,7 @@ public class Partie4JoueursFrame extends JPanel {
     centerContainer.setBackground(Color.BLACK);
     downContainer.setBackground(Color.BLACK);
 
-    String[] lesChoix = {"HUMAIN","IA - FACILE","IA - MOYENNE","IA - DIFFICILE","IA - IMPOSSIBLE"};
+    String[] lesChoix = {"HUMAIN","IA - FACILE","IA - MOYENNE"};
 
     this.titre = new JLabel("CREER UNE PARTIE - 4 JOUEURS");
     this.j1TextField = new JTextField("    JOUEUR 1");
@@ -74,6 +74,8 @@ public class Partie4JoueursFrame extends JPanel {
     this.j4CB = new JComboBox(lesChoix);
 
     this.retour.addActionListener(new DownButtonListener(this.mainF, "choixNombre"));
+
+    this.visuelBton.addActionListener(new GraphiqueLauncherListener(this.j1TextField,this.j2TextField,this.j3TextField,this.j4TextField,this.j1CB,this.j2CB,this.j3CB,this.j4CB,this.mainF));
 
     this.texteBton.setPreferredSize(new Dimension(500, 100));
     this.visuelBton.setPreferredSize(new Dimension(500, 100));

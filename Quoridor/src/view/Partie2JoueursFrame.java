@@ -59,7 +59,7 @@ public class Partie2JoueursFrame extends JPanel {
     centerContainer.setBackground(Color.BLACK);
     downContainer.setBackground(Color.BLACK);
 
-    String[] lesChoix = {"HUMAIN","IA - FACILE","IA - MOYENNE","IA - DIFFICILE","IA - IMPOSSIBLE"};
+    String[] lesChoix = {"HUMAIN","IA - FACILE","IA - MOYENNE","IA - DIFFICILE"};
 
     this.titre = new JLabel("CREER UNE PARTIE - 2 JOUEURS");
     this.j1TextField = new JTextField("\t    JOUEUR 1");
@@ -84,6 +84,8 @@ public class Partie2JoueursFrame extends JPanel {
     this.j2TextField.setBackground(Color.BLACK);
     this.j1TextField.setForeground(Color.WHITE);
     this.j2TextField.setForeground(Color.WHITE);
+
+    this.visuelBton.addActionListener(new GraphiqueLauncherListener(this.j1TextField,this.j2TextField,this.j1CB,this.j2CB,this.mainF));
 
 
     JButton titreContainer = new JButton(this.titre.getText());
