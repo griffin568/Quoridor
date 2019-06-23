@@ -17,6 +17,7 @@ public class PartieFrame extends JPanel {
   private JButton[][] damierB;
   private ArrayList<Joueur> lesJoueurs;
   private ArrayList<Barriere> lesBarrieres;
+  private ArrayList<Pion> lesPions;
 
   private JButton titreContainer;
   private JButton backButton;
@@ -49,6 +50,12 @@ public class PartieFrame extends JPanel {
         this.damierB = new JButton[17][17];
         this.lesJoueurs = this.laPartie.getJoueurs();
         this.lesBarrieres = this.laPartie.getBarrieres();
+
+        this.lesPions = new ArrayList<Pion>();
+        for (Joueur j : this.lesJoueurs) {
+          lesPions.add(j.getPion());
+        }
+
         initComponent();
       }
     }
@@ -184,13 +191,17 @@ public class PartieFrame extends JPanel {
       this.damier = this.plateau.getDamier();
       this.lesJoueurs = this.laPartie.getJoueurs();
       this.lesBarrieres = this.laPartie.getBarrieres();
+      this.lesPions = new ArrayList<Pion>();
+      for (Joueur j : this.lesJoueurs) {
+        lesPions.add(j.getPion());
+      }
       for (int i = 0 ; i < this.damierB.length ; i++) {
         for (int j = 0 ; j < this.damierB.length ; j++) {
           if (i % 2 == 0 && j % 2 == 0) {
             if (!damier[i][j]) {
-              for (Joueur joueur : this.laPartie.getJoueurs()) {
-                if (joueur.getPion().getCoordonnee().getX1() == i && joueur.getPion().getCoordonnee().getY1() == j) {
-                  this.damierB[i][j].setIcon(new ImageIcon("../data/img/Pion-"+joueur.getCouleur()+".jpg"));
+              for (Pion p : this.lesPions) {
+                if (p.getCoordonnee().getX1() == i && p.getCoordonnee().getY1() == j) {
+                  this.damierB[i][j].setIcon(new ImageIcon("../data/img/Pion-"+p.getCouleur()+".jpg"));
                 }
               }
             }

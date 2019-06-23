@@ -179,6 +179,9 @@ public class Controleur {
                   listePion = new ArrayList<Pion>();
                   for (Joueur j : this.partie.getJoueurs()) {
                     listePion.add(j.getPion());
+                    if (j.getCouleur().equals(this.actif.getCouleur())) {
+                      this.actif = j;
+                    }
                   }
                 }
               }
@@ -199,6 +202,9 @@ public class Controleur {
                   listePion = new ArrayList<Pion>();
                   for (Joueur j : this.partie.getJoueurs()) {
                     listePion.add(j.getPion());
+                    if (j.getCouleur().equals(this.actif.getCouleur())) {
+                      this.actif = j;
+                    }
                   }
                 }
               }
