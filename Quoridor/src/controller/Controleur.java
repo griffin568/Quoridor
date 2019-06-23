@@ -224,6 +224,38 @@ public class Controleur {
       }
     }
 
+  /**
+    * Permet au joueur actif de joueur s'il s'agit d'une IA
+    */
+    public void jeuAuto() {
+      if (!this.actif.isHumain()) {
+        ArrayList<Pion> listePion = new ArrayList<Pion>();
+        for (Joueur j : this.partie.getJoueurs()) {
+          listePion.add(j.getPion());
+        }
+        Plateau oldPlateau = this.partie.savePlateau();
+        ArrayList<Joueur> oldJoueurs = this.partie.saveJoueurs(oldPlateau);
+        ArrayList<Barriere> oldBarrieres = this.partie.saveBarrieres();
+        Barriere temp = this.actif.jeu();
+        if (!this.partie.start()) {
+          this.partie.setPlateau(oldPlateau);
+          this.partie.setJoueurs(oldJoueurs);
+          this.partie.setBarrieres(oldBarrieres);
+          listePion = new ArrayList<Pion>();
+          for (Joueur j : this.partie.getJoueurs()) {
+            listePion.add(j.getPion());
+            if (j.getCouleur().equals(this.actif.getCouleur())) {
+              this.actif = j;
+            }
+          }
+        }
+        else if (temp != null) {
+          this.partie.addBarriere(temp);
+        }
+        this.changeActif();
+      }
+    }
+
     public Joueur getJoueurActif() {
       return this.actif;
     }

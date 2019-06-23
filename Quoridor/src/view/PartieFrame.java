@@ -229,8 +229,19 @@ public class PartieFrame extends JPanel {
         this.j3Wall.setText(this.lesJoueurs.get(2).getNom() + " : " +this.lesJoueurs.get(2).getBarrieres().size());
         this.j4Wall.setText(this.lesJoueurs.get(3).getNom() + " : " +this.lesJoueurs.get(3).getBarrieres().size());
       }
-
+      this.autoJeu();
     }
+
+    /**
+      * Vérifie si le joueur actif est une IA
+      * Si c'est le cas, l'IA joue
+      */
+      public void autoJeu() {
+        if (!this.controleur.getJoueurActif().isHumain()) {
+          this.controleur.jeuAuto();
+          this.updateFrame();
+        }
+      }
 
 
     public ArrayList<Joueur> getJoueurs() {
