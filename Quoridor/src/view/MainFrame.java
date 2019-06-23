@@ -31,6 +31,8 @@ public class MainFrame extends JFrame {
     this.initComponents();
     //  this.setSize(1920,1060);
     java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().setFullScreenWindow(this);
+    this.toFront();
+    this.repaint();
     //this.setExtendedState(JFrame.MAXIMIZED_BOTH);
     //this.setUndecorated(true);
     this.setResizable(false);
