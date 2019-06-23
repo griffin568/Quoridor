@@ -128,13 +128,13 @@ public class Launcher {
       */
       public static Difficulte setDiff (String j) {
         Difficulte ret = null;
-        if (j.split("-")[1].trim().equalsIgnoreCase("facile")) {
+        if (j.equalsIgnoreCase("facile")) {
           ret = Difficulte.FACILE;
         }
-        else if (j.split("-")[1].trim().equalsIgnoreCase("moyenne")) {
+        else if (j.equalsIgnoreCase("moyenne")) {
           ret = Difficulte.MOYEN;
         }
-        else if (j.split("-")[1].trim().equalsIgnoreCase("difficile")) {
+        else if (j.equalsIgnoreCase("difficile")) {
           ret = Difficulte.DIFFICILE;
         }
         return ret;
