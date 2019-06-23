@@ -3,6 +3,11 @@ import java.util.ArrayList;
 import java.io.*;
 import java.util.Scanner;
 
+/**
+  * Cette classe gère les entrées et sorties de fichier
+  * @author Drmarsupial35 , griffin568
+  * @version 1.0.0
+  */
 public class RWFile {
 
   /**

@@ -7,7 +7,7 @@ import quoridor.dijkstra.*;
 /**
 * Cette classe gère les différents aspect de la partie
 * @author AlexM02 , Drmarsupial35 , Eclixal , griffin568
-* @version 0.1.0
+* @version 1.0.0
 */
 public class Partie {
 
@@ -966,112 +966,6 @@ public class Partie {
     }
   }
 
-
-/**
-  * Teste récursivement s'il existe un chemin possible vers une ligne d'arrivée
-  * @param x la coordonnée X
-  * @param y la coordonnée y
-  * @param num le numéro du joueur
-  * @param damier le damier à partir duquel on effectue le test
-  * @return true si  le chemin est accessibles
-  */
-  private boolean checkChemins (int x , int y , int num , int[][] damier) {
-    boolean ret = false;
-    try {
-      if (Math.abs(this.startRec - System.currentTimeMillis()) < this.endRec) {
-        int[][] newPosition = deplacementsSuivants(x,y,damier);
-        int i = 0;
-
-        while (i < newPosition.length && !ret) {
-          if (checkVisite(newPosition[i][0],newPosition[i][1],damier) == 1) {
-            damier[newPosition[i][0]][newPosition[i][1]] = 2;
-            if (num == 1) {
-              int k = 0;
-              while (k < damier.length && !ret) {
-                int l = 0;
-                while (l < damier.length && !ret) {
-                  if (k == 16 && damier[k][l] == 2) {
-                    ret = true;
-                  }
-                  l += 2;
-                }
-                k += 2;
-              }
-            }
-            else if (num == 2) {
-              int k = 0;
-              while (k < damier.length && !ret) {
-                int l = 0;
-                while (l < damier.length && !ret) {
-                  if (k == 0 && damier[k][l] == 2) {
-                    ret = true;
-                  }
-                  l += 2;
-                }
-                k += 2;
-              }
-            }
-            else if (num == 3) {
-              int k = 0;
-              while (k < damier.length && !ret) {
-                int l = 0;
-                while (l < damier.length && !ret) {
-                  if (l == 16 && damier[k][l] == 2) {
-                    ret = true;
-                  }
-                  l += 2;
-                }
-                k += 2;
-              }
-            }
-            else if (num == 4) {
-              int k = 0;
-              while (k < damier.length && !ret) {
-                int l = 0;
-                while (l < damier.length && !ret) {
-                  if (l == 0 && damier[k][l] == 2) {
-                    ret = true;
-                  }
-                  l += 2;
-                }
-                k += 2;
-              }
-            }
-            if (checkChemins(newPosition[i][0],newPosition[i][1],num,damier)) {
-              ret = true;
-            }
-            else {
-              damier[newPosition[i][0]][newPosition[i][1]] = 1;
-            }
-          }
-          i++;
-        }
-      }
-      else {
-        ret = true;
-        this.startRec = -1;
-      }
-    }
-    catch (NullPointerException e) {
-      System.err.println("Erreur checkChemins(), parametre null");
-    }
-    catch (IndexOutOfBoundsException ex) {
-      System.err.println("Erreur checkChemins(), indice en dehors du plateau");
-    }
-    catch (Exception exc) {
-      System.err.println("Erreur checkChemins(), cause inconnue");
-    }
-    finally {
-      for (int i = 0 ; i < damier.length ; i++) {
-        for (int j = 0 ; j < damier.length ; j++) {
-          System.out.print(damier[i][j] + " ");
-        }
-        System.out.println();
-      }
-      return ret;
-    }
-
-  }
 
 /**
   * Sauvegarde l'état du plateau

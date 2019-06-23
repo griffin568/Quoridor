@@ -6,7 +6,7 @@ import java.util.HashMap;
 /**
   * La classe Noeud permet de transformer une case de notre damier en Noeud
   * @author griffin568 , Drmarsupial35
-  * @version 0.1.0
+  * @version 1.0.0
   */
 public class Noeud {
 

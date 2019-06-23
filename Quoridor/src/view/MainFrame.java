@@ -25,19 +25,24 @@ public class MainFrame extends JFrame {
     *
     */
   public MainFrame() {
-    this.setIconImage(new ImageIcon("../data/img/Logo.jpg").getImage());
-    this.setTitle("Quoridor");
-    this.getContentPane().setLayout(new BorderLayout());
-    this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-    this.initComponents();
-    //  this.setSize(1920,1060);
-    java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().setFullScreenWindow(this);
-    this.toFront();
-    this.repaint();
-    //this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-    //this.setUndecorated(true);
-    this.setResizable(false);
-    this.setVisible(true);
+    try {
+      this.setIconImage(new ImageIcon("../data/img/Logo.jpg").getImage());
+      this.setTitle("Quoridor");
+      this.getContentPane().setLayout(new BorderLayout());
+      this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+      this.initComponents();
+      //  this.setSize(1920,1060);
+      java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().setFullScreenWindow(this);
+      this.toFront();
+      this.repaint();
+      //this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+      this.setUndecorated(true);
+      this.setResizable(false);
+      this.setVisible(true);
+    }
+    catch (Exception e) {
+      
+    }
   }
 
   /**

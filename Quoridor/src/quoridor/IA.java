@@ -7,7 +7,7 @@ import quoridor.dijkstra.*;
 /**
   * Cette classe gère les joueurs IA
   * @author AlexM02 , Drmarsupial35 , Eclixal , griffin568
-  * @version 0.1.0
+  * @version 0.9.0
   */
 public class IA extends Joueur {
 
@@ -140,6 +140,7 @@ public class IA extends Joueur {
 
     /**
       * Permet à l'IA de jouer
+      * @return la barriere placée par le joueur, ou une autre permettant de faire passer des messages
       */
     public Barriere jeu() {
       Barriere ret = null;

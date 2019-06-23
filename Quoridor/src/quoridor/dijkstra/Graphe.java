@@ -8,7 +8,7 @@ import java.util.Map.Entry;
   * La classe Graphe nous permet de créer un graphe
   * A partir d'un tableau de booléens
   * @author griffin568 , Drmarsupial35
-  * @version 0.1.0
+  * @version 1.0.0
   */
 public class Graphe {
 
@@ -296,44 +296,4 @@ public class Graphe {
       }
     }
 
-  public static void main(String[] args) {
-    Noeud noeudA = new Noeud("A");
-    Noeud noeudB = new Noeud("B");
-    Noeud noeudC = new Noeud("C");
-    Noeud noeudD = new Noeud("D");
-    Noeud noeudE = new Noeud("E");
-
-    noeudA.addNoeudAdjacent(noeudB,12);
-    noeudA.addNoeudAdjacent(noeudD,2);
-
-    noeudB.addNoeudAdjacent(noeudA,12);
-    noeudB.addNoeudAdjacent(noeudC,4);
-
-    noeudC.addNoeudAdjacent(noeudB,4);
-    noeudC.addNoeudAdjacent(noeudE,6);
-
-    noeudD.addNoeudAdjacent(noeudE,10);
-    noeudD.addNoeudAdjacent(noeudA,2);
-
-    noeudE.addNoeudAdjacent(noeudC,6);
-    noeudE.addNoeudAdjacent(noeudD,10);
-
-
-    Graphe graphe = new Graphe();
-
-    graphe.addNoeud(noeudA);
-    graphe.addNoeud(noeudB);
-    graphe.addNoeud(noeudC);
-    graphe.addNoeud(noeudD);
-    graphe.addNoeud(noeudE);
-
-    graphe = Graphe.dijkstra(graphe,noeudA);
-    for (Noeud n : graphe.getNoeuds()) {
-      for (Noeud n2 : n.getPlusCourtChemin()) {
-        System.out.print(n2.getNom() + "   " + n2.getDistance() + " | ");
-      }
-      System.out.print(n.getNom() + "   " + n.getDistance());
-      System.out.println();
-    }
-  }
 }

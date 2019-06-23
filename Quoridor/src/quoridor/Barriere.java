@@ -4,7 +4,7 @@ import java.util.ArrayList;
 /**
   * Cette classe gère les barrières utilisées par les joueurs
   * @author AlexM02 , Drmarsupial35 , Eclixal , griffin568
-  * @version 0.1.0
+  * @version 1.0.0
   */
 public class Barriere {
 

@@ -6,7 +6,7 @@ import java.util.Scanner;
 /**
   * Cette classe gère les joueurs humains
   * @author AlexM02 , Drmarsupial35 , Eclixal , griffin568
-  * @version 0.1.0
+  * @version 1.0.0
   */
 public class Humain extends Joueur {
 
@@ -30,6 +30,7 @@ public class Humain extends Joueur {
 
   /**
     * Permet au joueur de jouer à partir du terminal
+    * @return la barriere placée par le joueur, ou une autre permettant de faire passer des messages
     */
     public Barriere jeu() {
       Barriere ret = null;

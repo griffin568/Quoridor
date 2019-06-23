@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
   * Classe abstraite gérant les joueurs
   * @author AlexM02 , Drmarsupial35 , Eclixal , griffin568
-  * @version 0.1.0
+  * @version 1.0.0
   */
 public abstract class Joueur {
 
@@ -141,6 +141,7 @@ public abstract class Joueur {
 
     /**
       * Permet au joueur de jouer
+      * @return la barriere placée par le joueur, ou une autre permettant de faire passer des messages
       */
     public abstract Barriere jeu();
 
