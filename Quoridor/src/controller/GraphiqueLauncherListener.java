@@ -90,6 +90,11 @@ public class GraphiqueLauncherListener implements ActionListener {
     * @param e l'ActionEvent à écouter
     */
     public void actionPerformed(ActionEvent e) {
+      Difficulte d1,d2,d3,d4;
+      d1 = null;
+      d2 = null;
+      d3 = null;
+      d4 = null;
       if (this.ok2) {
         Mode m;
         String j1Nom , j2Nom;
@@ -104,16 +109,23 @@ public class GraphiqueLauncherListener implements ActionListener {
           m = Mode.HI;
           j1Nom = this.j2TextField.getText().trim();
           j2Nom = this.j1TextField.getText().trim();
+
+          d1 = setDiff(j1);
         }
         else if (j1.trim().equalsIgnoreCase("humain") && j2.split("-")[0].trim().equalsIgnoreCase("ia")) {
           m = Mode.HI;
           j1Nom = this.j1TextField.getText().trim();
           j2Nom = this.j2TextField.getText().trim();
+
+          d2 = setDiff(j2);
         }
         else {
           m = Mode.II;
           j1Nom = this.j1TextField.getText().trim();
           j2Nom = this.j2TextField.getText().trim();
+
+          d1 = setDiff(j1);
+          d2 = setDiff(j2);
         }
         ArrayList<String> noms = new ArrayList<String>();
         noms.add(j1Nom);
@@ -124,6 +136,15 @@ public class GraphiqueLauncherListener implements ActionListener {
         }
         else {
           modeTexte(new Partie(m,false,noms));
+        }
+
+        if (d1 != null) {
+          IA ia = (IA)this.main.getPartie().getJoueurs().get(0);
+          ia.setDifficulte(d1);
+        }
+        else if (d2 != null) {
+          IA ia = (IA)this.main.getPartie().getJoueurs().get(1);
+          ia.setDifficulte(d2);
         }
       }
       else {
@@ -146,6 +167,8 @@ public class GraphiqueLauncherListener implements ActionListener {
           j2Nom = this.j2TextField.getText().trim();
           j3Nom = this.j3TextField.getText().trim();
           j4Nom = this.j1TextField.getText().trim();
+
+          d1 = setDiff(j1);
         }
         else if (j1.trim().equalsIgnoreCase("humain") && j2.split("-")[0].trim().equalsIgnoreCase("ia") && j3.trim().equalsIgnoreCase("humain") && j4.trim().equalsIgnoreCase("humain")) {
           m = Mode.HHHI;
@@ -153,6 +176,8 @@ public class GraphiqueLauncherListener implements ActionListener {
           j2Nom = this.j4TextField.getText().trim();
           j3Nom = this.j3TextField.getText().trim();
           j4Nom = this.j2TextField.getText().trim();
+
+          d2 = setDiff(j2);
         }
         else if (j1.trim().equalsIgnoreCase("humain") && j2.trim().equalsIgnoreCase("humain") && j3.split("-")[0].trim().equalsIgnoreCase("ia") && j4.trim().equalsIgnoreCase("humain")) {
           m = Mode.HHHI;
@@ -160,6 +185,8 @@ public class GraphiqueLauncherListener implements ActionListener {
           j2Nom = this.j2TextField.getText().trim();
           j3Nom = this.j4TextField.getText().trim();
           j4Nom = this.j3TextField.getText().trim();
+
+          d3 = setDiff(j3);
         }
         else if (j1.trim().equalsIgnoreCase("humain") && j2.trim().equalsIgnoreCase("humain") && j3.trim().equalsIgnoreCase("humain") && j4.split("-")[0].trim().equalsIgnoreCase("ia")) {
           m = Mode.HHHI;
@@ -167,6 +194,8 @@ public class GraphiqueLauncherListener implements ActionListener {
           j2Nom = this.j2TextField.getText().trim();
           j3Nom = this.j3TextField.getText().trim();
           j4Nom = this.j4TextField.getText().trim();
+
+          d4 = setDiff(j4);
         }
         else if (j1.trim().equalsIgnoreCase("humain") && j2.trim().equalsIgnoreCase("humain") && j3.split("-")[0].trim().equalsIgnoreCase("ia") && j4.split("-")[0].trim().equalsIgnoreCase("ia")) {
           m = Mode.HHII;
@@ -174,6 +203,9 @@ public class GraphiqueLauncherListener implements ActionListener {
           j2Nom = this.j2TextField.getText().trim();
           j3Nom = this.j3TextField.getText().trim();
           j4Nom = this.j4TextField.getText().trim();
+
+          d3 = setDiff(j3);
+          d4 = setDiff(j4);
         }
         else if (j1.split("-")[0].trim().equalsIgnoreCase("ia") && j2.split("-")[0].trim().equalsIgnoreCase("ia") && j3.trim().equalsIgnoreCase("humain") && j4.trim().equalsIgnoreCase("humain")) {
           m = Mode.HHII;
@@ -181,6 +213,9 @@ public class GraphiqueLauncherListener implements ActionListener {
           j2Nom = this.j4TextField.getText().trim();
           j3Nom = this.j1TextField.getText().trim();
           j4Nom = this.j2TextField.getText().trim();
+
+          d1 = setDiff(j1);
+          d2 = setDiff(j2);
         }
         else if (j1.trim().equalsIgnoreCase("humain") && j2.split("-")[0].trim().equalsIgnoreCase("ia") && j3.split("-")[0].trim().equalsIgnoreCase("ia") && j4.trim().equalsIgnoreCase("humain")) {
           m = Mode.HHII;
@@ -188,6 +223,9 @@ public class GraphiqueLauncherListener implements ActionListener {
           j2Nom = this.j4TextField.getText().trim();
           j3Nom = this.j3TextField.getText().trim();
           j4Nom = this.j2TextField.getText().trim();
+
+          d3 = setDiff(j3);
+          d2 = setDiff(j2);
         }
         else if (j1.split("-")[0].trim().equalsIgnoreCase("ia") && j2.trim().equalsIgnoreCase("humain") && j3.split("-")[0].trim().equalsIgnoreCase("ia") && j4.trim().equalsIgnoreCase("humain")) {
           m = Mode.HHII;
@@ -195,6 +233,9 @@ public class GraphiqueLauncherListener implements ActionListener {
           j2Nom = this.j4TextField.getText().trim();
           j3Nom = this.j3TextField.getText().trim();
           j4Nom = this.j1TextField.getText().trim();
+
+          d3 = setDiff(j3);
+          d1 = setDiff(j1);
         }
         else if (j1.trim().equalsIgnoreCase("humain") && j2.split("-")[0].trim().equalsIgnoreCase("ia") && j3.trim().equalsIgnoreCase("humain") && j4.split("-")[0].trim().equalsIgnoreCase("ia")) {
           m = Mode.HHII;
@@ -202,6 +243,9 @@ public class GraphiqueLauncherListener implements ActionListener {
           j2Nom = this.j3TextField.getText().trim();
           j3Nom = this.j2TextField.getText().trim();
           j4Nom = this.j4TextField.getText().trim();
+
+          d2 = setDiff(j2);
+          d4 = setDiff(j4);
         }
         else if (j1.trim().equalsIgnoreCase("humain") && j2.split("-")[0].trim().equalsIgnoreCase("ia") && j3.split("-")[0].trim().equalsIgnoreCase("ia") && j4.split("-")[0].trim().equalsIgnoreCase("ia")) {
           m = Mode.HIII;
@@ -209,6 +253,10 @@ public class GraphiqueLauncherListener implements ActionListener {
           j2Nom = this.j2TextField.getText().trim();
           j3Nom = this.j3TextField.getText().trim();
           j4Nom = this.j4TextField.getText().trim();
+
+          d2 = setDiff(j2);
+          d3 = setDiff(j3);
+          d4 = setDiff(j4);
         }
         else if (j1.split("-")[0].trim().equalsIgnoreCase("ia") && j2.trim().equalsIgnoreCase("humain") && j3.split("-")[0].trim().equalsIgnoreCase("ia") && j4.split("-")[0].trim().equalsIgnoreCase("ia")) {
           m = Mode.HIII;
@@ -216,6 +264,10 @@ public class GraphiqueLauncherListener implements ActionListener {
           j2Nom = this.j1TextField.getText().trim();
           j3Nom = this.j3TextField.getText().trim();
           j4Nom = this.j4TextField.getText().trim();
+
+          d1 = setDiff(j1);
+          d3 = setDiff(j3);
+          d4 = setDiff(j4);
         }
         else if (j1.split("-")[0].trim().equalsIgnoreCase("ia") && j2.split("-")[0].trim().equalsIgnoreCase("ia") && j3.trim().equalsIgnoreCase("humain") && j4.split("-")[0].trim().equalsIgnoreCase("ia")) {
           m = Mode.HIII;
@@ -223,6 +275,10 @@ public class GraphiqueLauncherListener implements ActionListener {
           j2Nom = this.j2TextField.getText().trim();
           j3Nom = this.j1TextField.getText().trim();
           j4Nom = this.j4TextField.getText().trim();
+
+          d2 = setDiff(j2);
+          d1 = setDiff(j1);
+          d4 = setDiff(j4);
         }
         else if (j1.split("-")[0].trim().equalsIgnoreCase("ia") && j2.split("-")[0].trim().equalsIgnoreCase("ia") && j2.split("-")[0].trim().equalsIgnoreCase("ia") && j4.trim().equalsIgnoreCase("humain")) {
           m = Mode.HIII;
@@ -230,6 +286,10 @@ public class GraphiqueLauncherListener implements ActionListener {
           j2Nom = this.j2TextField.getText().trim();
           j3Nom = this.j3TextField.getText().trim();
           j4Nom = this.j1TextField.getText().trim();
+
+          d2 = setDiff(j2);
+          d3 = setDiff(j3);
+          d1 = setDiff(j1);
         }
         else {
           m = Mode.IIII;
@@ -237,6 +297,11 @@ public class GraphiqueLauncherListener implements ActionListener {
           j2Nom = this.j2TextField.getText().trim();
           j3Nom = this.j3TextField.getText().trim();
           j4Nom = this.j4TextField.getText().trim();
+
+          d1 = setDiff(j1);
+          d2 = setDiff(j2);
+          d3 = setDiff(j3);
+          d4 = setDiff(j4);
         }
         ArrayList<String> noms = new ArrayList<String>();
         noms.add(j1Nom);
@@ -250,8 +315,44 @@ public class GraphiqueLauncherListener implements ActionListener {
         else {
           modeTexte(new Partie(m,false,noms));
         }
+
+        if (d1 != null) {
+          IA ia = (IA)this.main.getPartie().getJoueurs().get(0);
+          ia.setDifficulte(d1);
+        }
+        else if (d2 != null) {
+          IA ia = (IA)this.main.getPartie().getJoueurs().get(1);
+          ia.setDifficulte(d2);
+        }
+        else if (d3 != null) {
+          IA ia = (IA)this.main.getPartie().getJoueurs().get(2);
+          ia.setDifficulte(d3);
+        }
+        else if (d4 != null) {
+          IA ia = (IA)this.main.getPartie().getJoueurs().get(3);
+          ia.setDifficulte(d4);
+        }
       }
     }
+
+    /**
+      * Attribut une valeur à la difficulté d'une IA à partir de son label
+      * @param j la chaine de caractère décrivant l'IA
+      * @return la valeur de la difficulté
+      */
+      public Difficulte setDiff (String j) {
+        Difficulte ret = null;
+        if (j.split("-")[1].trim().equalsIgnoreCase("facile")) {
+          ret = Difficulte.FACILE;
+        }
+        else if (j.split("-")[1].trim().equalsIgnoreCase("moyenne")) {
+          ret = Difficulte.MOYEN;
+        }
+        else if (j.split("-")[1].trim().equalsIgnoreCase("difficile")) {
+          ret = Difficulte.DIFFICILE;
+        }
+        return ret;
+      }
 
     public void modeTexte(Partie laPartie) {
       try {
