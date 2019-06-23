@@ -106,11 +106,14 @@ public class Humain extends Joueur {
               int y1 = (Integer.parseInt(nPosition.split(" ")[2].split(",")[0].trim().split("")[1])-1)*2;
               int x2 = (letters.indexOf(nPosition.split(" ")[1].split(",")[1].trim().split("")[0])*2)-1;
               int y2 = (Integer.parseInt(nPosition.split(" ")[2].split(",")[1].trim().split("")[0])-1)*2;
+              if (Math.abs(x1-x2) == 0 && Math.abs(y1-y2) == 2)  {
                 Barriere tmp = placerBarriere(new Coordonnee(x1,y1,x2,y2));
                 if (tmp != null) {
                   ok = true;
                   ret = tmp;
               }
+              }
+
 
 
             }

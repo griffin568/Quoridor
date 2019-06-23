@@ -69,13 +69,16 @@ public class Partie2JoueursFrame extends JPanel {
     String[] lesChoix = {"HUMAIN","IA - FACILE","IA - MOYENNE","IA - DIFFICILE"};
 
     this.titre = new JLabel("CREER UNE PARTIE - 2 JOUEURS");
-    this.j1TextField = new JTextField("\t    JOUEUR 1");
-    this.j2TextField = new JTextField("\t    JOUEUR 2");
+    this.j1TextField = new JTextField("\t    JOUEUR1");
+    this.j2TextField = new JTextField("\t    JOUEUR2");
     this.texteBton = new JButton("JOUER EN MODE TEXTE");
     this.visuelBton = new JButton("JOUER EN MODE GRAPHIQUE");
     this.retour = new JButton("RETOUR");
     this.j1CB = new JComboBox(lesChoix);
     this.j2CB = new JComboBox(lesChoix);
+
+    this.j1TextField.addFocusListener(new TextFieldListener());
+    this.j2TextField.addFocusListener(new TextFieldListener());
 
     this.retour.addActionListener(new DownButtonListener(this.mainF, "choixNombre"));
 

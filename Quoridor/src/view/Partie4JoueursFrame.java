@@ -69,10 +69,10 @@ public class Partie4JoueursFrame extends JPanel {
     String[] lesChoix = {"HUMAIN","IA - FACILE","IA - MOYENNE"};
 
     this.titre = new JLabel("CREER UNE PARTIE - 4 JOUEURS");
-    this.j1TextField = new JTextField("    JOUEUR 1");
-    this.j2TextField = new JTextField("    JOUEUR 2");
-    this.j3TextField = new JTextField("    JOUEUR 3");
-    this.j4TextField = new JTextField("    JOUEUR 4");
+    this.j1TextField = new JTextField("    JOUEUR1");
+    this.j2TextField = new JTextField("    JOUEUR2");
+    this.j3TextField = new JTextField("    JOUEUR3");
+    this.j4TextField = new JTextField("    JOUEUR4");
     this.texteBton = new JButton("JOUER EN MODE TEXTE");
     this.visuelBton = new JButton("JOUER EN MODE GRAPHIQUE");
     this.retour = new JButton("RETOUR");
@@ -80,6 +80,11 @@ public class Partie4JoueursFrame extends JPanel {
     this.j2CB = new JComboBox(lesChoix);
     this.j3CB = new JComboBox(lesChoix);
     this.j4CB = new JComboBox(lesChoix);
+
+    this.j1TextField.addFocusListener(new TextFieldListener());
+    this.j2TextField.addFocusListener(new TextFieldListener());
+    this.j3TextField.addFocusListener(new TextFieldListener());
+    this.j4TextField.addFocusListener(new TextFieldListener());
 
     this.retour.addActionListener(new DownButtonListener(this.mainF, "choixNombre"));
 
