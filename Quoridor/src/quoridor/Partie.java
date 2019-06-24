@@ -378,10 +378,10 @@ public class Partie {
       }
     }
     catch(FileNotFoundException e) {
-      System.err.println("Partie construceur - Fichier non trouvé (" + filename + ")");
+      System.err.println("Partie charger - Fichier non trouvé (" + filename + ")");
     }
     catch (IndexOutOfBoundsException e) {
-      System.err.println("IndexOutOfBoundsException");
+      System.err.println("Chargement de la partie impossible");
     }
     catch(Exception e) {
       System.err.println(e.getMessage());

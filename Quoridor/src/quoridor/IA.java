@@ -154,7 +154,7 @@ public class IA extends Joueur {
             this.randomMove();
           }
           else {
-            this.randomWall();
+            ret = this.randomWall();
           }
         }
         else if (this.DIFFICULTE == Difficulte.MOYEN) {
@@ -163,7 +163,7 @@ public class IA extends Joueur {
             this.smartMove();
           }
           else {
-            this.randomWall();
+            ret = this.randomWall();
           }
         }
         else if (this.DIFFICULTE == Difficulte.DIFFICILE) {
@@ -219,7 +219,7 @@ public class IA extends Joueur {
                   this.smartMove();
                 }
                 else {
-                  placerBarriere(new Coordonnee(xBarriere,y1Barriere,xBarriere,y2Barriere));
+                  ret = placerBarriere(new Coordonnee(xBarriere,y1Barriere,xBarriere,y2Barriere));
                 }
               }
               else if (Integer.parseInt(actuel.getNom().split(" ")[1]) != Integer.parseInt(suivant.getNom().split(" ")[1])) {
@@ -249,7 +249,7 @@ public class IA extends Joueur {
                   this.smartMove();
                 }
                 else {
-                  placerBarriere(new Coordonnee(y1Barriere,xBarriere,y2Barriere,xBarriere));
+                  ret = placerBarriere(new Coordonnee(y1Barriere,xBarriere,y2Barriere,xBarriere));
                 }
               }
               else {
@@ -345,8 +345,10 @@ public class IA extends Joueur {
 
   /**
     * Place une barrière de manière aléatoire
+    * @return la barrière qui vient d'être placée
     */
-    private void randomWall() {
+    private Barriere randomWall() {
+      Barriere ret = null;
       boolean ok = false;
       while (!ok) {
         int xBarriere = (int) (Math.random() * 16);
@@ -366,7 +368,7 @@ public class IA extends Joueur {
         if (direction <= 0.5) {
           if ((xBarriere >= 0) && (xBarriere < this.plateau.getDamier().length) && (y1Barriere >= 0) && (y1Barriere < this.plateau.getDamier().length) && (y2Barriere >= 0) && (y2Barriere < this.plateau.getDamier().length)) {
             if (this.plateau.getDamier()[y1Barriere][xBarriere] && this.plateau.getDamier()[y2Barriere][xBarriere] && this.plateau.getDamier()[(int)((y1Barriere+y2Barriere)/2)][xBarriere]) {
-              placerBarriere(new Coordonnee(y1Barriere,xBarriere,y2Barriere,xBarriere));
+              ret = placerBarriere(new Coordonnee(y1Barriere,xBarriere,y2Barriere,xBarriere));
               ok = true;
             }
           }
@@ -374,12 +376,13 @@ public class IA extends Joueur {
         else {
           if ((xBarriere >= 0) && (xBarriere < this.plateau.getDamier().length) && (y1Barriere >= 0) && (y1Barriere < this.plateau.getDamier().length) && (y2Barriere >= 0) && (y2Barriere < this.plateau.getDamier().length)) {
             if (this.plateau.getDamier()[xBarriere][y1Barriere] && this.plateau.getDamier()[xBarriere][y2Barriere] && this.plateau.getDamier()[xBarriere][(int)((y1Barriere+y2Barriere)/2)]) {
-              placerBarriere(new Coordonnee(xBarriere,y1Barriere,xBarriere,y2Barriere));
+              ret = placerBarriere(new Coordonnee(xBarriere,y1Barriere,xBarriere,y2Barriere));
               ok = true;
             }
           }
         }
       }
+      return ret;
     }
 
 }
