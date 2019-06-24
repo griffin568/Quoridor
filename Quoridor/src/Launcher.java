@@ -79,6 +79,7 @@ public class Launcher {
               d4 = setDiff(lines.get(0).split(";")[3].split(" ")[2].trim());
             }
           }
+          p.charger("sauvegardeTMP");
           if (d1 != null) {
             IA ia = (IA)p.getJoueurs().get(0);
             ia.setDifficulte(d1);
@@ -95,7 +96,6 @@ public class Launcher {
             IA ia = (IA)p.getJoueurs().get(3);
             ia.setDifficulte(d4);
           }
-          p.charger("sauvegardeTMP");
           p.start();
         }
         else {
