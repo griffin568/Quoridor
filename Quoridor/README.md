@@ -19,4 +19,12 @@
 
 ###### _**Attention !** junit-4.13-beta-3.jar et hamcrest-core-1.3.jar doivent être dans votre dossier ws_
 
-####Pour lancer l'application : java -jar quoridor.jar    (dans le répertoire où se trouve le jar)
+
+
+**Pour lancer l'application :**
+
+Décompresser le fichier *QuoridorJar.zip*
+
+​	#En mode graphique : double-cliquez sur le fichier jar.
+
+​	#En mode texte: java -jar quoridor.jar 0 (dans le répertoire où se trouve le jar).
